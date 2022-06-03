@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-const Deal = require('./Deal');
+
 
 const userSchema = new Schema({
   userName: {
@@ -20,7 +18,13 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  savedDeals: [Deal.schema],
+  savedDeals: [
+    {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Deal'
+    }
+  ],
   favoriteTags: [String],
   followed: [User]
 });
@@ -39,6 +43,10 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
+
+
+// user virtual that can count number of submitted deals
+// another virtual that counts the votes from other users on certain deals (maybe on deal model)
 
 const User = mongoose.model('User', userSchema);
 
