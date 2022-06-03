@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 
 const merchantSchema = new Schema({
 
@@ -36,6 +36,6 @@ const merchantSchema = new Schema({
   }
 });
 
-const Product = mongoose.model('Product', merchantSchema);
+const Product = model('Merchant', merchantSchema);
 
 module.exports = Product;
