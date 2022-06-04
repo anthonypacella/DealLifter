@@ -1,46 +1,117 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
-    _id: ID
-    name: String
+
+
+type Tag {
+  _id: ID!
+  tagName: String!
+  color: String
+  createdAt: String
+}  
+
+type Category {
+    _id: ID!
+    name: String!
   }
 
-  type Product {
-    _id: ID
-    name: String
-    description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
+type Merchant {
+  _id: ID!
+  name: String!
+  description: String
+  logo: String
+  link: String!
+  categories: [Category]!
+  deals: [Deal]  
+}
 
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
+type User {
+  _id: ID!
+  userName: String!
+  email: String!
+  password: String!
+  savedDeals: [Deal]
+  favoriteTags: [Tag]
+  following: [User]
+  followers: [User]
+  avatar: String!
+  searchHistory: [Search]
+}
 
-  type User {
-    _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    orders: [Order]
-  }
 
-  type Checkout {
-    session: ID
-  }
+type Search {
+  _id: ID!
+  keyword: String!
+  searchMerchant:  Boolean
+  searchCategory: Boolean
+  searchTags: Boolean
+  searchTitle: Boolean
+  searchDescription: Boolean
+}
+
+type Comment {
+  _id: ID
+  commentText: String
+  createdAt: String
+}
+
+type Deal {
+  _id: ID!
+  title: String!
+  description: String
+  link: String!
+  startingPrice: Float
+  dealPrice: Float
+  merchant: Merchant
+  category: Category
+  tags: [Tag]
+  submittedBy: User
+  submittedOn: String
+  expiration: String
+  isUsable: [Int]
+  // likes: Int
+  comments: [Comment]
+
+}
 
   type Auth {
     token: ID
     user: User
   }
 
+
+  // Tag, Category, Merchant, User, Search, Comment, Deal
   type Query {
-    categories: [Category]
+    getCategoryById(_id: ID!) : Category
+    getAllCategories: [Category]
+    getTagById(_id:ID!): Tag
+    getAllTags: [Tag]
+    getMerchantById(_id: ID!): Merchant
+    getAllMerchants: [Merchant]
+    
+    // getAllUers: [User]
+    getUserById(_id:ID!): User
+    // getFollowers(_id: ID!):[User]
+    // getFollowing(_id: ID!):[User]
+    // getSavedDealsByUserId(_id: ID!):[Deal]
+
+    // Regular Feed, sort by sumbitted on
+    getAllDeals: [Deal]
+    // For a Deal detail page or modal
+    getDealById(_id: ID!): Deal
+    //Get top 10 deals sort by number of saves
+    getHotDeals:[Deal]
+    //Passing in user ID to get deals personalized to User
+    getPersonalizedDeals(_id: ID!): [Deal]
+    // Get deals that is expiring in a day, order
+    getExpiringDeals: [Deal]
+
+
+
+    
+    personaldeals(): [Deal]
+    deal
+
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
     user: User
