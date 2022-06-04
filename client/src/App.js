@@ -8,15 +8,13 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Home from './pages/Home';
-import Detail from './pages/Detail';
-import NoMatch from './pages/NoMatch';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Nav from './components/Nav/index';
-import { StoreProvider } from './utils/GlobalState';
-import Success from './pages/Success';
-import OrderHistory from './pages/OrderHistory';
+import Logo from '../src/components/Logo';
+import Nav from '../src/components/Nav';
+import Footer from '../src/components/Footer';
+import Home from '../src/pages/Home';
+import Login from '../src/pages/Login';
+import Profile from '../src/pages/Profile';
+import Results from '../src/pages/Results';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -43,37 +41,24 @@ function App() {
       <Router>
         <div>
           <StoreProvider>
+            <Logo />
             <Nav />
+            <InfoBar />
             <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
-              />
-              <Route 
-                path="/login" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
-              />
-              <Route 
-                path="/success" 
-                element={<Success />} 
-              />
-              <Route 
-                path="/orderHistory" 
-                element={<OrderHistory />} 
-              />
-              <Route 
-                path="/products/:id" 
-                element={<Detail />} 
-              />
-              <Route 
-                path="*" 
-                element={<NoMatch />} 
-              />
+              <Route>
+                {/*Home*/}
+              </Route>
+              <Route>
+                {/*Login*/}
+              </Route>
+              <Route>
+                {/*Profile*/}
+              </Route>
+              <Route>
+                {/*Results*/}
+              </Route>
             </Routes>
+            <Footer />
           </StoreProvider>
         </div>
       </Router>
