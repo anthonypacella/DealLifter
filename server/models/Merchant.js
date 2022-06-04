@@ -16,24 +16,26 @@ const merchantSchema = new Schema({
   description: {
     type: String
   },
-  image: {
+  logo: {
     type: String
   },
-  price: {
-    type: Number,
-    required: true,
-    min: 0.99
-  },
-  quantity: {
-    type: Number,
-    min: 0,
-    default: 0
-  },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
-  }
+  link: {
+    type: String
+  },  
+  categories: 
+    [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+      }
+    ],
+  deals: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Deal'
+    }
+  ],
+  
 });
 
 const Product = model('Merchant', merchantSchema);

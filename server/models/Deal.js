@@ -11,7 +11,13 @@ const dealSchema = new Schema({
 
   // question, everything will be user inputted?
   // next step would be seeing if we could autopopulate 
-
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String
+  },
   link: {
     type: String,
     required: true,
@@ -24,7 +30,7 @@ const dealSchema = new Schema({
     type: Number,
     required: true,
   },
-  Merchant: {
+  merchant: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Merchant'
@@ -39,12 +45,7 @@ const dealSchema = new Schema({
       ref: 'Tag'
     }
   ],
-  title: {
-    type: String
-  },
-  description: {
-    type: String
-  },
+
   submittedBy: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -70,10 +71,9 @@ const dealSchema = new Schema({
     }
   ],
   // upvote is more for does the user like it or dislike it, will affect the deal feed
-  upVote: {
+  likes: {
     type: Number,
-
-  },
+  },  
   comments: [
     {
       commentText: {

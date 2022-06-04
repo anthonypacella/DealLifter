@@ -25,8 +25,36 @@ const userSchema = new Schema({
       ref: 'Deal'
     }
   ],
-  favoriteTags: [String],
-  followed: [User]
+  favoriteTags: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Tag'
+    }
+  ],
+  following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  avatar: {
+    type: String,
+    required: true,
+    default: "https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png"  
+  },
+  searchHistory: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Search'
+    }
+  ], 
+
 });
 
 // set up pre-save middleware to create password
