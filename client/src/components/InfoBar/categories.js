@@ -1,4 +1,4 @@
-const tabs = [
+const categories = [
     {
         id: 1,
         name: `Things To Do`,
@@ -37,4 +37,4 @@ const tabs = [
     },
 ];
 
-export default tabs;
+export default categories;

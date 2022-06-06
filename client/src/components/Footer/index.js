@@ -27,6 +27,7 @@ const Footer = () => {
         <p>
         © 2022 DealLifter. All Rights Reserved.
         </p>
+        <p><a href="https://clearbit.com">Logos provided by Clearbit</a></p>
       </div>
     </footer>
   );
