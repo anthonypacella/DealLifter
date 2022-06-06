@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 //import Font Awesome
 
-const Deal = ({ user }, { deal }) => {
+const Deal = ({ deal }) => {
     // const [likes, setLikes] = useState(0);
     // const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -11,17 +13,17 @@ const Deal = ({ user }, { deal }) => {
         saveDealToUserProfile(user._id, {deal});
     };
 
-    const likeDeal = ({deal}) => {
-        setLiked(!liked)
+    // const likeDeal = ({deal}) => {
+    //     setLiked(!liked)
 
-        if (liked) {
-            setLikes(deal.likes + 1);
-        }
+    //     if (liked) {
+    //         setLikes(deal.likes + 1);
+    //     }
 
-        else {
-            setLikes(deal.likes - 1);
-        }
-    }
+    //     else {
+    //         setLikes(deal.likes - 1);
+    //     }
+    // }
 
     const saveDealToUserProfile = (userId, {deal}) => {
         //talk to backend to save the deal to the user profile with matching userID
@@ -37,6 +39,9 @@ const Deal = ({ user }, { deal }) => {
             </div>
 
             <div className = "dealInfoContainer">
+                <Link to = {deal.link}>
+                    <img src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                </Link>
                 <div className = "deal_Title">{deal.title}</div>
                 <div className = "deal_Merchant">{deal.Merchant}</div>
                 <div className = "deal_Description">{deal.description}</div>
@@ -60,3 +65,5 @@ const Deal = ({ user }, { deal }) => {
         </div>
     )
 }
+
+export default Deal;
