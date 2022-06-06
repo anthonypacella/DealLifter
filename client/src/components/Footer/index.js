@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer class="footer">
-      <div class="content has-text-centered" >
+    <footer className="footer">
+      <div className="content has-text-centered" >
         <Link to="/">
           <p>Home</p>
         </Link>

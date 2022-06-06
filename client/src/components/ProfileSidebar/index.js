@@ -8,7 +8,7 @@ const InfoBar = () => {
         <aside className='menu'>
             <ul className='menu-list'>
                 {tabs.map((tab) => (
-                    <li>
+                    <li key={tab.id}>
                         <Link to={tab.link}>
                             {tab.name}
                         </Link>

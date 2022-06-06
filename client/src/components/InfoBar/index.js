@@ -22,7 +22,7 @@ const InfoBar = () => {
       
       <div>
         <div className='navbar-item has-dropdown is-hoverable'>
-          <span><i class="fa-solid fa-fire"></i></span>
+          <span><i className="fa-solid fa-fire"></i></span>
           Deals of the Day
           {deals.map((deal) => (
                 <div className='navbar-item'>

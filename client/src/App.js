@@ -8,15 +8,15 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Logo from './components/Logo';
+// import Logo from './components/Logo';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import InfoBar from './components/InfoBar';
 // import StoreList from './components/StoreList'
-// import Home from '../src/pages/Home';
-// import Login from '../src/pages/Login';
-// import Profile from '../src/pages/Profile';
-// import Results from '../src/pages/Results';
+import Home from '../src/pages/Home';
+import Login from '../src/pages/Login';
+import Profile from '../src/pages/Profile';
+import Results from '../src/pages/Results';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,22 +42,25 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-            <Logo />
             <Nav />
             <InfoBar />
             <Routes>
-              <Route>
-                {/*Home*/}
-              </Route>
-              <Route>
-                {/*Login*/}
-              </Route>
-              <Route>
-                {/*Profile*/}
-              </Route>
-              <Route>
-                {/*Results*/}
-              </Route>
+              <Route 
+                path="/"
+                element={<Home />}
+              />
+              <Route 
+                path="/login" 
+                element={<Login />}
+              />
+              <Route 
+                path="/profiles/:username" 
+                element={<Profile />}
+              />
+              <Route 
+                path="/results" 
+                element={<Results />}
+              />
             </Routes>
             <Footer />
         </div>
