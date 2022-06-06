@@ -8,13 +8,15 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Logo from '../src/components/Logo';
-import Nav from '../src/components/Nav';
-import Footer from '../src/components/Footer';
-import Home from '../src/pages/Home';
-import Login from '../src/pages/Login';
-import Profile from '../src/pages/Profile';
-import Results from '../src/pages/Results';
+import Logo from './components/Logo';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+import InfoBar from './components/InfoBar';
+// import StoreList from './components/StoreList'
+// import Home from '../src/pages/Home';
+// import Login from '../src/pages/Login';
+// import Profile from '../src/pages/Profile';
+// import Results from '../src/pages/Results';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,7 +42,6 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
             <Logo />
             <Nav />
             <InfoBar />
@@ -59,7 +60,6 @@ function App() {
               </Route>
             </Routes>
             <Footer />
-          </StoreProvider>
         </div>
       </Router>
     </ApolloProvider>
