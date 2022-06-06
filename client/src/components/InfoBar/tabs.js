@@ -30,7 +30,7 @@ const tabs = [
         link: `results?category=goods`
     },
     {
-        id: 5,
+        id: 6,
         name: `Groceries`,
         icon: `<i class="fa-solid fa-basket-shopping"></i>`,
         link: `results?category=groceries`
