@@ -13,10 +13,10 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import InfoBar from './components/InfoBar';
 // import StoreList from './components/StoreList'
-// import Home from '../src/pages/Home';
-// import Login from '../src/pages/Login';
-// import Profile from '../src/pages/Profile';
-// import Results from '../src/pages/Results';
+import Home from '../src/pages/Home';
+import Login from '../src/pages/Login';
+import Profile from '../src/pages/Profile';
+import Results from '../src/pages/Results';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -46,17 +46,21 @@ function App() {
             <Nav />
             <InfoBar />
             <Routes>
-              <Route>
-                {/*Home*/}
+              <Route exact = 'true' path = '/' element = {
+                < Home />
+              }>
               </Route>
-              <Route>
-                {/*Login*/}
+              <Route exact = 'true' path = '/login' element = {
+                < Login />
+              }>
               </Route>
-              <Route>
-                {/*Profile*/}
+              <Route exact = 'true' path = '/profile/:userId' element = {
+                < Profile />
+              }>
               </Route>
-              <Route>
-                {/*Results*/}
+              <Route exact = 'true' path = '/results/:searchParams' element = {
+                < Results />
+              }>
               </Route>
             </Routes>
             <Footer />
