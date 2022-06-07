@@ -76,6 +76,6 @@ userSchema.methods.isCorrectPassword = async function(password) {
 // user virtual that can count number of submitted deals
 // another virtual that counts the votes from other users on certain deals (maybe on deal model)
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;

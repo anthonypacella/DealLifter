@@ -1,13 +1,9 @@
-const mongoose = require('mongoose');
-
-const { Schema, model } = mongoose;
+const { Schema, model } = require('mongoose');
 
 const merchantSchema = new Schema({
-
   // change later
   // Merchant - Name, website, description, Categories/Tags
 
-  
   name: {
     type: String,
     required: true,
@@ -19,8 +15,9 @@ const merchantSchema = new Schema({
   logo: {
     type: String
   },
-  link: {
-    type: String
+  homepage: {
+    type: String,
+    required: true,
   },  
   categories: 
     [

@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const { Schema, model } = mongoose;
+const { Schema, model } = require('mongoose');
 
 const searchSchema = new Schema({
 
@@ -9,12 +7,29 @@ const searchSchema = new Schema({
     required: true
   },
 
-  searchMerchant: { type: Boolean },
-  searchCategory: { type: Boolean },
-  searchTags: { type: Boolean },
-  searchTitle: { type: Boolean },
-  searchDescription: { type: Boolean },
+  // they could search for these
+  // searchTitle: { type: Boolean },
+  // searchDescription: { type: Boolean },
 
+  merchantFilter: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Merchant'
+    }
+  ],
+  categoryFilter: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Category'
+    }
+  ],
+  tagFilter: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Tag'
+    }
+  ],
+  
 });
 
 
