@@ -11,7 +11,7 @@ const InfoBar = () => {
       <div className='navbar-menu'>
         
         <div className='navbar-item has-dropdown is-hoverable'>
-          <a class="navbar-link">
+          <a className="navbar-link">
             Categories
           </a>
           <div className="navbar-dropdown">

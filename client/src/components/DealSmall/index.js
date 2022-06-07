@@ -31,10 +31,6 @@ const DealSmall = ({ deal }) => {
         //call Mutation from back end
     }
 
-    const goToProfile = (userId) => {
-
-    }
-
     return (
         <div className = "dealSmall_Container">
             <div className = "dealSmall_UserInfo">
@@ -53,8 +49,8 @@ const DealSmall = ({ deal }) => {
                 <Link to = {deal.productLink}>
                 <div className = "dealSmall_Title">{deal.title}</div>
                 </Link>
-                <Link to = {deal.Merchant.homepage}>
-                    <div className = "dealSmall_Merchant">{deal.Merchant}</div>
+                <Link to = {deal.merchant.homepage}>
+                    <div className = "dealSmall_Merchant">{deal.merchant}</div>
                 </Link>
                 <div className = "dealSmall_StartingPrice">{deal.startingPrice}</div>
                 <div className = "dealSmall_DealPrice">{deal.dealPrice}</div>
