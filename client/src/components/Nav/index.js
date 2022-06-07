@@ -35,7 +35,7 @@ const Nav = () => {
                                 <span><Link to="/login">Log In</Link></span>
                             </li>
                             <li>
-                                <span><Link to="/login">Sign Up</Link></span>
+                                <span><Link to="/signup">Sign Up</Link></span>
                             </li>
                         </ul>
                     )}
