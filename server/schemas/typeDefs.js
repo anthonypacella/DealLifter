@@ -1,130 +1,145 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  type Tag {
+    _id: ID!
+    tagName: String!
+    color: String
+    createdAt: String
+  }  
 
+  type Category {
+      _id: ID!
+      name: String!
+    }
 
-type Tag {
-  _id: ID!
-  tagName: String!
-  color: String
-  createdAt: String
-}  
-
-type Category {
+  type Merchant {
     _id: ID!
     name: String!
+    description: String
+    logo: String
+    link: String!
+    categories: [Category]!
+    deals: [Deal]  
   }
 
-type Merchant {
-  _id: ID!
-  name: String!
-  description: String
-  logo: String
-  link: String!
-  categories: [Category]!
-  deals: [Deal]  
-}
+  type User {
+    _id: ID!
+    userName: String!
+    email: String!
+    password: String!
+    savedDeals: [Deal]
+    favoriteTags: [Tag]
+    following: [User]
+    followers: [User]
+    avatar: String!
+    searchHistory: [Search]
+  }
 
-type User {
-  _id: ID!
-  userName: String!
-  email: String!
-  password: String!
-  savedDeals: [Deal]
-  favoriteTags: [Tag]
-  following: [User]
-  followers: [User]
-  avatar: String!
-  searchHistory: [Search]
-}
+  type Search {
+    _id: ID!
+    keyword: String!
+    merchantFilter: [Merchant]
+    categoryFilter: [Category]
+    tagFilter: [Tag]
+  }
 
+  type Comment {
+    _id: ID
+    commentText: String
+    createdAt: String
+  }
 
-type Search {
-  _id: ID!
-  keyword: String!
-  searchMerchant:  Boolean
-  searchCategory: Boolean
-  searchTags: Boolean
-  searchTitle: Boolean
-  searchDescription: Boolean
-}
+  type Deal {
+    _id: ID!
+    title: String!
+    description: String
+    link: String!
+    photoLink: String!
+    startingPrice: Float
+    dealPrice: Float
+    merchant: Merchant
+    category: Category
+    tags: [Tag]
+    submittedBy: User
+    submittedOn: String
+    expiration: String
+    isUsable: [Int]
+    comments: [Comment]
+  }
 
-type Comment {
-  _id: ID
-  commentText: String
-  createdAt: String
-}
+  input dealInput {
+    title: String!
+    description: String
+    link: String!
+    photoLink: String!
+    startingPrice: Float
+    dealPrice: Float
+    merchant: Merchant
+    category: Category
+    tags: [Tag]
+    expiration: String
+  }
 
-type Deal {
-  _id: ID!
-  title: String!
-  description: String
-  link: String!
-  startingPrice: Float
-  dealPrice: Float
-  merchant: Merchant
-  category: Category
-  tags: [Tag]
-  submittedBy: User
-  submittedOn: String
-  expiration: String
-  isUsable: [Int]
-  // likes: Int
-  comments: [Comment]
-
-}
 
   type Auth {
     token: ID
     user: User
   }
 
-
-  // Tag, Category, Merchant, User, Search, Comment, Deal
   type Query {
-    getCategoryById(_id: ID!) : Category
     getAllCategories: [Category]
-    getTagById(_id:ID!): Tag
+    getCategoryById(categoryId: ID!) : Category
+
     getAllTags: [Tag]
-    getMerchantById(_id: ID!): Merchant
+    getTagById(tagId:ID!): Tag
+
     getAllMerchants: [Merchant]
+    getMerchantById(merchantId: ID!): Merchant
+    getMerchantByName(name: String!): [Merchant]
+    getMerchantByCategory(categoryId: ID!): [Merchant]
     
-    // getAllUers: [User]
-    getUserById(_id:ID!): User
-    // getFollowers(_id: ID!):[User]
-    // getFollowing(_id: ID!):[User]
-    // getSavedDealsByUserId(_id: ID!):[Deal]
+    getUserById(userId: ID!): User
+    getFollowersByUserId(userId: ID!):[User]
+    getFollowingByUserId(userId: ID!):[User]
 
-    // Regular Feed, sort by sumbitted on
     getAllDeals: [Deal]
-    // For a Deal detail page or modal
-    getDealById(_id: ID!): Deal
-    //Get top 10 deals sort by number of saves
-    getHotDeals:[Deal]
-    //Passing in user ID to get deals personalized to User
-    getPersonalizedDeals(_id: ID!): [Deal]
-    // Get deals that is expiring in a day, order
+    getDealById(dealId: ID!): Deal
+    getHotDeals: [Deal]
+    getPersonalizedDealsByUserId(userId: ID!): [Deal]
     getExpiringDeals: [Deal]
+    getPostedDealsByUserId(userId: ID!): [Deal]
+    getDealsByMerchantId(merchantId: ID!): [Deal]
+    getSavedDealsByUserId(userId: ID!):[Deal]
+    getDealsByTagId(tagId: ID!): [Deal]
+    getDealsByKeyword(keyword: String!) : [Deal]
 
-
-
-    
-    personaldeals(): [Deal]
-    deal
-
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
-    user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    getSearchHistoryByUserId(userId: ID!): [Search]
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
+    addUser(userName: String!, email: String!, password: String!, avatar: String!): Auth
+    updateUser(userName: String, email: String, password: String, avatar: String!): User
     login(email: String!, password: String!): Auth
+    
+    createTag(tagName: String!, color: String): Tag
+    updateTag(tagName: String!, color: String): Tag
+
+    createCategory(name: String!): Category
+    updateCategory(name: String!): Category
+
+    createMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID]): Merchant
+    updateMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
+
+    postDeal(input: dealInput): Deal
+    updateDeal(input: dealInput): Deal
+    removeTagFromDeal(tagId: ID!, dealId: ID!): Deal
+
+    saveDealById(dealId: ID!): User
+    favoriteTagById(tagId: ID!): User
+    followUserById(userId: ID!): User
+
+    addToSearchHistory(searchId: ID!): User
   }
 `;
 
