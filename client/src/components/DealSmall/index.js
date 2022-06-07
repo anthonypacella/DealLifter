@@ -31,26 +31,36 @@ const DealSmall = ({ deal }) => {
         //call Mutation from back end
     }
 
+    const goToProfile = (userId) => {
+
+    }
+
     return (
         <div className = "dealSmall_Container">
             <div className = "dealSmall_UserInfo">
-                <div className = 'dealSmall_UserUsername'>Posted by: {deal.submittedBy.userName}</div>
-                <div className = 'dealSmall_UserPostTime'>Posted by: {deal.submittedOn}</div>
+                    <div className = 'dealSmall_UserUsername'>Posted by: 
+                        <Link to = {`/profile/${deal.submittedBy.userName}`}>
+                            {deal.submittedBy.userName}
+                        </Link>
+                    </div>
+                <div className = 'dealSmall_UserPostTime'>Posted at: {deal.submittedOn}</div>
             </div>
 
             <div className = "dealSmallInfoContainer">
-                <Link to = {deal.link}>
-                    <img src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                <Link to = {deal.productLink}>
+                    <img className = "dealSmall_Image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
                 </Link>
-                <img src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                <Link to = {deal.productLink}>
                 <div className = "dealSmall_Title">{deal.title}</div>
-                <div className = "dealSmall_Merchant">{deal.Merchant}</div>
-                <div className = "dealSmall_Description">{deal.description}</div>
+                </Link>
+                <Link to = {deal.Merchant.homepage}>
+                    <div className = "dealSmall_Merchant">{deal.Merchant}</div>
+                </Link>
                 <div className = "dealSmall_StartingPrice">{deal.startingPrice}</div>
                 <div className = "dealSmall_DealPrice">{deal.dealPrice}</div>
             </div>
 
-            <div className = "dealSmall_UserInteractionContainter">
+            <div className = "dealSmall_UserInteractionContainer">
                 <button>
                     <div className = "saveButton" onClick={() => saveDeal(deal)}>
                         <FontAwesomeIcon icon={saved = true ? 'fa-solid fa-star' : 'fa-light fa-star'} />            
@@ -67,4 +77,4 @@ const DealSmall = ({ deal }) => {
     )
 }
 
-export default DealSmall;
+export default Deal;

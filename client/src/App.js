@@ -54,7 +54,7 @@ function App() {
                 < Login />
               }>
               </Route>
-              <Route exact = 'true' path = '/profile/:userId' element = {
+              <Route exact = 'true' path = '/profile/:userName' element = {
                 < Profile />
               }>
               </Route>

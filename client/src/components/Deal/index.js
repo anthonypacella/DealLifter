@@ -31,19 +31,31 @@ const Deal = ({ deal }) => {
         //call Mutation from back end
     }
 
+    const goToProfile = (userId) => {
+
+    }
+
     return (
         <div className = "deal_Container">
             <div className = "deal_UserInfo">
-                <div className = 'deal_UserUsername'>Posted by: {deal.submittedBy.userName}</div>
-                <div className = 'deal_UserPostTime'>Posted by: {deal.submittedOn}</div>
+                    <div className = 'deal_UserUsername'>Posted by: 
+                        <Link to = {`/profile/${deal.submittedBy.userName}`}>
+                            {deal.submittedBy.userName}
+                        </Link>
+                    </div>
+                <div className = 'deal_UserPostTime'>Posted at: {deal.submittedOn}</div>
             </div>
 
             <div className = "dealInfoContainer">
-                <Link to = {deal.link}>
-                    <img src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                <Link to = {deal.productLink}>
+                    <img className = "deal_Image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
                 </Link>
+                <Link to = {deal.productLink}>
                 <div className = "deal_Title">{deal.title}</div>
-                <div className = "deal_Merchant">{deal.Merchant}</div>
+                </Link>
+                <Link to = {deal.Merchant.homepage}>
+                    <div className = "deal_Merchant">{deal.Merchant}</div>
+                </Link>
                 <div className = "deal_Description">{deal.description}</div>
                 <div className = "deal_StartingPrice">{deal.startingPrice}</div>
                 <div className = "deal_DealPrice">{deal.dealPrice}</div>
