@@ -3,14 +3,68 @@ const { User, Category, Deal, Tag, Search, Merchant } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
+
+// from typedefs, we might want to use the [ID]
+// checkout(products: [ID]!): Checkout
+
+
+// idea for search history
+// first we would get search history by user, then break it down to get personalized deals
+
 const resolvers = {
   Query: {
+    getCategories: async () => {
+      return await Category.find();
+    },
+    getCategoryById: async (parent, { categoryId }) => {
+      return await Category.findById(categoryId);
+    },
+
+    getAllTags: async () => {
+      return await Tag.find();
+    },
+    getTagById: async (parent, { tagId }) => {
+      return await Tag.findById(tagId);
+    },
+
+    getAllMerchants: async () => {
+      return await Merchant.find();
+    },
+    getMerchantById: async (parent, { merchantId }) => {
+      return await Merchant.findById(merchantId);
+    },
+    // review this later
+    getMerchantByName: async (parent, { name }) => {
+      return await Merchant.find({ name: name });
+    },
+    // needs review
+    getMerchantByCategory: async (parent, { categoryId }) => {
+      return await Merchant.find({ "categories.categoryId": categoryId });
+    },
+
+    getUserById: async (parent, { userId }) => {
+      return await User.findById(userId);
+    },
+    getFollowersByUserId: async (parent, { userId }) => {
+      return await User.find({ "followers.userId": userId });
+    },
+    getFollowingByUserId: async (parent, { userId }) => {
+      return await User.find({ "following.userId": userId });
+    },
+
     getAllDeals: async () => {
       return await Deal.find();
     },
-    getDealById: async(parent, { _id })=>{
-      return await Deal.findById(_id).populate('category');//
-    },    
+    getDealById: async(parent, { dealId })=>{
+      return await Deal.findById(dealId).populate('category').populate('tags').populate('merchant');
+    },
+    // do we need quotes around expiration and likes
+    getHotDeals: async() => {
+      return await Deal.find({ expiration: {$gt: Date.now } }).sort({likes: -1}).limit(10);
+    },
+
+    // pick up from here
+    
     products: async (parent, { category, name }) => {
       const params = {};
 
@@ -26,9 +80,11 @@ const resolvers = {
 
       return await Product.find(params).populate('category');
     },
+
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
     },
+
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
