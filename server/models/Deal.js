@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const { Schema, model } = mongoose;
+const { Schema, model } = require('mongoose');
 
 const dealSchema = new Schema({
 
@@ -18,7 +16,13 @@ const dealSchema = new Schema({
   description: {
     type: String
   },
-  link: {
+  productLink: { 
+    type: String,
+    required: true,
+  },
+  // for now user will enter photo link, but if we have time, we will automate this process
+  // maybe add a default
+  photoLink: {
     type: String,
     required: true,
   },
