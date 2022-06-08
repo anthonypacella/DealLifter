@@ -131,6 +131,8 @@ const typeDefs = gql`
     createMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID]): Merchant
     updateMerchant(merchantId: ID!, name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
 
+
+
     postDeal(input: dealInput): Deal
     updateDeal(input: dealInput): Deal
     removeTagFromDeal(tagId: ID!, dealId: ID!): Deal

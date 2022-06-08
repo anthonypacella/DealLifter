@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 const styles = { width: '250%' };
 React.createElement("div", { style: styles });
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+const Signup = () => {
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
-  // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -22,25 +26,19 @@ const Login = (props) => {
     });
   };
 
-  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+
     try {
-      const { data } = await login({
+      const { data } = await addUser({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
+      Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
   };
 
   return (
@@ -53,7 +51,7 @@ const Login = (props) => {
                             <span className="icon has-text-info">
                                 <i className="fas fa-info-circle"></i>
                             </span>
-                            <span>Log In</span>
+                            <span>Sign Up</span>
                         </span>
                     </p>
                 </header>
@@ -83,7 +81,24 @@ const Login = (props) => {
                                 </span>
                             </div>
                         </div>
-                    
+                        <div className="field">
+                            <label className="label">Email</label>
+                            <div className="control has-icons-left">
+                                <div style={styles}> 
+                                    <input 
+                                    className="input is-info"
+                                    name="email" 
+                                    placeholder="Your email"
+                                    type="text"  
+                                    value={formState.email}
+                                    onChange={handleChange}
+                                    />
+                                </div>
+                                <span className="icon is-small is-left">
+                                <i className="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div className="field">
                             <label className="label">Password</label>
                             <div className="control has-icons-left">
@@ -125,7 +140,8 @@ const Login = (props) => {
             </div>         
         </div>
     </section>
+    
   );
 };
 
-export default Login;
+export default Signup;
