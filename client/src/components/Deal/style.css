@@ -1,0 +1,27 @@
+.card.is-horizontal {
+    flex-direction: row;
+    display: flex;
+    flex-basis: 50ex;
+    flex-grow: 0;
+    flex-shrink: 1;
+    box-shadow: none;
+  }
+  
+  .card.is-horizontal .card-image {
+    align-self: center;
+  }
+  
+  .card.is-horizontal .image {
+    min-height: 100%;
+  }
+  
+  .card.is-horizontal .card-content {
+    flex: 1;
+  }
+  
+  .card.is-horizontal .card-content {
+    padding-left: 1em;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 0.8em;
+  }

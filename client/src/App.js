@@ -47,7 +47,9 @@ function App() {
             <InfoBar />
             <Routes>
               <Route exact = 'true' path = '/' element = {
-                < Home />
+                <div className = 'is-flex'>
+                  < Home />
+                </div>
               }>
               </Route>
               <Route exact = 'true' path = '/login' element = {
