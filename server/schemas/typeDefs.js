@@ -123,13 +123,13 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     
     createTag(tagName: String!, color: String): Tag
-    updateTag(tagName: String!, color: String): Tag
+    updateTag(tagId: ID!, tagName: String!, color: String): Tag
 
     createCategory(name: String!): Category
-    updateCategory(name: String!): Category
+    updateCategory(categoryId: ID!, name: String!): Category
 
     createMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID]): Merchant
-    updateMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
+    updateMerchant(merchantId: ID!, name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
 
     postDeal(input: dealInput): Deal
     updateDeal(input: dealInput): Deal
@@ -139,6 +139,7 @@ const typeDefs = gql`
     favoriteTagById(tagId: ID!): User
     followUserById(userId: ID!): User
 
+    createSearch(keyword: String!, merchantFilter: ID, categoryFilter: ID, tagFilter: ID)
     addToSearchHistory(searchId: ID!): User
   }
 `;
