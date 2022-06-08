@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-//import Font Awesome
+import { Link } from "react-router-dom";
+import '../DealSmall/style.css'
 
 const DealSmall = ({ deal }) => {
     // const [likes, setLikes] = useState(0);
     // const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
+    console.log(saved);
     
-    const saveDeal = ({user}, {deal}) => {
+    const saveDeal = ({deal}) => {
         setSaved(!saved);
-        saveDealToUserProfile(user._id, {deal});
+        console.log(saved);
+        // saveDealToUserProfile(user._id, {deal}); //add UserID to param
     };
 
     // const likeDeal = ({deal}) => {
@@ -32,45 +33,63 @@ const DealSmall = ({ deal }) => {
     }
 
     return (
-        <div className = "dealSmall_Container">
+        <div className = "dealSmall_Container card p-4 m-4">
+            <div className = "dealSmall_UserInteractionContainter has-text-centered">
+                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
+                    <div className = 'saveButon'>
+                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                    </div>
+                </button>
+            </div>
+
+            <div className = "media-content">
+                <a 
+                    className = "dealSmall_Title"
+                    href = {deal.productLink}
+                    target = '_blank'
+                >
+                    {deal.title}
+                </a>
+                <br></br>
+                <a 
+                    className = "dealSmall_Merchant"
+                    href = {deal.merchant.homepage}
+                    target = '_blank'
+                >
+                    {deal.merchant.name}
+                </a>
+            </div>
+
+
+            <div className = 'card-image'>
+                <a
+                    href = {deal.productLink}
+                    target = '_blank'
+                >
+                     <img className = "dealSmall_Image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                 </a>
+            </div>
+
+            <div className = "dealSmall_InfoContainer">
+                <div className = "dealSmall_Description">{deal.description}</div>
+                <br></br>
+                <div className = "dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
+                <div className = "dealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
+                <br></br>
+            </div>
+
             <div className = "dealSmall_UserInfo">
                     <div className = 'dealSmall_UserUsername'>Posted by: 
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
                         </Link>
                     </div>
-                <div className = 'dealSmall_UserPostTime'>Posted at: {deal.submittedOn}</div>
+                <div className = 'dealSmall_UserPostTime'>Posted: {deal.submittedOn}</div>
             </div>
 
-            <div className = "dealSmallInfoContainer">
-                <Link to = {deal.productLink}>
-                    <img className = "dealSmall_Image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
-                </Link>
-                <Link to = {deal.productLink}>
-                <div className = "dealSmall_Title">{deal.title}</div>
-                </Link>
-                <Link to = {deal.merchant.homepage}>
-                    <div className = "dealSmall_Merchant">{deal.merchant}</div>
-                </Link>
-                <div className = "dealSmall_StartingPrice">{deal.startingPrice}</div>
-                <div className = "dealSmall_DealPrice">{deal.dealPrice}</div>
-            </div>
 
-            <div className = "dealSmall_UserInteractionContainer">
-                <button>
-                    <div className = "saveButton" onClick={() => saveDeal(deal)}>
-                        <FontAwesomeIcon icon={saved = true ? 'fa-solid fa-star' : 'fa-light fa-star'} />            
-                    </div>
-                </button>
-                {/* <button>
-                    <div className = "likeButton" onClick={() => likeDeal(deal)}>
-                        <FontAwesomeIcon icon={liked = true ? 'fa-solid fa-heart' : 'fa-light fa-heart' }/>
-                        <div className = "likes">{likes}</div>
-                    </div>
-                </button> */}
-            </div>
         </div>
     )
 }
 
-export default Deal;
+export default DealSmall;

@@ -1,5 +1,7 @@
 import React from 'react';
 import Deal from '../components/Deal'
+import DealSmall from '../components/DealSmall'
+import auth from '../utils/auth';
 
 const dealObject = {
   submittedBy: {
@@ -19,10 +21,38 @@ const dealObject = {
 }
 
 export default function Home() {
+  if (auth.loggedIn) {}
   return (
     <div>
       <h1>Home Page</h1>
-      <Deal deal = {dealObject}></Deal>
+
+      <div className = 'featuredDeals'>
+        <h3>Featured Deals:</h3>
+        <div className = 'is-flex p-6'>
+          {/*Will need to map eventually - just testing below with hard coded Deals*/}
+          <DealSmall deal = {dealObject}></DealSmall>
+          <DealSmall deal = {dealObject}></DealSmall>
+          <DealSmall deal = {dealObject}></DealSmall>
+          <DealSmall deal = {dealObject}></DealSmall>
+          <DealSmall deal = {dealObject}></DealSmall>
+        </div>
+      </div>
+
+      <div className = 'feedDeals columns'>
+        <h3>Your Feed:</h3>
+        <div className = 'column is-full is-centered'>
+          {/*Will need to map eventually - just testing below with hard coded Deals*/}
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+          <Deal deal = {dealObject}></Deal>
+        </div>
+      </div>
+
+
     </div>
   );
 }
