@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/SavedDeals.css'
+
 const cardWidth = { width: '100%' };
 React.createElement("div", { style: cardWidth });
 

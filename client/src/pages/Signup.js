@@ -6,6 +6,10 @@ import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
+import { identicon } from 'minidenticons'
+
+
+
 const styles = { width: '250%' };
 React.createElement("div", { style: styles });
 
@@ -39,6 +43,7 @@ const Signup = () => {
     } catch (e) {
       console.error(e);
     }
+    console.log(`test: ${identicon(`test:`)}`);
   };
 
   return (
@@ -76,11 +81,12 @@ const Signup = () => {
                                     onChange={handleChange}
                                     />
                                 </div>
-                                <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
+                                <span className="icon is-small is-left">
+                                <i className="fas fa-user"></i>
                                 </span>
                             </div>
                         </div>
+                        
                         <div className="field">
                             <label className="label">Email</label>
                             <div className="control has-icons-left">
@@ -95,7 +101,7 @@ const Signup = () => {
                                     />
                                 </div>
                                 <span className="icon is-small is-left">
-                                <i className="fas fa-envelope"></i>
+                                    <i className="fas fa-envelope"></i>
                                 </span>
                             </div>
                         </div>

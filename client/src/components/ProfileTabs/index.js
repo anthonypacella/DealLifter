@@ -3,6 +3,7 @@ import { Link, renderMatches } from 'react-router-dom';
 import './tabs';
 import tabs from './tabs';
 import {useState} from 'react';
+
 import PostedDeals from '../PostedDeals/index'
 import SavedDeals from '../SavedDeals/index'
 import Following from '../Following/index'
@@ -211,25 +212,21 @@ const followingExample = [
 const followersExample = [
   {
     userName: 'Sally',
-    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
     totalFollowers: 3,
     PostedDealsByUser: 1,
   },
   {
     userName: 'Anthony',
-    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
     totalFollowers: 2,
     PostedDealsByUser: 1,
   },
   {
     userName: 'Kashane',
-    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
     totalFollowers: 6,
     PostedDealsByUser: 1,
   },
   {
     userName: 'Xuyang',
-    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
     totalFollowers: 8,
     PostedDealsByUser: 4,
   },

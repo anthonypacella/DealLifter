@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import Avatar from '../Avatar/index'
 import '../styles/Following.css'
+
 const cardWidth = { width: '100%' };
 React.createElement("div", { style: cardWidth });
 
@@ -26,7 +29,7 @@ const Following = ({
                     </header>
                     <div className="card-image">
                         <figure className="image">
-                            <img src={user.avatar} alt={user.title}></img>
+                            <Avatar userName={user.userName} />
                         </figure>
                     </div>
                     <div className="card-content">
