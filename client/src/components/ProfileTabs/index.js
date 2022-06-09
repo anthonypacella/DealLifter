@@ -5,8 +5,11 @@ import tabs from './tabs';
 import {useState} from 'react';
 import PostedDeals from '../PostedDeals/index'
 import SavedDeals from '../SavedDeals/index'
+import Following from '../Following/index'
+import Followers from '../Followers/index'
 
-const postedDealExample = [
+
+const postedDealsExample = [
   {
     submittedBy: {
       userName: 'apacella'
@@ -25,7 +28,7 @@ const postedDealExample = [
   },
   {
     submittedBy: {
-      userName: 'apacella'
+      userName: 'sally'
     },
     submittedOn: 'Jun 5, 2022',
     title: 'Adidas Ultraboost Size 6.5',
@@ -136,10 +139,10 @@ const postedDealExample = [
     dealPrice: 149.49
   },
 ]
-const savedDealExample = [
+const savedDealsExample = [
   {
     submittedBy: {
-      userName: 'apacella'
+      userName: 'sally'
     },
     submittedOn: 'Jun 5, 2022',
     title: 'Adidas Ultraboost Size 6.5',
@@ -152,6 +155,83 @@ const savedDealExample = [
     },
     startingPrice: 189.99,
     dealPrice: 149.49
+  },
+];
+const followingExample = [
+  {
+    userName: 'Sally',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 3,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Anthony',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 2,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Kashane',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 6,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Xuyang',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 8,
+    PostedDealsByUser: 4,
+  },
+  {
+    userName: 'Jeff',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 2,
+    PostedDealsByUser: 3,
+  },
+  {
+    userName: 'Andres',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 5,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Jacob',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 3,
+    PostedDealsByUser: 7,
+  },
+  {
+    userName: 'AJ',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 3,
+    PostedDealsByUser: 1,
+  },
+];
+
+const followersExample = [
+  {
+    userName: 'Sally',
+    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
+    totalFollowers: 3,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Anthony',
+    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
+    totalFollowers: 2,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Kashane',
+    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
+    totalFollowers: 6,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Xuyang',
+    avatar: 'https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg',
+    totalFollowers: 8,
+    PostedDealsByUser: 4,
   },
 ];
 
@@ -181,10 +261,14 @@ const InfoBar = () => {
       </div>
       <div className="column is-four-fifths">
         {buttonState===1 ? (
-          <PostedDeals postedDeals = {postedDealExample} />
+          <PostedDeals postedDeals = {postedDealsExample} />
         ) : buttonState === 2 ? (
-          <SavedDeals savedDeals = {savedDealExample} />
-        ) : <div>welcome</div> }
+          <SavedDeals savedDeals = {savedDealsExample} />
+        ) : buttonState === 4 ? (
+          <Following following = {followingExample} />
+        ) : buttonState === 5 ? (
+          <Followers followers = {followersExample} />
+        ) : <div>Welcome!</div> }
       </div>
     </div>
   );
