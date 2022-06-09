@@ -23,13 +23,13 @@ const dealObject = {
 export default function Home() {
   if (auth.loggedIn) {}
   return (
-    <div>
+    <div className = 'm-5'>
       <h1>Home Page</h1>
 
       <div className = 'featuredDeals'>
         <h3>Featured Deals:</h3>
         <div className = 'is-flex p-6'>
-          {/*Will need to map eventually - just testing below with hard coded Deals*/}
+          {/*Will need to map eventually - just testing below with hard coded DealSmalls*/}
           <DealSmall deal = {dealObject}></DealSmall>
           <DealSmall deal = {dealObject}></DealSmall>
           <DealSmall deal = {dealObject}></DealSmall>
@@ -40,9 +40,9 @@ export default function Home() {
 
       <div className = 'feedDeals columns'>
         <h3>Your Feed:</h3>
-        <div className = 'column is-full is-centered'>
+        <div className = 'column is-full'>
           {/*Will need to map eventually - just testing below with hard coded Deals*/}
-          <Deal deal = {dealObject}></Deal>
+          <Deal className = 'is-flex is-centered' deal = {dealObject}></Deal>
           <Deal deal = {dealObject}></Deal>
           <Deal deal = {dealObject}></Deal>
           <Deal deal = {dealObject}></Deal>

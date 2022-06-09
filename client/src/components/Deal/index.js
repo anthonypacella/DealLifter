@@ -34,19 +34,19 @@ const Deal = ({ deal }) => {
     }
 
     return (
-        <div className = "deal_Container card is-horizontal card-content columns is-flex is-vcentered">
+        <div className = "p-6 ml-6 deal_Container card is-horizontal card-content column is-four-fifths is-flex">
             
-            <div className = 'media-content column is-full card-image'>
+            <div className = 'media-content column is-3 card-image'>
                 <a  href = {deal.productLink}
                     target = '_blank'    
                 >
-                    <img className = "deal_Image image is-128x128" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                    <img className = "deal_Image image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
                 </a>
             </div>
 
-            <div className = "media-content dealInfoContainer column is-full">
+            <div className = "column media-content dealInfoContainer column is-5">
                 <a 
-                    className = "deal_Title"
+                    className = "is-size-3 deal_Title"
                     href = {deal.productLink}
                     target = '_blank'
                 >
@@ -54,7 +54,7 @@ const Deal = ({ deal }) => {
                 </a>
                 <br></br>
                 <a 
-                    className = "deal_Merchant"
+                    className = "deal_Merchant is-size-5"
                     href = {deal.merchant.homepage}
                     target = '_blank'
                 >
@@ -67,25 +67,24 @@ const Deal = ({ deal }) => {
                 <br></br>
             </div>
 
-            <div className = "deal_UserInfo column is-full">
+            <div className = "deal_UserInfo card-content column is-3">
                     <div className = 'deal_UserUsername'>Posted by: 
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
                         </Link>
                     </div>
-                <div className = 'deal_UserPostTime'>Posted: {deal.submittedOn}</div>
+                    <div className = 'deal_UserPostTime'>
+                        Posted: {deal.submittedOn}
+                    </div>
+            </div>
 
-                <div className = "deal_UserInteractionContainter">
-                    <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-pulled-up is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
+            <div className = "deal_UserInteractionContainter columns is-3 is-flex is-vcentered">
+                    <button className = {saved === true ? 'button is-large is-pulled-right box has-background-warning' : 'button is-pulled-right is-pulled-up is-large box has-background-white'} onClick= {() => saveDeal({deal},[])}>
                         <div className = 'saveButon'>
                             <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
                         </div>
                     </button>
-                </div>
             </div>
-
-
-
 
         </div>
     )
