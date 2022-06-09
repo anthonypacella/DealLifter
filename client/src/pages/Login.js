@@ -73,16 +73,16 @@ const Login = (props) => {
                             <div className="control has-icons-left is-expanded">
                                 <div> 
                                     <input 
-                                    className="input is-warning" 
-                                    name="username" 
+                                    className="input is-warning"
+                                    name="userName" 
                                     placeholder="Your username"
                                     type="text"  
                                     value={formState.userName}
                                     onChange={handleChange}
                                     />
                                 </div>
-                                <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
+                                <span className="icon is-small is-left">
+                                <i className="fas fa-user"></i>
                                 </span>
                             </div>
                         </div>
@@ -106,21 +106,21 @@ const Login = (props) => {
                             </div>
                         </div>
                         <div className="field" style={adjustfieldWidth}>
-                                <div class="buttons is-centered my-2">
-                                    <button class="button is-warning">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-check"></i>
+                                <div className="buttons is-centered my-2">
+                                    <button className="button is-warning">
+                                        <span className="icon is-small">
+                                            <i className="fas fa-check"></i>
                                         </span>
                                         <span>Submit</span>
                                     </button>
-                                    <button class="button is-warning is-outlined is-link">
+                                    <button className="button is-warning is-outlined is-link">
                                         <span>
                                             <Link to="/">
                                                 Cancel
                                             </Link>
                                         </span>
-                                        <span class="icon is-small">
-                                            <i class="fas fa-times"></i>
+                                        <span className="icon is-small">
+                                            <i className="fas fa-times"></i>
                                         </span>
                                     </button>
                                 </div>

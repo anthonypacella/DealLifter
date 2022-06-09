@@ -174,42 +174,42 @@ const Signup = () => {
 
                         { emailExistState || userNameExistState || !formState ? (
                             <div className="field" style={adjustfieldWidth}>
-                                <div class="buttons is-centered my-2">
-                                    <button class="button is-warning disabled">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-check"></i>
+                                <div className="buttons is-centered my-2">
+                                    <button className="button is-warning disabled">
+                                        <span className="icon is-small">
+                                            <i className="fas fa-check"></i>
                                         </span>
                                         <span>Submit</span>
                                     </button>
-                                    <button class="button is-warning is-outlined is-link">
+                                    <button className="button is-warning is-outlined is-link">
                                         <span>
                                             <Link to="/">
                                                 Cancel
                                             </Link>
                                         </span>
-                                        <span class="icon is-small">
-                                            <i class="fas fa-times"></i>
+                                        <span className="icon is-small">
+                                            <i className="fas fa-times"></i>
                                         </span>
                                     </button>
                                 </div>
                             </div>
                         ) : (
                             <div className="field" style={adjustfieldWidth}>
-                                <div class="buttons is-centered my-2">
-                                    <button class="button is-warning">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-check"></i>
+                                <div className="buttons is-centered my-2">
+                                    <button className="button is-warning">
+                                        <span className="icon is-small">
+                                            <i className="fas fa-check"></i>
                                         </span>
                                         <span>Submit</span>
                                     </button>
-                                    <button class="button is-warning is-outlined is-link">
+                                    <button className="button is-warning is-outlined is-link">
                                         <span>
                                             <Link to="/">
                                                 Cancel
                                             </Link>
                                         </span>
-                                        <span class="icon is-small">
-                                            <i class="fas fa-times"></i>
+                                        <span className="icon is-small">
+                                            <i className="fas fa-times"></i>
                                         </span>
                                     </button>
                                 </div>
