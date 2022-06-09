@@ -26,7 +26,7 @@ const InfoBar = () => {
         </div>
         
         <div className='navbar-item has-dropdown is-hoverable'>
-          <a class="navbar-link">
+          <a className="navbar-link">
             Deals of the Day
           </a>
           <div className="navbar-dropdown">

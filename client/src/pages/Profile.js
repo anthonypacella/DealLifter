@@ -2,14 +2,15 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import ProfileSidebar from '../components/ProfileSidebar';
+import ProfileTabs from '../components/ProfileTabs';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import Deal from '../components/Deal'
+import PostedDeals from '../components/PostedDeals'
 
 import Auth from '../utils/auth';
 
-const dealObject = {
+const dealObject = [{
     submittedBy: {
       userName: 'apacella'
     },
@@ -24,7 +25,7 @@ const dealObject = {
     },
     startingPrice: 189.99,
     dealPrice: 149.49
-  }
+  }]
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -56,21 +57,18 @@ const Profile = () => {
     <div className='container is-fluid'>
         <div className="columns">
             <div className="column is-full">
-                <p className="title has-text-centered m-2 py-3 has-background-warning">
+                <p className="title has-text-centered my-1 py-3 has-background-warning">
                     Viewing {userParam ? `${user.username}'s` : 'your'} profile
                 </p>
             </div>
         </div>        
-        <div className="columns">
-            <div className="column is-one-fifth">
+        <div >
+            <div>
                 {!userParam && (
                 <div>
-                    <ProfileSidebar />
+                    <ProfileTabs />
                 </div>
                 )}
-            </div>
-            <div className="column is-two-fifths">
-                <Deal deal = {dealObject}></Deal>
             </div>
         </div> 
         
