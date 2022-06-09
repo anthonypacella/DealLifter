@@ -9,13 +9,19 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 //sample data
-const userObjectExample = {
-    userName: "banbanleelee",
+const userEmailExample = {
     email: "sallyhoney96@gmail.com",
 };
+const userNameExample = {
+    userName: "banbanleelee",
+};
 
-const adjustWidth = { width: '250%' };
-React.createElement("div", { style: adjustWidth });
+const adjustfieldWidth = { width: '250%' };
+React.createElement("div", { style: adjustfieldWidth });
+
+const adjustCardWidth = { width: '40%' };
+React.createElement("div", { style: adjustCardWidth });
+
 
 const initAvatar = '<svg viewBox="-1.5 -1.5 8 8" xmlns="http://www.w3.org/2000/svg" fill="hsl(51 84% 69%)"><rect x="0" y="3" width="1" height="1"></rect><rect x="1" y="0" width="1" height="1"></rect><rect x="1" y="4" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="3" y="0" width="1" height="1"></rect><rect x="2" y="4" width="1" height="1"></rect></svg>';
 
@@ -27,7 +33,8 @@ const Signup = () => {
   });
 
   const [avatarState, setAvatarState] = useState(initAvatar);
-  const [ExistState, setExistState] = useState(null); //false if userName/email input not taken
+  const [userNameExistState, setUserNameExistState] = useState(false); //false if userName/email input not taken
+  const [emailExistState, setEmailExistState] = useState(false); //false if userName/email input not taken
 
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
@@ -37,12 +44,14 @@ const Signup = () => {
       ...formState,
       [name]: value,
     });
+    
+    //render avatar based on userName input
+    if (event.target.name==="userName") setAvatarState(identicon(event.target.value)) ;
+    
+    //check if userName and email have been registered
+    if (Object.values(userNameExample).includes(event.target.value)) setUserNameExistState(true) ;
+    if (Object.values(userEmailExample).includes(event.target.value)) setEmailExistState(true) ;
 
-    setAvatarState(identicon(event.target.value));
-
-    //check if username and email have been registered
-    console.log(Object.values(userObjectExample).includes(event.target.value));
-    Object.values(userObjectExample).includes(event.target.value) ? setExistState(true) : setExistState(false);
   };
 
   const handleFormSubmit = async (event) => {
@@ -64,11 +73,11 @@ const Signup = () => {
   return (
     <section className='section'>    
         <div className="columns is-mobile is-centered">
-            <div className="card ">
+            <div className="card" style={adjustCardWidth}>
                 <header className="card-header">
                     <p className="card-header-title is-centered">
                         <span className="icon-text">
-                            <span className="icon has-text-info">
+                            <span className="icon has-text-warning">
                                 <i className="fas fa-info-circle"></i>
                             </span>
                             <span>Sign Up</span>
@@ -77,8 +86,8 @@ const Signup = () => {
                 </header>
                 <section className="card-content" id="card">
                     <h3 className="label">Your Avatar</h3>
-                    <div className="card-image">
-                        <figure className="image">
+                    <div className="card-image has-text-centered">
+                        <figure className="image is-128x128 is-inline-block">
                             <SVG src={avatarState} />
                         </figure>  
                     </div>
@@ -86,22 +95,20 @@ const Signup = () => {
                     {data ? (
                         <p>
                             Success! You may now head{' '}
-                            <Link to="/">back to the homepage.</Link>
+                            <Link to="/">back to the homepagehhhhhh.</Link>
                         </p>
                     ) : (
                     <form onSubmit={handleFormSubmit}>
-                        
-                        
-                        <div className="field ">
+                        <div className="field" style={adjustfieldWidth}>
                             <label className="label">Username</label>
                             <div className="control has-icons-left is-expanded">
-                                <div style={adjustWidth}> 
+                                <div> 
                                     <input 
-                                    className="input is-info"
+                                    className="input is-warning"
                                     name="userName" 
                                     placeholder="Your username"
                                     type="text"  
-                                    value={formState.name}
+                                    value={formState.userName}
                                     onChange={handleChange}
                                     />
                                 </div>
@@ -109,22 +116,22 @@ const Signup = () => {
                                 <i className="fas fa-user"></i>
                                 </span>
                             </div>
-                            {ExistState === true ? (
-                                <p class="help is-danger">This username is taken</p>
-                                ) : ExistState === false ? (
-                                <p class="help is-success">This username is available</p>
+                            {userNameExistState ? (
+                                    <p className="help is-warning">This username is taken. <Link to="/login">Log in?</Link></p>
+                                ) : !userNameExistState ? (
+                                    <span></span>
                                 ) : (
-                                <span></span>
+                                    <span></span>
                                 )   
                             }
                         </div>
                         
-                        <div className="field">
+                        <div className="field" style={adjustfieldWidth}>
                             <label className="label">Email</label>
                             <div className="control has-icons-left">
-                                <div style={adjustWidth}> 
+                                <div> 
                                     <input 
-                                    className="input is-info"
+                                    className="input is-warning"
                                     name="email" 
                                     placeholder="Your email"
                                     type="text"  
@@ -136,18 +143,22 @@ const Signup = () => {
                                     <i className="fas fa-envelope"></i>
                                 </span>
                             </div>
-                            {ExistState} ? (
-                                <p class="help is-danger">This email is taken</p>
+                            {emailExistState ? (
+                                <p className="help is-warning">This email is taken. <Link to="/login">Log in?</Link></p>
+                                ) : !emailExistState ? (
+                                <span></span>
                                 ) : (
-                                <p class="help is-success">This email is available</p>)
+                                <span></span>
+                                )   
+                            }
                         </div>
 
-                        <div className="field">
+                        <div className="field" style={adjustfieldWidth}>
                             <label className="label">Password</label>
                             <div className="control has-icons-left">
-                                <div style={adjustWidth}> 
+                                <div> 
                                     <input 
-                                    className="input is-info" 
+                                    className="input is-warning" 
                                     placeholder="********"
                                     name="password"
                                     type="password"  
@@ -161,23 +172,56 @@ const Signup = () => {
                             </div>
                         </div>
 
-                        <div className="field is-grouped">
-                            <div className="control">
-                                <button className="button is-link is-info" type="submit">Submit</button>
+                        { emailExistState || userNameExistState || !formState ? (
+                            <div className="field" style={adjustfieldWidth}>
+                                <div class="buttons is-centered my-2">
+                                    <button class="button is-warning disabled">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                    <button class="button is-warning is-outlined is-link">
+                                        <span>
+                                            <Link to="/">
+                                                Cancel
+                                            </Link>
+                                        </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="control">
-                                <button className="button is-link is-light">
-                                    <Link to="/">
-                                    Cancel
-                                    </Link>
-                                </button>
+                        ) : (
+                            <div className="field" style={adjustfieldWidth}>
+                                <div class="buttons is-centered my-2">
+                                    <button class="button is-warning">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                    <button class="button is-warning is-outlined is-link">
+                                        <span>
+                                            <Link to="/">
+                                                Cancel
+                                            </Link>
+                                        </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        )}  
+                        
                     </form>
                     )}
                     {error && (
                     <div className="is-warning">
-                        {error.message}
+                        {/* {error.message} */}
+                        Something went wrong...
                     </div>
                     )}
                 </section>
