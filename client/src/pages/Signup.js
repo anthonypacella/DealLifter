@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SVG from 'react-inlinesvg';
+import { identicon } from 'minidenticons'
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-import { identicon } from 'minidenticons'
-
-
-
-const styles = { width: '250%' };
-React.createElement("div", { style: styles });
+const adjustWidth = { width: '250%' };
+React.createElement("div", { style: adjustWidth });
+const initAvatar = '<svg viewBox="-1.5 -1.5 8 8" xmlns="http://www.w3.org/2000/svg" fill="hsl(51 84% 69%)"><rect x="0" y="3" width="1" height="1"></rect><rect x="1" y="0" width="1" height="1"></rect><rect x="1" y="4" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="3" y="0" width="1" height="1"></rect><rect x="2" y="4" width="1" height="1"></rect></svg>';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -19,15 +18,21 @@ const Signup = () => {
     email: '',
     password: '',
   });
+
+  const [avatarState, setAvatarState] = useState(initAvatar);
+
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    console.log(event.target.value);
+    console.log(identicon(event.target.value));
+    setAvatarState(identicon(event.target.value));
     setFormState({
       ...formState,
       [name]: value,
     });
+
   };
 
   const handleFormSubmit = async (event) => {
@@ -43,8 +48,8 @@ const Signup = () => {
     } catch (e) {
       console.error(e);
     }
-    console.log(`test: ${identicon(`test:`)}`);
   };
+
 
   return (
     <section className='section'>    
@@ -60,7 +65,14 @@ const Signup = () => {
                         </span>
                     </p>
                 </header>
-                <section className="card-content ">
+                <section className="card-content" id="card">
+                    <h3 className="label">Your Avatar</h3>
+                    <div className="card-image">
+                        <figure className="image">
+                            <SVG src={avatarState} />
+                        </figure>  
+                    </div>
+
                     {data ? (
                         <p>
                             Success! You may now head{' '}
@@ -68,12 +80,15 @@ const Signup = () => {
                         </p>
                     ) : (
                     <form onSubmit={handleFormSubmit}>
+                        
+                        
                         <div className="field ">
                             <label className="label">Username</label>
                             <div className="control has-icons-left is-expanded">
-                                <div style={styles}> 
+                                <div style={adjustWidth}> 
                                     <input 
-                                    className="input is-info" 
+                                    className="input is-info"
+                                    id="username-input" 
                                     name="username" 
                                     placeholder="Your username"
                                     type="text"  
@@ -90,7 +105,7 @@ const Signup = () => {
                         <div className="field">
                             <label className="label">Email</label>
                             <div className="control has-icons-left">
-                                <div style={styles}> 
+                                <div style={adjustWidth}> 
                                     <input 
                                     className="input is-info"
                                     name="email" 
@@ -105,10 +120,11 @@ const Signup = () => {
                                 </span>
                             </div>
                         </div>
+
                         <div className="field">
                             <label className="label">Password</label>
                             <div className="control has-icons-left">
-                                <div style={styles}> 
+                                <div style={adjustWidth}> 
                                     <input 
                                     className="input is-info" 
                                     placeholder="********"
@@ -123,6 +139,7 @@ const Signup = () => {
                                 </span>
                             </div>
                         </div>
+
                         <div className="field is-grouped">
                             <div className="control">
                                 <button className="button is-link is-info" type="submit">Submit</button>
