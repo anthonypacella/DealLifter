@@ -2,32 +2,32 @@ const tabs = [
     {
         id: 1,
         name: `Posted Deals`,
-        link: `profile/posted-deals`
+        link: `posted-deals`
     },
     {
         id: 2,
         name: `Saved Deals`,
-        link: `profile/saved-deals`
+        link: `saved-deals`
     },
     {
         id: 3,
         name: `Favorite Tags`,
-        link: `profile/favorite-tags`
+        link: `favorite-tags`
     },
     {
         id: 4,
         name: `Following`,
-        link: `profile/following`
+        link: `following`
     }, 
     {
         id: 5,
         name: `Followers`,
-        link: `profile/followers`,
+        link: `followers`,
     },
     {
         id: 6,
         name: `Search History`,
-        link: `profile/search-history`,
+        link: `search-history`,
     },
 ];
 
