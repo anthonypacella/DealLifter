@@ -8,31 +8,41 @@ import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
+//sample data
+const userObjectExample = {
+    userName: "banbanleelee",
+    email: "sallyhoney96@gmail.com",
+};
+
 const adjustWidth = { width: '250%' };
 React.createElement("div", { style: adjustWidth });
+
 const initAvatar = '<svg viewBox="-1.5 -1.5 8 8" xmlns="http://www.w3.org/2000/svg" fill="hsl(51 84% 69%)"><rect x="0" y="3" width="1" height="1"></rect><rect x="1" y="0" width="1" height="1"></rect><rect x="1" y="4" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="3" y="0" width="1" height="1"></rect><rect x="2" y="4" width="1" height="1"></rect></svg>';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    username: '',
+    userName: '',
     email: '',
     password: '',
   });
 
   const [avatarState, setAvatarState] = useState(initAvatar);
+  const [ExistState, setExistState] = useState(null); //false if userName/email input not taken
 
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(event.target.value);
-    console.log(identicon(event.target.value));
-    setAvatarState(identicon(event.target.value));
     setFormState({
       ...formState,
       [name]: value,
     });
 
+    setAvatarState(identicon(event.target.value));
+
+    //check if username and email have been registered
+    console.log(Object.values(userObjectExample).includes(event.target.value));
+    Object.values(userObjectExample).includes(event.target.value) ? setExistState(true) : setExistState(false);
   };
 
   const handleFormSubmit = async (event) => {
@@ -88,8 +98,7 @@ const Signup = () => {
                                 <div style={adjustWidth}> 
                                     <input 
                                     className="input is-info"
-                                    id="username-input" 
-                                    name="username" 
+                                    name="userName" 
                                     placeholder="Your username"
                                     type="text"  
                                     value={formState.name}
@@ -100,6 +109,14 @@ const Signup = () => {
                                 <i className="fas fa-user"></i>
                                 </span>
                             </div>
+                            {ExistState === true ? (
+                                <p class="help is-danger">This username is taken</p>
+                                ) : ExistState === false ? (
+                                <p class="help is-success">This username is available</p>
+                                ) : (
+                                <span></span>
+                                )   
+                            }
                         </div>
                         
                         <div className="field">
@@ -119,6 +136,10 @@ const Signup = () => {
                                     <i className="fas fa-envelope"></i>
                                 </span>
                             </div>
+                            {ExistState} ? (
+                                <p class="help is-danger">This email is taken</p>
+                                ) : (
+                                <p class="help is-success">This email is available</p>)
                         </div>
 
                         <div className="field">

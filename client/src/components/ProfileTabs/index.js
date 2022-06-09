@@ -256,7 +256,7 @@ const InfoBar = () => {
           ))}
         </nav>
       </div>
-      <div className="column is-four-fifths">
+      <div className="column is-four-fifths" >
         {buttonState===1 ? (
           <PostedDeals postedDeals = {postedDealsExample} />
         ) : buttonState === 2 ? (
@@ -265,7 +265,11 @@ const InfoBar = () => {
           <Following following = {followingExample} />
         ) : buttonState === 5 ? (
           <Followers followers = {followersExample} />
-        ) : <div>Welcome!</div> }
+        ) : 
+              <p className="title is-align-self-stretch">
+                Welcome!
+              </p>
+        }
       </div>
     </div>
   );
