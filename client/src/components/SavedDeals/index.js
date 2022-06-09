@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/PostedDeals.css'
+import '../styles/SavedDeals.css'
 const cardWidth = { width: '100%' };
 React.createElement("div", { style: cardWidth });
 
-const PostedDeals = ({
-  postedDeals,//all params need to be changed later
+const SavedDeals = ({
+  savedDeals,//all params need to be changed later
 }) => {
-  if (!postedDeals.length) { //needs to be changed later
-    console.log(postedDeals);
+  if (!savedDeals.length) { //needs to be changed later
+    console.log(savedDeals);
     return <h3>No Saved Deals Yet</h3>;
   }
 
   return (
     <div className="columns parent">
-      {postedDeals &&
-        postedDeals.map((deal) => (
+      {savedDeals &&
+        savedDeals.map((deal) => (
             <div className="column is-one-quarter child">
                 <div className="card" style={cardWidth}>
                     <header className="card-header">
@@ -42,4 +42,4 @@ const PostedDeals = ({
   );
 };
 
-export default PostedDeals;
+export default SavedDeals;
