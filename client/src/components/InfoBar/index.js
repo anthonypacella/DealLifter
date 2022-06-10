@@ -7,33 +7,40 @@ import deals from './deals';
 
 const InfoBar = () => {
   return (
-    <div className='navbar-menu'>
-      <div className='navbar-item has-dropdown is-hoverable'>
-        Categories
-        {categories.map((category) => (
-              <div className='navbar-item'>
-                  <Link to={category.link}>
-                      <span>{category.icon}</span>
-                      <span>{category.name}</span>
-                  </Link>
-              </div>
-          ))}
-      </div>
-      
-      <div>
+    <nav className='navbar'>
+      <div className='navbar-menu'>
+        
         <div className='navbar-item has-dropdown is-hoverable'>
-          <span><i class="fa-solid fa-fire"></i></span>
-          Deals of the Day
-          {deals.map((deal) => (
-                <div className='navbar-item'>
-                    <Link to={deal.link}>
-                        <span>{deal.name}</span>
-                    </Link>
-                </div>
+          <a className="navbar-link">
+            Categories
+          </a>
+          <div className="navbar-dropdown">
+            {categories.map((category) => (
+              <div className='navbar-item'>
+                <Link to={category.link}>
+                  <span>{category.name}</span>
+                </Link>
+              </div>
             ))}
+          </div>
+        </div>
+        
+        <div className='navbar-item has-dropdown is-hoverable'>
+          <a className="navbar-link">
+            Deals of the Day
+          </a>
+          <div className="navbar-dropdown">
+            {deals.map((deal) => (
+              <div className='navbar-item'>
+                <Link to={deal.link}>
+                    <span>{deal.name}</span>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -13,10 +13,11 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import InfoBar from './components/InfoBar';
 // import StoreList from './components/StoreList'
-// import Home from '../src/pages/Home';
-// import Login from '../src/pages/Login';
-// import Profile from '../src/pages/Profile';
-// import Results from '../src/pages/Results';
+import Home from '../src/pages/Home';
+import Login from '../src/pages/Login';
+import Profile from '../src/pages/Profile';
+import Results from '../src/pages/Results';
+import Signup from './pages/Signup';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,21 +43,30 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-            <Logo />
             <Nav />
             <InfoBar />
             <Routes>
-              <Route>
-                {/*Home*/}
+              <Route exact = 'true' path = '/' element = {
+                <div className = 'is-flex'>
+                  < Home />
+                </div>
+              }>
               </Route>
-              <Route>
-                {/*Login*/}
+              <Route exact = 'true' path = '/login' element = {
+                < Login />
+              }>
               </Route>
-              <Route>
-                {/*Profile*/}
+              <Route exact = 'true' path = '/signup' element = {
+                < Signup />
+              }>
               </Route>
-              <Route>
-                {/*Results*/}
+              <Route exact = 'true' path = '/profile/:userName' element = {
+                < Profile />
+              }>
+              </Route>
+              <Route exact = 'true' path = '/results' element = {
+                < Results />
+              }>
               </Route>
             </Routes>
             <Footer />

@@ -2,37 +2,37 @@ const categories = [
     {
         id: 1,
         name: `Things To Do`,
-        icon: `<i class="fa-solid fa-rocket"></i>`,
+        icon: `fa-solid fa-rocket`,
         link: `results?category=things-to-do`
     },
     {
         id: 2,
         name: `Food & Drink`,
-        icon: `<i class="fa-solid fa-bowl-food"></i>`,
+        icon: `fa-solid fa-bowl-food`,
         link: `results?category=food-and-drink`
     },
     {
         id: 3,
         name: `Health & Fitness`,
-        icon: `<i class="fa-solid fa-dumbbell"></i>`,
+        icon: `fa-solid fa-dumbbell`,
         link: `results?category=health-and-fitness`
     },
     {
         id: 4,
         name: `Beauty & Spas`,
-        icon: `<i class="fa-solid fa-spa"></i>`,
+        icon: `fa-solid fa-spa`,
         link: `results?category=beauty-and-spas`
     }, 
     {
         id: 5,
         name: `Goods`,
-        icon: `<i class="fa-solid fa-bag-shopping"></i>`,
+        icon: `fa-solid fa-bag-shopping`,
         link: `results?category=goods`
     },
     {
         id: 6,
         name: `Groceries`,
-        icon: `<i class="fa-solid fa-basket-shopping"></i>`,
+        icon: `fa-solid fa-basket-shopping`,
         link: `results?category=groceries`
     },
 ];
