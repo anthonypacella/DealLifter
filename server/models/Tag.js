@@ -17,26 +17,26 @@ const tagSchema = new Schema(
       default: '#008080',
     },
     createdAt: {
-      type:Date,
+      type: Date,
       default: Date.now,
-      get: (timestamp) => dateFormat(timestamp),
+      // get: (timestamp) => dateFormat(timestamp),
     },
   },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
+  // {
+  //   toJSON: {
+  //     virtuals: true,
+  //   },
+  // }
 );
 
 // can delete this virtual later if we dont need it
-tagSchema
-  .virtual('getTagCss')
-  // Getter
-  .get(function () {
-    return `color: ${this.color}`;
-  });
+// tagSchema
+//   .virtual('getTagCss')
+//   // Getter
+//   .get(function () {
+//     return `color: ${this.color}`;
+//   });
 
-const Tag = model('tag', tagSchema);
+const Tag = model('Tag', tagSchema);
 
 module.exports = Tag;

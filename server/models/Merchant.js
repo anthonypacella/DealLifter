@@ -35,6 +35,6 @@ const merchantSchema = new Schema({
   
 });
 
-const Product = model('Merchant', merchantSchema);
+const Merchant = model('Merchant', merchantSchema);
 
-module.exports = Product;
+module.exports = Merchant;

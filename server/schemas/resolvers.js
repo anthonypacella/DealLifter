@@ -13,7 +13,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
-    getCategories: async () => {
+    getAllCategories: async () => {
       return await Category.find();
     },
     getCategoryById: async (parent, { categoryId }) => {
@@ -28,40 +28,48 @@ const resolvers = {
     },
 
     getAllMerchants: async () => {
-      return await Merchant.find();
+      return await Merchant.find().populate('categories').populate('deals');
     },
     getMerchantById: async (parent, { merchantId }) => {
-      return await Merchant.findById(merchantId);
+      return await Merchant.findById(merchantId).populate('categories').populate('deals');
     },
     // review this later
     getMerchantByName: async (parent, { name }) => {
-      return await Merchant.find({ name: name });
+      return await Merchant.find({ name: name }).populate('categories').populate('deals');
     },
     // needs review
     getMerchantByCategory: async (parent, { categoryId }) => {
-      return await Merchant.find({ "categories.categoryId": categoryId });
+      return await Merchant.find({ "categories.categoryId": categoryId }).populate('categories').populate('deals');
     },
 
     getUserById: async (parent, { userId }) => {
-      return await User.findById(userId);
+      return await User.findById(userId).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
+    },
+    getUserByUserName: async (parent, { userName }) => {
+      return await User.find({ userName: userName });
+    },
+    getUserByUserEmail: async (parent, { email }) => {
+      return await User.find({ email: email });
     },
     getFollowersByUserId: async (parent, { userId }) => {
-      return await User.find({ "followers.userId": userId });
+      return await User.find({ "followers.userId": userId }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getFollowingByUserId: async (parent, { userId }) => {
-      return await User.find({ "following.userId": userId });
+      return await User.find({ "following.userId": userId }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
 
     // question here, does this need .populates attached? don't all Deal queries need it?
     getAllDeals: async () => {
-      return await Deal.find();
+      return await Deal.find().populate('category').populate('tags').populate('merchant').populate('submittedBy').sort({ submittedOn: -1 });
     },
     getDealById: async(parent, { dealId })=>{
-      return await Deal.findById(dealId).populate('category').populate('tags').populate('merchant');
+      return await Deal.findById(dealId).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
     // do we need quotes around expiration and likes
     getHotDeals: async() => {
-      return await Deal.find({ expiration: {$gt: Date.now } }).sort({ likes: -1 }).limit(10);
+      return await Deal.find({ expiration: {$gt: Date.now() } })
+      .populate('category').populate('tags').populate('merchant').populate('submittedBy')
+      .sort({ likes: -1 }).limit(10);
     },
     
     // I picked up starting here
@@ -70,48 +78,58 @@ const resolvers = {
     // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
     // I could only figure out the logic for the 'keyword' of a search.
     getPersonalizedDealsByUserId: async(parent, args, context)=>{
+      let dealsArray = [];
       context.user.searchHistory.forEach(search => {
         let keyword = search.keyword;
-        return await Deal.find({ 
+        let dealsArrayTemp = Deal.find({
           $or: [ 
             {description: { $regex: keyword } }, 
-            {title: { $regex: keyword } } 
+            {title: { $regex: keyword } },
+          
+            // syntax to include these is really complicated
+            // {merchant: { $in: search.merchantFilter } },
+            // {category: { $in: search.categoryFilter } },
+            // {tags: { $in: search.tagFilter } }
           ]
-        })
+        }).populate('category').populate('tags').populate('merchant').populate('submittedBy')
+
+        dealsArray = dealsArray.concat(dealsArrayTemp);
       })
+      return dealsArray;
     },
+
+
 
     // https://mongoosejs.com/docs/api.html#query_Query-and
     // logic here is finding deals that will expire in the next week
     getExpiringDeals: async() => {
-      let currentDate = Date.now;
+      let currentDate = Date.now();
       let weekAheadDate = currentDate.getDate() + 7;
       return await Deal.find({
         $and: [
-          {expiration: {$gt: currentDate } },
-          {expiration: {$lt: weekAheadDate } },
+          {expiration: { $gt: currentDate } },
+          {expiration: { $lt: weekAheadDate } },
         ]
-      })
+      });
     },
 
-    // i have a idea here, should we pass in userId as an arugment, or
-    // or grab userId from something like context.user._id
+    // this is used on both viewing my own profile page, and viewing anothers
     getPostedDealsByUserId: async (parent, { userId }) => {
-      return await Deal.find({ "submittedBy.userId": userId });
+      return await Deal.find({ submittedBy: userId });
     },
 
     getDealsByMerchantId: async (parent, { merchantId }) => {
-      return await Deal.find({ "merchant.merchantId": merchantId });
+      return await Deal.find({ "merchant": merchantId });
     },
 
     // saved deals is a private thing right, so this one could use context.user.savedDeals ?
     // first ill try by the argument userId
-    getSavedDealsByUserId: async (parent, { userId }) => {
-      return // yeah this seems too complicated, context seems better
-    },
+    // getSavedDealsByUserId: async (parent, { userId }) => {
+    //   return // yeah this seems too complicated, context seems better
+    // },
     // second attempt is using context, way easier, if it works
     getSavedDealsByUserId: async (parent, args, context) => {
-      context.user.savedDeals.forEach(deal =>{
+      context.user.savedDeals.forEach(deal => {
         return deal;
       })
     },
@@ -122,10 +140,13 @@ const resolvers = {
 
     // copied something very similar to my code from persoinalized deals
     getDealsByKeyword: async(parent, keyword)=>{
+      let re = new RegExp(`${keyword}`, 'gi');
       return await Deal.find({ 
         $or: [ 
-          {description: { $regex: keyword } }, 
-          {title: { $regex: keyword } } 
+          // {description: { $regex: keyword } }, 
+          // {title: { $regex: keyword } } 
+          {description: re }, 
+          {title: re } 
         ]
       })
     },
@@ -139,90 +160,91 @@ const resolvers = {
 
     
     // all the following queries are from starter code, will be deleted
-    products: async (parent, { category, name }) => {
-      const params = {};
+    // products: async (parent, { category, name }) => {
+    //   const params = {};
 
-      if (category) {
-        params.category = category;
-      }
+    //   if (category) {
+    //     params.category = category;
+    //   }
 
-      if (name) {
-        params.name = {
-          $regex: name
-        };
-      }
+    //   if (name) {
+    //     params.name = {
+    //       $regex: name
+    //     };
+    //   }
 
-      return await Product.find(params).populate('category');
-    },
+    //   return await Product.find(params).populate('category');
+    // },
 
-    product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
-    },
+    // product: async (parent, { _id }) => {
+    //   return await Product.findById(_id).populate('category');
+    // },
 
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
-        });
+    // user: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const user = await User.findById(context.user._id).populate({
+    //       path: 'orders.products',
+    //       populate: 'category'
+    //     });
 
-        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+    //     user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
-        return user;
-      }
+    //     return user;
+    //   }
 
-      throw new AuthenticationError('Not logged in');
-    },
-    order: async (parent, { _id }, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
-        });
+    //   throw new AuthenticationError('Not logged in');
+    // },
+    // order: async (parent, { _id }, context) => {
+    //   if (context.user) {
+    //     const user = await User.findById(context.user._id).populate({
+    //       path: 'orders.products',
+    //       populate: 'category'
+    //     });
 
-        return user.orders.id(_id);
-      }
+    //     return user.orders.id(_id);
+    //   }
 
-      throw new AuthenticationError('Not logged in');
-    },
-    checkout: async (parent, args, context) => {
-      const url = new URL(context.headers.referer).origin;
-      const order = new Order({ products: args.products });
-      const line_items = [];
+    //   throw new AuthenticationError('Not logged in');
+    // },
+    // checkout: async (parent, args, context) => {
+    //   const url = new URL(context.headers.referer).origin;
+    //   const order = new Order({ products: args.products });
+    //   const line_items = [];
 
-      const { products } = await order.populate('products');
+    //   const { products } = await order.populate('products');
 
-      for (let i = 0; i < products.length; i++) {
-        const product = await stripe.products.create({
-          name: products[i].name,
-          description: products[i].description,
-          images: [`${url}/images/${products[i].image}`]
-        });
+    //   for (let i = 0; i < products.length; i++) {
+    //     const product = await stripe.products.create({
+    //       name: products[i].name,
+    //       description: products[i].description,
+    //       images: [`${url}/images/${products[i].image}`]
+    //     });
 
-        const price = await stripe.prices.create({
-          product: product.id,
-          unit_amount: products[i].price * 100,
-          currency: 'usd',
-        });
+    //     const price = await stripe.prices.create({
+    //       product: product.id,
+    //       unit_amount: products[i].price * 100,
+    //       currency: 'usd',
+    //     });
 
-        line_items.push({
-          price: price.id,
-          quantity: 1
-        });
-      }
+    //     line_items.push({
+    //       price: price.id,
+    //       quantity: 1
+    //     });
+    //   }
 
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items,
-        mode: 'payment',
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`
-      });
+    //   const session = await stripe.checkout.sessions.create({
+    //     payment_method_types: ['card'],
+    //     line_items,
+    //     mode: 'payment',
+    //     success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+    //     cancel_url: `${url}/`
+    //   });
 
-      return { session: session.id };
-    }
+    //   return { session: session.id };
+    // }
   },
 
+  // mutations
   Mutation: {
     // keeping addUser and updateUser and login example code
     addUser: async (parent, args) => {
@@ -250,16 +272,17 @@ const resolvers = {
     },
 
     // tag mutations
-    createTag: async (parent, args) => {
-      return await Tag.create(args);
+    createTag: async (parent, { tagName, color}) => {
+      return await Tag.create({tagName, color});
     },
-    updateTag: async (parent, {tagId, tagName, color}) => {
+    updateTag: async (parent, {tagId, tagName}) => {
       // do we need to remove old tag from all deals, users and merchants first? then add in the new updated one?
       return await Tag.findByIdAndUpdate(tagId, { "tagName": tagName } );
     },
 
     // category mutations
     createCategory: async (parent, args) => {
+      // had an idea here to create a link property from the name of the category
       return await Category.create(args);
     },
     // small question here, I think we cant just use "name" needs to be categoryName, change in model and typedefs
@@ -301,19 +324,19 @@ const resolvers = {
     },
 
     // these two mutation were from starter code
-    addOrder: async (parent, { products }, context) => {
-      console.log(context);
-      if (context.user) {
-        const order = new Order({ products });
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
-        return order;
-      }
-      throw new AuthenticationError('Not logged in');
-    },
-    updateProduct: async (parent, { _id, quantity }) => {
-      const decrement = Math.abs(quantity) * -1;
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
-    },
+    // addOrder: async (parent, { products }, context) => {
+    //   console.log(context);
+    //   if (context.user) {
+    //     const order = new Order({ products });
+    //     await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+    //     return order;
+    //   }
+    //   throw new AuthenticationError('Not logged in');
+    // },
+    // updateProduct: async (parent, { _id, quantity }) => {
+    //   const decrement = Math.abs(quantity) * -1;
+    //   return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+    // },
   }
 };
 

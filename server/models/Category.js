@@ -5,6 +5,12 @@ const categorySchema = new Schema({
     type: String,
     required: true,
     trim: true
+  },
+  icon: {
+    type: String,
+  },
+  link: {
+    type: String,
   }
 });
 
