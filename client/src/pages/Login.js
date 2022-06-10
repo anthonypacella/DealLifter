@@ -5,11 +5,14 @@ import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const styles = { width: '250%' };
-React.createElement("div", { style: styles });
+
+const adjustfieldWidth = { width: '250%' };
+React.createElement("div", { style: adjustfieldWidth });
+const adjustCardWidth = { width: '40%' };
+React.createElement("div", { style: adjustCardWidth });
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ userName: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
@@ -38,7 +41,7 @@ const Login = (props) => {
 
     // clear form values
     setFormState({
-      email: '',
+      userName: '',
       password: '',
     });
   };
@@ -46,18 +49,18 @@ const Login = (props) => {
   return (
     <section className='section'>    
         <div className="columns is-mobile is-centered">
-            <div className="card ">
+            <div className="card" style={adjustCardWidth}>
                 <header className="card-header">
                     <p className="card-header-title is-centered">
                         <span className="icon-text">
-                            <span className="icon has-text-info">
+                            <span className="icon has-text-warning">
                                 <i className="fas fa-info-circle"></i>
                             </span>
                             <span>Log In</span>
                         </span>
                     </p>
                 </header>
-                <section className="card-content ">
+                <section className="card-content">
                     {data ? (
                         <p>
                             Success! You may now head{' '}
@@ -65,31 +68,31 @@ const Login = (props) => {
                         </p>
                     ) : (
                     <form onSubmit={handleFormSubmit}>
-                        <div className="field ">
+                        <div className="field" style={adjustfieldWidth}>
                             <label className="label">Username</label>
                             <div className="control has-icons-left is-expanded">
-                                <div style={styles}> 
+                                <div> 
                                     <input 
-                                    className="input is-info" 
-                                    name="username" 
+                                    className="input is-warning"
+                                    name="userName" 
                                     placeholder="Your username"
                                     type="text"  
-                                    value={formState.name}
+                                    value={formState.userName}
                                     onChange={handleChange}
                                     />
                                 </div>
-                                <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
+                                <span className="icon is-small is-left">
+                                <i className="fas fa-user"></i>
                                 </span>
                             </div>
                         </div>
                     
-                        <div className="field">
+                        <div className="field" style={adjustfieldWidth}>
                             <label className="label">Password</label>
                             <div className="control has-icons-left">
-                                <div style={styles}> 
+                                <div> 
                                     <input 
-                                    className="input is-info" 
+                                    className="input is-warning" 
                                     placeholder="********"
                                     name="password"
                                     type="password"  
@@ -102,18 +105,26 @@ const Login = (props) => {
                                 </span>
                             </div>
                         </div>
-                        <div className="field is-grouped">
-                            <div className="control">
-                                <button className="button is-link is-info" type="submit">Submit</button>
+                        <div className="field" style={adjustfieldWidth}>
+                                <div className="buttons is-centered my-2">
+                                    <button className="button is-warning">
+                                        <span className="icon is-small">
+                                            <i className="fas fa-check"></i>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                    <button className="button is-warning is-outlined is-link">
+                                        <span>
+                                            <Link to="/">
+                                                Cancel
+                                            </Link>
+                                        </span>
+                                        <span className="icon is-small">
+                                            <i className="fas fa-times"></i>
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="control">
-                                <button className="button is-link is-light">
-                                    <Link to="/">
-                                    Cancel
-                                    </Link>
-                                </button>
-                            </div>
-                        </div>
                     </form>
                     )}
                     {error && (

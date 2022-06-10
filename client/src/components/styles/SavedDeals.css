@@ -1,0 +1,11 @@
+.parent{
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-template-rows: 1fr;
+    width: 100%;
+    overflow-x: auto;
+  }
+ .child{
+    grid-row: 1;
+    grid-column: auto;
+   }

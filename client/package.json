@@ -1,5 +1,5 @@
 {
-  "name": "mern-client",
+  "name": "deal-lifter",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
@@ -17,8 +17,10 @@
     "bulma": "^0.9.4",
     "graphql": "^14.6.0",
     "jwt-decode": "^2.2.0",
+    "minidenticons": "^1.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-inlinesvg": "^3.0.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.2"
   },
