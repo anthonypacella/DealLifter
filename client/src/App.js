@@ -64,7 +64,7 @@ function App() {
                 < Profile />
               }>
               </Route>
-              <Route exact = 'true' path = '/results/:searchParams' element = {
+              <Route exact = 'true' path = '/results' element = {
                 < Results />
               }>
               </Route>

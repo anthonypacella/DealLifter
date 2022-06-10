@@ -44,7 +44,7 @@ const DealSmall = ({ deal }) => {
 
             <div className = "media-content">
                 <a 
-                    className = "dealSmall_Title"
+                    className = "is-size-4 dealSmall_Title"
                     href = {deal.productLink}
                     target = '_blank'
                 >
@@ -52,7 +52,7 @@ const DealSmall = ({ deal }) => {
                 </a>
                 <br></br>
                 <a 
-                    className = "dealSmall_Merchant"
+                    className = "is-size-5 dealSmall_Merchant"
                     href = {deal.merchant.homepage}
                     target = '_blank'
                 >
@@ -73,8 +73,8 @@ const DealSmall = ({ deal }) => {
             <div className = "dealSmall_InfoContainer">
                 <div className = "dealSmall_Description">{deal.description}</div>
                 <br></br>
-                <div className = "dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
-                <div className = "dealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
+                <div className = "is-size-5 dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
+                <div className = "is-size-5 DealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
                 <br></br>
             </div>
 
