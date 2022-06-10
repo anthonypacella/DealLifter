@@ -57,9 +57,9 @@ const dealSchema = new Schema({
   submittedOn: {
     type: Date,
     default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
+    // get: (timestamp) => dateFormat(timestamp),
   },
-  // still needs work
+  // still needs work, expiration will need to be input when deal is created
   expiration: {
     type: Date,
 
@@ -95,15 +95,15 @@ const dealSchema = new Schema({
   ],
 });
 
-dealSchema
-  .virtual('getExpiration')
-  .get(function() {
-    return // still need write function
-  })
-  .virtual('setExpired')
-  .get(function() {
-    return // still need write function
-  })
+// dealSchema
+//   .virtual('getExpiration')
+//   .get(function() {
+//     return // still need write function
+//   })
+//   .virtual('setExpired')
+//   .get(function() {
+//     return // still need write function
+//   })
 
 const Deal = model('Deal', dealSchema);
 

@@ -6,21 +6,37 @@ const typeDefs = gql`
     tagName: String!
     color: String
     createdAt: String
-  }  
+  }
+
+  input tagInput {
+    tagName: String!
+    color: String
+  }
 
   type Category {
-      _id: ID!
-      name: String!
-    }
+    _id: ID!
+    name: String!
+  }
+
+  input categoryInput {
+    name: String!
+  }
 
   type Merchant {
     _id: ID!
     name: String!
     description: String
     logo: String
-    link: String!
+    homepage: String!
     categories: [Category]!
     deals: [Deal]  
+  }
+
+  input merchantInput {
+    name: String!
+    description: String
+    logo: String
+    homepage: String!
   }
 
   type User {
@@ -54,8 +70,8 @@ const typeDefs = gql`
     _id: ID!
     title: String!
     description: String
-    link: String!
     photoLink: String!
+    productLink: String!
     startingPrice: Float
     dealPrice: Float
     merchant: Merchant
@@ -67,20 +83,6 @@ const typeDefs = gql`
     isUsable: [Int]
     comments: [Comment]
   }
-
-  input dealInput {
-    title: String!
-    description: String
-    link: String!
-    photoLink: String!
-    startingPrice: Float
-    dealPrice: Float
-    merchant: Merchant
-    category: Category
-    tags: [Tag]
-    expiration: String
-  }
-
 
   type Auth {
     token: ID
@@ -100,6 +102,8 @@ const typeDefs = gql`
     getMerchantByCategory(categoryId: ID!): [Merchant]
     
     getUserById(userId: ID!): User
+    getUserByUserName(userName: String!): User
+    getUserByUserEmail(email: String!): User
     getFollowersByUserId(userId: ID!):[User]
     getFollowingByUserId(userId: ID!):[User]
 
@@ -125,23 +129,46 @@ const typeDefs = gql`
     createTag(tagName: String!, color: String): Tag
     updateTag(tagId: ID!, tagName: String!, color: String): Tag
 
-    createCategory(name: String!): Category
-    updateCategory(categoryId: ID!, name: String!): Category
+    createCategory(name: String!, icon: String!, link: String!): Category
+    updateCategory(categoryId: ID!, name: String!, icon: String!, link: String!): Category
 
     createMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID]): Merchant
     updateMerchant(merchantId: ID!, name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
 
+    postDeal(title: String!,
+      description: String,
+      link: String!,
+      photoLink: String!,
+      productLink: String!,
+      startingPrice: Float,
+      dealPrice: Float,
+      merchant: ID!,
+      category: ID!,
+      tags: [ID],
+      expiration: String
+    ): Deal
 
+    updateDeal(dealId: ID!,
+      title: String!,
+      description: String,
+      link: String!,
+      photoLink: String!,
+      productLink: String!,
+      startingPrice: Float,
+      dealPrice: Float,
+      merchant: ID,
+      category: ID,
+      tags: [ID],
+      expiration: String
+    ): Deal
 
-    postDeal(input: dealInput): Deal
-    updateDeal(input: dealInput): Deal
     removeTagFromDeal(tagId: ID!, dealId: ID!): Deal
 
     saveDealById(dealId: ID!): User
     favoriteTagById(tagId: ID!): User
     followUserById(userId: ID!): User
 
-    createSearch(keyword: String!, merchantFilter: ID, categoryFilter: ID, tagFilter: ID)
+    createSearch(keyword: String!, merchantFilter: [ID], categoryFilter: [ID], tagFilter: [ID]): Search
     addToSearchHistory(searchId: ID!): User
   }
 `;
