@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import ProfileTabs from '../components/ProfileTabs';
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { GET_USER_BY_ID, QUERY_ME } from '../utils/queries';
 import Deal from '../components/Deal'
 import PostedDeals from '../components/PostedDeals'
 
@@ -30,7 +30,7 @@ const dealObject = [{
 const Profile = () => {
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  const { loading, data } = useQuery(userParam ? GET_USER_BY_ID : QUERY_ME, {
     variables: { username: userParam },
   });
 
