@@ -129,6 +129,34 @@ export const GET_MERCHANT_BY_CATEGORY = gql`
   }
 `;
 
+export const QUERY_ME = gql`
+  query getMe($userId: ID!) {
+    getMe(userId: $userId) {
+      _id
+      userName
+      email
+      password
+      savedDeals {
+        _id
+      }
+      favoriteTags {
+        _id
+      }
+      following {
+        _id
+      }
+      followers {
+        _id
+      }
+      avatar
+      searchHistory {
+        _id
+        keyword
+      }
+    }
+  }
+`;
+
 export const GET_USER_BY_ID = gql`
   query getUserById($userId: ID!) {
     getUserById(userId: $userId) {
