@@ -29,7 +29,7 @@ export default function Home() {
       <div className = 'featuredDeals'>
         <h3>Featured Deals:</h3>
         <div className = 'is-flex p-6'>
-          {/*Will need to map eventually - just testing below with hard coded DealSmalls*/}
+          {/*GetHotDeals Will need to map eventually - just testing below with hard coded DealSmalls*/}
           <DealSmall deal = {dealObject}></DealSmall>
           <DealSmall deal = {dealObject}></DealSmall>
           <DealSmall deal = {dealObject}></DealSmall>

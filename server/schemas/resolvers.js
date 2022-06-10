@@ -45,6 +45,9 @@ const resolvers = {
     getUserById: async (parent, { userId }) => {
       return await User.findById(userId).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
+    getMe: async (parent, args, context) => {
+      return await User.findById(context.user._id).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
+    },
     getUserByUserName: async (parent, { userName }) => {
       return await User.find({ userName: userName });
     },
