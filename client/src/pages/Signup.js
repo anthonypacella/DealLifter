@@ -32,7 +32,7 @@ const Signup = () => {
     password: '',
   });
 
-  const [avatarState, setAvatarState] = useState(initAvatar);
+  const [avatarState, setAvatarState] = useState(initAvatar); //initial smiley face
   const [userNameExistState, setUserNameExistState] = useState(false); //false if userName/email input not taken
   const [emailExistState, setEmailExistState] = useState(false); //false if userName/email input not taken
 
