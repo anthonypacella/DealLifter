@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Walmart",
+      "description": "A Good Store",
+      "logo": "https://logo.clearbit.com/walmart.com",
+      "homepage": "https://www.walmart.com/"
+    },
+    {
+        "name": "Target",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/target.com",
+        "homepage": "https://www.target.com/"
+    },
+    {
+        "name": "Publix",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/publix.com",
+        "homepage": "https://www.publix.com/"
+    },
+    {
+        "name": "Trader Joe's",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/traderjoes.com",
+        "homepage": "https://www.traderjoes.com/"
+    },
+    {
+        "name": "Planet Fitness",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/planetfitness.com",
+        "homepage": "https://www.planetfitness.com/"
+    },
+    {
+        "name": "Amazon",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/amazon.com",
+        "homepage": "https://www.amazon.com/"
+    }
+  ]

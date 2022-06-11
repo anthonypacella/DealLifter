@@ -1,0 +1,155 @@
+[
+    {
+      "name": "Walmart",
+      "description": "A Good Store",
+      "logo": "https://logo.clearbit.com/walmart.com",
+      "homepage": "https://www.walmart.com/"
+    },
+    {
+        "name": "Target",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/target.com",
+        "homepage": "https://www.target.com/"
+    },
+    {
+        "name": "Publix",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/publix.com",
+        "homepage": "https://www.publix.com/"
+    },
+    {
+        "name": "Trader Joe's",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/traderjoes.com",
+        "homepage": "https://www.traderjoes.com/"
+    },
+    {
+        "name": "Planet Fitness",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/planetfitness.com",
+        "homepage": "https://www.planetfitness.com/"
+    },
+    {
+        "name": "Amazon",
+        "description": "A Good Store",
+        "logo": "https://logo.clearbit.com/amazon.com",
+        "homepage": "https://www.amazon.com/"
+    }
+  ]
+  
+
+//////////////////////
+[
+    {
+        "title":"80% Lean/20% Fat Ground Beef Chuck Tray",
+        "description": "2.25 lb (Fresh)",
+        "productLink": "https://www.walmart.com/ip/All-Natural-80-Lean-20-Fat-Ground-Beef-Chuck-Tray-2-25-lb-Fresh/959024059?athcpid=959024059&athpgid=ContentPage&athcgid=null&athznid=ItemCarousel_9d342e21-47fc-4d56-b7a7-e1e966fdb0b3_items&athieid=v0&athstid=CS020&athguid=j8BarDN02rpCo32jVSCNNTQyTCAnUZzfOGZ6&athancid=null&athena=true",
+        "photoLink":"https://i5.walmartimages.com/asr/8fd72438-7fb6-4880-9c9b-6edda2125fd4.98c2ac80c365ff2f12172e1bf5543fa5.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
+        "startingPrice":"10.28",
+        "dealPrice": "7.55",
+        "merchant":"Walmart",
+        "category": "Groceries",
+        "tags": ["Good Deal!", "Yum!"],
+        "submittedBy": "sally",
+        "isUsable":1,
+        "likes":10
+    },
+    {
+        "title":"Women's Short Sleeve T-Shirt Dress",
+        "description": "Made from 100% cotton for breathable all-day comfort",
+        "productLink": "https://www.target.com/p/women-s-short-sleeve-t-shirt-dress-universal-thread/-/A-82700189?preselect=82641699#lnk=sametab",
+        "photoLink":"https://cdn-img.prettylittlething.com/2/1/e/3/21e3674a7a586619d22c6f052cd0075ad58929e8_clr5892_1.jpg",
+        "startingPrice":"15.99",
+        "dealPrice": "12.99",
+        "merchant":"Target",
+        "category": "Clothing & Accessories",
+        "tags": ["I Like It", "Saved!"],
+        "submittedBy": "sally",
+        "isUsable":1,
+        "likes":12
+    },
+    {
+        "title":"adidas Men's Grand Court Tennis Shoes",
+        "description": "Made in part with recycled content generated from production waste",
+        "productLink": "https://www.amazon.com/adidas-Grand-Court-Tennis-Carbon/dp/B091MLZDPX/ref=sr_1_1_sspa?crid=2ZQEZVM5DDNCE&keywords=adidas&qid=1654827930&sprefix=adidas%2Caps%2C88&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExVzUwNEIzTlZVOEIxJmVuY3J5cHRlZElkPUEwMDkxODUwMU83QzMwQzhVOUNDMyZlbmNyeXB0ZWRBZElkPUEwNjc0MzIwMjZNTTRCMkE5RFE2RiZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
+        "photoLink":"https://m.media-amazon.com/images/I/61LJ3ahWgqL._AC_UY395_.jpg",
+        "startingPrice":"65.00",
+        "dealPrice": "51.99",
+        "merchant":"Amazon",
+        "category": "Clothing & Accessories",
+        "tags": ["Interesting", "Good Deal!", "Saved!"],
+        "submittedBy": "anthony",
+        "isUsable":1,
+        "likes":8
+    },
+    {
+        "title":"Diet Pepsi Soda, 7.5 Ounce Mini Cans, 10 Pack",
+        "description": "10 count of Diet Pepsi 7.5 oz sleek, mini cans—little cans, epic satisfaction",
+        "productLink": "https://www.amazon.com/Diet-Pepsi-Soda-Ounce-Mini/dp/B07CBKMHT1/ref=sr_1_1_sspa?crid=39BIO4MJY52A4&keywords=beer&qid=1654828009&sprefix=beer%2Caps%2C85&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExMVE5M0VXQ1hSSEg1JmVuY3J5cHRlZElkPUEwMzIyNzQ1MzFWTlFaV1ZaV00zNiZlbmNyeXB0ZWRBZElkPUEwNzc1OTYxMldIWlZFTFhGSzVSWiZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
+        "photoLink":"https://m.media-amazon.com/images/I/81OglHZUZ+L._SX425_PIbundle-10,TopRight,0,0_AA425SH20_.jpg",
+        "startingPrice":"5.99",
+        "dealPrice": "4.19",
+        "merchant":"Amazon",
+        "category": "Groceries",
+        "tags": ["Good Deal!", "Saved!"],
+        "submittedBy": "anthony",
+        "isUsable":1,
+        "likes":17
+    },
+    {
+        "title":"Bar Mitzvah Cake",
+        "description": "Elegant bar mitzvah design is a great addition to your celebrations",
+        "productLink": "https://www.publix.com/pd/bar-mitzvah-cake/RIO-THC-283327?origin=collections9",
+        "photoLink":"https://cutpcdnwimages.azureedge.net/images/products/90000/092187-600x600-A.jpg",
+        "startingPrice":"44.99",
+        "dealPrice": "33.99",
+        "merchant":"Publix",
+        "category": "Groceries",
+        "tags": ["Yum!"],
+        "submittedBy": "kashane",
+        "isUsable":1,
+        "likes":14
+    },
+    {
+        "title":"Joe Light Roast Ground Coffee",
+        "description": "The simple act of brewing a cup of morning coffee can provide a moment of culinary Zen-a quiet and creative start to one's day",
+        "productLink": "https://www.traderjoes.com/home/products/pdp/joe-light-roast-ground-coffee-062042",
+        "photoLink":"https://www.traderjoes.com/content/dam/trjo/context-images/62042-joes-light-roast.jpg/jcr:content/renditions/webp-1280.webp",
+        "startingPrice":"6.99",
+        "dealPrice": "5.49",
+        "merchant":"Trader Joe's",
+        "category": "Groceries",
+        "tags": ["Yum!","I Like It","Interesting","Saved!"],
+        "submittedBy": "kashane",
+        "isUsable":1,
+        "likes":10
+    },
+    {
+        "title":"Planet Fitness Membership",
+        "description": " All Planet Fitness members enjoy unlimited access to their home club and the support of our friendly, knowledgeable staff anytime you need it",
+        "productLink": "https://www.planetfitness.com/",
+        "photoLink":"https://images.ctfassets.net/nhduxlsunsu5/1tWWnabpzjfuOac9tTfam3/57dec39a8ae2e3e7fd979e365cd2d840/PF_Pride_Workouts_CB_r2.jpg",
+        "startingPrice":"39.99",
+        "dealPrice": "29.99",
+        "merchant":"Planet Fitness",
+        "category": "Things To Do",
+        "tags": ["Interesting"],
+        "submittedBy": "xuyang",
+        "isUsable":1,
+        "likes":9
+    },
+    {
+        "title":"Blackstone 4-Burner 36\" Griddle Cooking Station with Side Shelves",
+        "description": "Free shipping",
+        "productLink": "https://www.walmart.com/ip/Blackstone-4-Burner-36-Griddle-Cooking-Station-with-Side-Shelves/415776934?athbdg=L1600",
+        "photoLink":"https://i5.walmartimages.com/asr/63313e8d-927e-4ebd-b2bf-269672bd81d1_1.2777d985fa9cdc1afbd2f3738474afb3.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
+        "startingPrice":"297.00",
+        "dealPrice": "219.99",
+        "merchant":"Walmart",
+        "category": "Goods",
+        "tags": ["Interesting","Saved!"],
+        "submittedBy": "xuyang",
+        "isUsable":1,
+        "likes":10
+    }
+]
