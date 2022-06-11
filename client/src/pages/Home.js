@@ -3,31 +3,27 @@ import React from 'react';
 import Deal from '../components/Deal'
 import DealSmall from '../components/DealSmall'
 import auth from '../utils/auth';
-import { GET_HOT_DEALS } from '../utils/queries';
+import { GET_HOT_DEALS, GET_PERSONALIZED_DEALS_BY_USER_ID } from '../utils/queries';
+import { GET_ALL_DEALS } from '../utils/queries';
 import dealArray from '../utils/sampledata'
 import { Link } from 'react-router-dom';
 
 //might need useEffect here
 
-function obtainHotDeals () {
-  //add query as parameter
-  //const {loading, error, data} = useQuery(query);
-  //hotDeals = data;
-  const hotDeals = dealArray;
+function ObtainHotDeals () {
+  const {loading, data} = useQuery(GET_HOT_DEALS);
+  const hotDeals = data?.getHotDeals || [];
   return hotDeals
 }
 
-function obtainRecentDeals () {
-  //add query as parameter
-  //const {loading, error, data} = useQuery(query);
-  //recentDeals = data;
-  const recentDeals = dealArray;
+function ObtainRecentDeals () {
+  const {loading, error, data} = useQuery(GET_ALL_DEALS);
+  const recentDeals = data?.getAllDeals || [];
   return recentDeals
 }
 
-function obtainYourFeed () {
-  //add query as parameter
-  //const {loading, error, data} = useQuery(query);
+function ObtainYourFeed () {
+  const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID);
   //yourFeed = data;
   const yourFeed = dealArray;
   return yourFeed
@@ -53,7 +49,7 @@ export default function Home() {
         <div className = 'featuredDeals'>
           <h3>Featured Deals:</h3>
           <div className = 'is-flex p-6'>
-              {obtainHotDeals().slice(0,5).map((dealObj) => (
+              {ObtainHotDeals().slice(0,4).map((dealObj) => (
                 <DealSmall deal = {dealObj}></DealSmall>
               ))}
           </div>
@@ -62,7 +58,7 @@ export default function Home() {
         <div className = 'feedDeals columns'>
           <h3>Your Feed:</h3>
           <div className = 'column is-full'>
-              {obtainRecentDeals().slice(0,10).map((dealObj) => (
+              {ObtainRecentDeals().slice(0,10).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>
               ))}
           </div>
@@ -80,7 +76,7 @@ export default function Home() {
         <div className = 'featuredDeals'>
           <h3>Featured Deals:</h3>
           <div className = 'is-flex p-6'>
-              {obtainHotDeals().slice(0,5).map((dealObj) => (
+              {ObtainHotDeals().slice(0,5).map((dealObj) => (
                 <DealSmall deal = {dealObj}></DealSmall>
               ))}
           </div>
@@ -89,7 +85,7 @@ export default function Home() {
         <div className = 'feedDeals columns'>
           <h3>Recent Deals:</h3>
           <div className = 'column is-full'>
-              {obtainYourFeed().slice(0,3).map((dealObj) => (
+              {ObtainYourFeed().slice(0,3).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>
               ))}
           </div>

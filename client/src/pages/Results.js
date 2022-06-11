@@ -2,20 +2,21 @@ import React from 'react';
 import {useState} from 'react';
 import Deal from '../components/Deal'
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
-import DealSmall from '../components/DealSmall'
+import DealSmall from '../components/DealSmall';
 import auth from '../utils/auth';
 import dealArray from '../utils/sampledata';
 import Pagination from '../components/Pagination';
+import { GET_ALL_DEALS } from '../utils/queries';
+import {useQuery} from '@apollo/client';
 
 export default function Results() {
 
-  function obtainResultsDeals () {
-    //add query as parameter
-    //const {loading, error, data} = useQuery(query);
-    //resultDeals = data;
-    const resultDeals = dealArray;
-    return resultDeals;
-  }
+  const { loading, data } = useQuery(GET_ALL_DEALS);
+
+
+  const resultDeals = data?.getAllDeals || [];
+
+  console.log(resultDeals);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [dealsPerPage, setDealsPerPage] = useState(8);
@@ -26,12 +27,12 @@ export default function Results() {
     const searchKeyword = searchParams.get('store');
     // call the query
 
-    
+  
 
   //get current posts
   const indexOfLastDeal = currentPage * dealsPerPage;
   const indexOfFirstDeal = indexOfLastDeal - dealsPerPage;
-  const currentDeals = obtainResultsDeals().slice(indexOfFirstDeal, indexOfLastDeal);
+  const currentDeals = resultDeals.slice(indexOfFirstDeal, indexOfLastDeal);
 
   //change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -49,7 +50,7 @@ export default function Results() {
         </div>
       </div>
 
-    <Pagination entriesPerPage={dealsPerPage} totalEntries={obtainResultsDeals().length} paginate={paginate} previousPage={previousPage} nextPage = {nextPage} />
+    <Pagination entriesPerPage={dealsPerPage} totalEntries={resultDeals.length} paginate={paginate} previousPage={previousPage} nextPage = {nextPage} />
 
     </div>
   );

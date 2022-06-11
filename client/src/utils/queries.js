@@ -567,4 +567,4 @@ export const GET_SEARCH_HISTORY_BY_USER_ID = gql`
       _id
     }
   }
-}
+}`

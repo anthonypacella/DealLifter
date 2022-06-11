@@ -9,17 +9,21 @@ const vcenterChild = {transform: 'translateY(100%)'};
 React.createElement("div", {style: vcenterChild});
 
 const Deal = ({ deal }) => {
-    // const [likes, setLikes] = useState(0);
-    // const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     console.log(saved);
     
     const saveDeal = ({deal}) => {
         setSaved(!saved);
-        console.log(saved);
         // saveDealToUserProfile(user._id, {deal}); //add UserID to param
     };
 
+    const likeDeal = ({deal}) => {
+        setLiked(!liked);
+        console.log(saved);
+        // saveDealToUserProfile(user._id, {deal}); //add UserID to param
+    };
     // const likeDeal = ({deal}) => {
     //     setLiked(!liked)
 
@@ -89,12 +93,23 @@ const Deal = ({ deal }) => {
                    
             </div>
 
-            <div className = "deal_UserInteractionContainter columns is-3 is-flex is-vcentered">
-                    <button className = {saved === true ? 'button is-large is-pulled-right box has-background-warning' : 'button is-pulled-right is-pulled-up is-large box has-background-white'} onClick= {() => saveDeal({deal},[])}>
+            <div className = "deal_UserInteractionContainter columns is-flex is-vcentered">
+                <div className = 'column is-full'>
+                    <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => saveDeal({deal},[])}>
                         <div className = 'saveButon'>
-                            <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                            <i className={saved === true ? 'is-centered fas fa-solid fa-star icon' : 'is-centered fas fa-light fa-star icon'}></i>  
                         </div>
                     </button>
+                    <div>Save</div>
+                    <br></br>
+                    <button className = {liked === true ? 'button is-large is-pulled-right is-full-width has-background-danger' : 'button is-full-width is-large is-pulled-right has-background-white'} onClick= {() => likeDeal({deal},[])}>
+                        <div className = 'likeButton'>
+                            <i className={liked === true ? 'is-centered fas fa-solid fa-heart icon' : 'is-centered fas fa-light fa-heart icon'}></i>  
+                        </div>
+                    </button>
+                    <div>Like</div>
+                </div>
+
             </div>
 
         </div>

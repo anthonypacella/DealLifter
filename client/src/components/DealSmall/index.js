@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 import '../DealSmall/style.css'
 
 const DealSmall = ({ deal }) => {
-    // const [likes, setLikes] = useState(0);
-    // const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     console.log(saved);
     
     const saveDeal = ({deal}) => {
         setSaved(!saved);
         // saveDealToUserProfile(user._id, {deal}); //add UserID to param
+    };
+
+    const likeDeal = ({deal}) => {
+        setLiked(!liked);
     };
 
     // const likeDeal = ({deal}) => {
@@ -32,15 +36,7 @@ const DealSmall = ({ deal }) => {
     }
 
     return (
-        <div className = "dealSmall_Container card p-4 m-4">
-            <div className = "dealSmall_UserInteractionContainter has-text-centered">
-                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
-                    <div className = 'saveButon'>
-                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
-                    </div>
-                </button>
-            </div>
-
+        <div className = "dealSmall_Container card p-4 m-4 rows">
             <div className = "media-content">
                 <a 
                     className = "is-size-4 dealSmall_Title"
@@ -60,7 +56,7 @@ const DealSmall = ({ deal }) => {
             </div>
 
 
-            <div className = 'card-image'>
+            <div className = 'card-image image'>
                 <a
                     href = {deal.productLink}
                     target = '_blank'
@@ -69,21 +65,37 @@ const DealSmall = ({ deal }) => {
                  </a>
             </div>
 
-            <div className = "dealSmall_InfoContainer">
-                <div className = "dealSmall_Description">{deal.description}</div>
-                <br></br>
+            <div className = "dealSmall_InfoContainer rowSmall">
                 <div className = "is-size-5 dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
                 <div className = "is-size-5 DealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
                 <br></br>
             </div>
 
-            <div className = "dealSmall_UserInfo">
+            <div className = "dealSmall_UserInfo rowSmall">
                     <div className = 'dealSmall_UserUsername'>Posted by: 
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
                         </Link>
                     </div>
                 <div className = 'dealSmall_UserPostTime'>Posted: {deal.submittedOn}</div>
+            </div>
+            
+            <br></br>
+
+            <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-left">
+                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
+                    <div className = 'saveButon'>
+                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                    </div>
+                </button>
+            </div>
+
+            <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-right">
+                <button className = {liked === true ? 'button is-small is-pulled-right box has-background-danger' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => likeDeal({deal},[])}>
+                    <div className = 'saveButon'>
+                        <i className={liked === true ? 'fas fa-solid fa-heart' : 'fas fa-light fa-heart'}></i>            
+                    </div>
+                </button>
             </div>
 
 
