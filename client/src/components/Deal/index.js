@@ -76,6 +76,9 @@ const Deal = ({ deal }) => {
                     <div className = 'deal_UserPostTime'>
                         Posted: {deal.submittedOn}
                     </div>
+                    <div className = 'deal_Expiration'>
+                        Expiration: {deal.expiration}
+                    </div>
             </div>
 
             <div className = "deal_UserInteractionContainter columns is-3 is-flex is-vcentered">
