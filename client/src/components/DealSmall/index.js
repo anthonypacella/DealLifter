@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 import '../DealSmall/style.css'
 
 const DealSmall = ({ deal }) => {
-    // const [likes, setLikes] = useState(0);
-    // const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     console.log(saved);
     
     const saveDeal = ({deal}) => {
         setSaved(!saved);
         // saveDealToUserProfile(user._id, {deal}); //add UserID to param
+    };
+
+    const likeDeal = ({deal}) => {
+        setLiked(!liked);
     };
 
     // const likeDeal = ({deal}) => {
@@ -33,14 +37,6 @@ const DealSmall = ({ deal }) => {
 
     return (
         <div className = "dealSmall_Container card p-4 m-4">
-            <div className = "dealSmall_UserInteractionContainter has-text-centered">
-                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
-                    <div className = 'saveButon'>
-                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
-                    </div>
-                </button>
-            </div>
-
             <div className = "media-content">
                 <a 
                     className = "is-size-4 dealSmall_Title"
@@ -84,6 +80,24 @@ const DealSmall = ({ deal }) => {
                         </Link>
                     </div>
                 <div className = 'dealSmall_UserPostTime'>Posted: {deal.submittedOn}</div>
+            </div>
+            
+            <br></br>
+
+            <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-left">
+                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => saveDeal({deal},[])}>
+                    <div className = 'saveButon'>
+                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                    </div>
+                </button>
+            </div>
+
+            <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-right">
+                <button className = {liked === true ? 'button is-small is-pulled-right box has-background-danger' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => likeDeal({deal},[])}>
+                    <div className = 'saveButon'>
+                        <i className={liked === true ? 'fas fa-solid fa-heart' : 'fas fa-light fa-heart'}></i>            
+                    </div>
+                </button>
             </div>
 
 
