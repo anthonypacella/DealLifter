@@ -2,59 +2,73 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
-const userSchema = new Schema({
-  userName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5
-  },
-  savedDeals: [
-    {
-      type: Schema.Types.ObjectId,
+const userSchema = new Schema(
+  {
+    userName: {
+      type: String,
       required: true,
-      ref: 'Deal'
-    }
-  ],
-  favoriteTags: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Tag'
-    }
-  ],
-  following: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  followers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  avatar: {
-    type: String,
-    required: true,
-    default: "https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png"  
+      trim: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5
+    },
+    savedDeals: [
+      {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Deal'
+      }
+    ],
+    favoriteTags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Tag'
+      }
+    ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    avatar: {
+      type: String,
+      required: true,
+      default: "https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png"  
+    },
+    searchHistory: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Search'
+      }
+    ], 
   },
-  searchHistory: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Search'
-    }
-  ], 
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
+// can delete this virtual later if we dont need it
+userSchema.virtual('totalFollowers').get(function () {
+  return `followers: ${this}.length`;
+});
+userSchema.virtual('totalFollowing').get(function () {
+  return `following: ${this}.length`;
 });
 
 // set up pre-save middleware to create password

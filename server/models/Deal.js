@@ -89,7 +89,7 @@ const dealSchema = new Schema({
       createdAt: {
         type: Date,
         default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
+        // get: (timestamp) => dateFormat(timestamp),
       },
     },
   ],

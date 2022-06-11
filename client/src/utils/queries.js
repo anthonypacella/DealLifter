@@ -484,3 +484,87 @@ export const GET_SAVED_DEALS_BY_USER_ID = gql`
     }
   }
 `;
+
+export const GET_DEALS_BY_TAG_ID = gql`
+  query getDealsByTagId($tagId: ID!) {
+    getDealsByTagId(tagId: $tagId) {
+      _id
+      title
+      description
+      photoLink
+      productLink
+      startingPrice
+      dealPrice
+      merchant {
+        _id
+        name
+      }
+      category {
+        _id
+        name
+      }
+      tags {
+        _id
+        tagName
+        color
+      }
+      submittedBy {
+        _id
+        userName
+      }
+      submittedOn
+      expiration
+      isUsable
+    }
+  }
+`;
+
+export const GET_DEALS_BY_KEYWORD = gql`
+  query getDealsByKeyword($keyword: String!) {
+    getDealsByKeyword(keyword: $keyword) {
+      _id
+      title
+      description
+      photoLink
+      productLink
+      startingPrice
+      dealPrice
+      merchant {
+        _id
+        name
+      }
+      category {
+        _id
+        name
+      }
+      tags {
+        _id
+        tagName
+      }
+      submittedBy {
+        _id
+        userName
+      }
+      submittedOn
+      expiration
+      isUsable
+    }
+  }
+`;
+
+export const GET_SEARCH_HISTORY_BY_USER_ID = gql`
+  query getSearchHistoryByUserId($userId: ID!) {
+  getSearchHistoryByUserId(userId: $userId) {
+    _id
+    keyword
+    categoryFilter {
+      _id
+    }
+    tagFilter {
+      _id
+    }
+    merchantFilter {
+      _id
+    }
+  }
+}
