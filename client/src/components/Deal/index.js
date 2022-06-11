@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import '../Deal/style.css'
 
+const vcenter = {height: 'auto', position: 'relative'};
+React.createElement("div", {style: vcenter});
+const vcenterChild = {transform: 'translateY(100%)'};
+React.createElement("div", {style: vcenterChild});
+
 const Deal = ({ deal }) => {
     // const [likes, setLikes] = useState(0);
     // const [liked, setLiked] = useState(false);
@@ -67,7 +72,8 @@ const Deal = ({ deal }) => {
                 <br></br>
             </div>
 
-            <div className = "deal_UserInfo card-content column is-3">
+            <div className = "deal_UserInfo card-content column is-3" style={vcenter}>
+                <div style={vcenterChild}>
                     <div className = 'deal_UserUsername'>Posted by: 
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
@@ -79,6 +85,8 @@ const Deal = ({ deal }) => {
                     <div className = 'deal_Expiration'>
                         Expiration: {deal.expiration}
                     </div>
+                </div>
+                   
             </div>
 
             <div className = "deal_UserInteractionContainter columns is-3 is-flex is-vcentered">
