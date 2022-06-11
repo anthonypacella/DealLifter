@@ -94,7 +94,7 @@ const resolvers = {
             // {category: { $in: search.categoryFilter } },
             // {tags: { $in: search.tagFilter } }
           ]
-        }).populate('category').populate('tags').populate('merchant').populate('submittedBy')
+        }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
 
         dealsArray = dealsArray.concat(dealsArrayTemp);
       })
@@ -113,16 +113,16 @@ const resolvers = {
           {expiration: { $gt: currentDate } },
           {expiration: { $lt: weekAheadDate } },
         ]
-      });
+      }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 
     // this is used on both viewing my own profile page, and viewing anothers
     getPostedDealsByUserId: async (parent, { userId }) => {
-      return await Deal.find({ submittedBy: userId });
+      return await Deal.find({ submittedBy: userId }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 
     getDealsByMerchantId: async (parent, { merchantId }) => {
-      return await Deal.find({ "merchant": merchantId });
+      return await Deal.find({ "merchant": merchantId }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 
     // saved deals is a private thing right, so this one could use context.user.savedDeals ?
@@ -132,13 +132,11 @@ const resolvers = {
     // },
     // second attempt is using context, way easier, if it works
     getSavedDealsByUserId: async (parent, args, context) => {
-      context.user.savedDeals.forEach(deal => {
-        return deal;
-      })
+      return context.user.savedDeals
     },
 
     getDealsByTagId: async (parent, { tagId }) => {
-      return await Deal.find({ "tags.tagId": tagId });
+      return await Deal.find({ "tags.tagId": tagId }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 
     // copied something very similar to my code from persoinalized deals
