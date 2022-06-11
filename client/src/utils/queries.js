@@ -6,6 +6,8 @@ export const GET_ALL_CATEGORIES = gql`
     getAllCategories {
       _id
       name
+      icon
+      link
     }
   }
 `;
@@ -15,6 +17,8 @@ export const GET_CATEGORY_BY_ID = gql`
     getCategoryById(categoryId: $categoryId) {
       _id
       name
+      icon
+      link
     }
   }
 `;
@@ -52,6 +56,8 @@ export const GET_ALL_MERCHANTS = gql`
       categories {
         _id
         name
+        icon
+        link
       }
       deals {
         _id
@@ -73,6 +79,8 @@ export const GET_MERCHANT_BY_ID = gql`
       categories {
         _id
         name
+        icon
+        link
       }
       deals {
         _id
@@ -96,6 +104,8 @@ export const GET_MERCHANT_BY_NAME = gql`
       categories {
         _id
         name
+        icon
+        link
       }
       deals {
         _id
@@ -119,6 +129,8 @@ export const GET_MERCHANT_BY_CATEGORY = gql`
       categories {
         _id
         name
+        icon
+        link
       }
       deals {
         _id
@@ -138,6 +150,9 @@ export const QUERY_ME = gql`
       password
       savedDeals {
         _id
+        title
+        description
+        
       }
       favoriteTags {
         _id
@@ -166,21 +181,58 @@ export const GET_USER_BY_ID = gql`
       password
       savedDeals {
         _id
+        title
+        description
+        photoLink
+        productLink
+        startingPrice
+        dealPrice
+        merchant {
+          _id
+          name
+        }
+        category {
+          _id
+          name
+          icon
+          link
+        }
+        tags {
+          _id
+          tagName
+          color
+          createdAt
+        }
+        submittedBy {
+          _id
+          userName
+        }
+        submittedOn
+        expiration
+        isUsable
+        likes
       }
       favoriteTags {
         _id
+        tagName
+        color
+        createdAt
       }
       following {
         _id
+        userName
       }
       followers {
         _id
+        userName
       }
       avatar
       searchHistory {
         _id
         keyword
       }
+      totalFollowing
+      totalFollowers
     }
   }
 `;
@@ -238,6 +290,7 @@ export const GET_ALL_DEALS = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -272,6 +325,7 @@ export const GET_DEAL_BY_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
       comments {
         _id
         commentText
@@ -311,6 +365,7 @@ export const GET_HOT_DEALS = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -345,6 +400,7 @@ export const GET_PERSONALIZED_DEALS_BY_USER_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -379,6 +435,7 @@ export const GET_EXPIRING_DEALS = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -413,6 +470,7 @@ export const GET_POSTED_DEALS_BY_USER_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -447,6 +505,7 @@ export const GET_DEALS_BY_MERCHANT_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -481,6 +540,7 @@ export const GET_SAVED_DEALS_BY_USER_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -515,6 +575,7 @@ export const GET_DEALS_BY_TAG_ID = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;
@@ -548,6 +609,7 @@ export const GET_DEALS_BY_KEYWORD = gql`
       submittedOn
       expiration
       isUsable
+      likes
     }
   }
 `;

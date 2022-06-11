@@ -95,11 +95,99 @@ export const UPDATE_MERCHANT = gql`
 `
 
 export const POST_DEAL = gql`
-  mutation postDeal($title: String!, $link: String!, $photoLink: String!, $description: String, $startingPrice: Float, $dealPrice: Float, $expiration: String, $merchant: ID!, $category: ID!, $tags: [ID], $productLink: String!) {
-    postDeal(title: $title, link: $link, photoLink: $photoLink, description: $description, startingPrice: $startingPrice, dealPrice: $dealPrice, expiration: $expiration, merchant: $merchant, category: $category, tags: $tags, productLink: $productLink) {
+  mutation postDeal($title: String!, $link: String!, $photoLink: String!, $description: String, $startingPrice: Float, $dealPrice: Float, $merchant: ID!, $category: ID!, $tags: [ID], $productLink: String!, $submittedBy: ID, $expiration: String) {
+    postDeal(title: $title, link: $link, photoLink: $photoLink, description: $description, startingPrice: $startingPrice, dealPrice: $dealPrice, merchant: $merchant, category: $category, tags: $tags, productLink: $productLink, submittedBy: $submittedBy, expiration: $expiration) {
       _id
       title
       description
+    }
+  }
+`
+
+export const UPDATE_DEAL = gql`
+  mutation updateDeal($dealId: ID!, $title: String!, $description: String, $link: String, $photoLink: String, $productLink: String, $startingPrice: Float, $dealPrice: Float, $merchant: ID, $category: ID, $tags: [ID]) {
+    updateDeal(dealId: $dealId, title: $title, description: $description, link: $link, photoLink: $photoLink, productLink: $productLink, startingPrice: $startingPrice, dealPrice: $dealPrice, merchant: $merchant, category: $category, tags: $tags) {
+      _id
+      title
+      description
+    }
+  }
+`
+
+export const LIKE_DEAL = gql`
+  mutation likeDeal($dealId: ID!) {
+  likeDeal(dealId: $dealId) {
+    _id
+    likes
+  }
+`
+
+export const SAVE_DEAL_BY_ID = gql`
+  mutation saveDealById($dealId: ID!) {
+    saveDealById(dealId: $dealId) {
+      _id
+      userName
+      savedDeals {
+        _id
+      }
+    }
+  }
+`
+export const FAVORITE_TAG_BY_ID = gql`
+  mutation favoriteTagById($tagId: ID!) {
+    favoriteTagById(tagId: $tagId) {
+      _id
+      userName
+      favoriteTags {
+        _id
+      }
+    }
+  }
+`
+export const ADD_TO_FOLLOWING = gql`
+  mutation addToFollowing($userId: ID!) {
+    addToFollowing(userId: $userId) {
+      _id
+      userName
+      following {
+        _id
+      }
+      followers {
+        _id
+      }
+    }
+  }
+`
+
+export const ADD_TO_FOLLOWERS = gql`
+  mutation addToFollowers($userId: ID!) {
+    addToFollowers(userId: $userId) {
+      _id
+      userName
+      following {
+        _id
+      }
+      followers {
+        _id
+      }
+    }
+  }
+`
+
+export const CREATE_SEARCH = gql`
+  mutation createSearch($keyword: String!, $categoryFilter: [ID], $merchantFilter: [ID], $tagFilter: [ID]) {
+    createSearch(keyword: $keyword, categoryFilter: $categoryFilter, merchantFilter: $merchantFilter, tagFilter: $tagFilter) {
+      _id
+      keyword
+    }
+  }
+`
+
+export const ADD_TO_SEARCH_HISTORY = gql`
+  mutation addToSearchHistory($searchId: ID!) {
+    addToSearchHistory(searchId: $searchId) {
+      _id
+      userName
     }
   }
 `

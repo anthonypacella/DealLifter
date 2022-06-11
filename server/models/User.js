@@ -63,12 +63,11 @@ const userSchema = new Schema(
   }
 );
 
-// can delete this virtual later if we dont need it
 userSchema.virtual('totalFollowers').get(function () {
-  return `followers: ${this}.length`;
+  return this.followers.length;
 });
 userSchema.virtual('totalFollowing').get(function () {
-  return `following: ${this}.length`;
+  return this.following.length;
 });
 
 // set up pre-save middleware to create password
@@ -77,7 +76,6 @@ userSchema.pre('save', async function(next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 

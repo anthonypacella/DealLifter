@@ -50,8 +50,10 @@ const typeDefs = gql`
     favoriteTags: [Tag]
     following: [User]
     followers: [User]
-    avatar: String!
+    avatar: String
     searchHistory: [Search]
+    totalFollowers: Int
+    totalFollowing: Int
   }
 
   type Search {
@@ -83,6 +85,7 @@ const typeDefs = gql`
     submittedOn: String
     expiration: String
     isUsable: [Int]
+    likes: Int
     comments: [Comment]
   }
 
@@ -120,9 +123,6 @@ const typeDefs = gql`
     getSavedDealsByUserId(userId: ID!):[Deal]
     getDealsByTagId(tagId: ID!): [Deal]
     getDealsByKeyword(keyword: String!, merchantFilter: [ID], categoryFilter: [ID], tagFilter: [ID]) : [Deal]
-    merchantFilter: ID!
-    categoryFilter: ID!
-    tagFilter: ID!
 
     getSearchHistoryByUserId(userId: ID!): [Search]
   }
@@ -151,6 +151,7 @@ const typeDefs = gql`
       merchant: ID!,
       category: ID!,
       tags: [ID],
+      submittedBy: ID,
       expiration: String
     ): Deal
 
@@ -168,11 +169,14 @@ const typeDefs = gql`
       expiration: String
     ): Deal
 
+    likeDeal(dealId: ID!): Deal
+
     removeTagFromDeal(tagId: ID!, dealId: ID!): Deal
 
     saveDealById(dealId: ID!): User
     favoriteTagById(tagId: ID!): User
-    followUserById(userId: ID!): User
+    addToFollowing(userId: ID!): User
+    addToFollowers(userId: ID!): User
 
     createSearch(keyword: String!, merchantFilter: [ID], categoryFilter: [ID], tagFilter: [ID]): Search
     addToSearchHistory(searchId: ID!): User
