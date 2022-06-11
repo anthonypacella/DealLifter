@@ -16,6 +16,8 @@ const typeDefs = gql`
   type Category {
     _id: ID!
     name: String!
+    icon: String!
+    link: String!
   }
 
   input categoryInput {
@@ -117,24 +119,27 @@ const typeDefs = gql`
     getDealsByMerchantId(merchantId: ID!): [Deal]
     getSavedDealsByUserId(userId: ID!):[Deal]
     getDealsByTagId(tagId: ID!): [Deal]
-    getDealsByKeyword(keyword: String!) : [Deal]
+    getDealsByKeyword(keyword: String!, merchantFilter: [ID], categoryFilter: [ID], tagFilter: [ID]) : [Deal]
+    merchantFilter: ID!
+    categoryFilter: ID!
+    tagFilter: ID!
 
     getSearchHistoryByUserId(userId: ID!): [Search]
   }
 
   type Mutation {
     addUser(userName: String!, email: String!, password: String!, avatar: String!): Auth
-    updateUser(userName: String, email: String, password: String, avatar: String!): User
+    updateUser(userName: String, email: String, password: String, avatar: String): User
     login(email: String!, password: String!): Auth
     
     createTag(tagName: String!, color: String): Tag
-    updateTag(tagId: ID!, tagName: String!, color: String): Tag
+    updateTag(tagId: ID!, tagName: String, color: String): Tag
 
     createCategory(name: String!, icon: String!, link: String!): Category
-    updateCategory(categoryId: ID!, name: String!, icon: String!, link: String!): Category
+    updateCategory(categoryId: ID!, name: String, icon: String, link: String): Category
 
     createMerchant(name: String!, description: String, logo: String, homepage: String!, categories: [ID]): Merchant
-    updateMerchant(merchantId: ID!, name: String!, description: String, logo: String, homepage: String!, categories: [ID], deals: [ID]): Merchant
+    updateMerchant(merchantId: ID!, name: String, description: String, logo: String, homepage: String, categories: [ID], deals: [ID]): Merchant
 
     postDeal(title: String!,
       description: String,
@@ -150,11 +155,11 @@ const typeDefs = gql`
     ): Deal
 
     updateDeal(dealId: ID!,
-      title: String!,
+      title: String,
       description: String,
-      link: String!,
-      photoLink: String!,
-      productLink: String!,
+      link: String,
+      photoLink: String,
+      productLink: String,
       startingPrice: Float,
       dealPrice: Float,
       merchant: ID,
