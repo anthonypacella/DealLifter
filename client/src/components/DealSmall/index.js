@@ -36,7 +36,7 @@ const DealSmall = ({ deal }) => {
     }
 
     return (
-        <div className = "dealSmall_Container card p-4 m-4">
+        <div className = "dealSmall_Container card p-4 m-4 rows">
             <div className = "media-content">
                 <a 
                     className = "is-size-4 dealSmall_Title"
@@ -56,7 +56,7 @@ const DealSmall = ({ deal }) => {
             </div>
 
 
-            <div className = 'card-image'>
+            <div className = 'card-image image'>
                 <a
                     href = {deal.productLink}
                     target = '_blank'
@@ -65,15 +65,13 @@ const DealSmall = ({ deal }) => {
                  </a>
             </div>
 
-            <div className = "dealSmall_InfoContainer">
-                <div className = "dealSmall_Description">{deal.description}</div>
-                <br></br>
+            <div className = "dealSmall_InfoContainer rowSmall">
                 <div className = "is-size-5 dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
                 <div className = "is-size-5 DealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
                 <br></br>
             </div>
 
-            <div className = "dealSmall_UserInfo">
+            <div className = "dealSmall_UserInfo rowSmall">
                     <div className = 'dealSmall_UserUsername'>Posted by: 
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
