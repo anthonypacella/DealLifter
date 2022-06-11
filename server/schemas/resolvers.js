@@ -27,7 +27,7 @@ const resolvers = {
     },
     // review this later
     getMerchantByName: async (parent, { name }) => {
-      return await Merchant.find({ name: name }).populate('categories').populate('deals');
+      return await Merchant.findOne({ name: name }).populate('categories').populate('deals');
     },
     // needs review
     getMerchantByCategory: async (parent, { categoryId }) => {
@@ -41,10 +41,10 @@ const resolvers = {
       return await User.findById(context.user._id).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getUserByUserName: async (parent, { userName }) => {
-      return await User.find({ userName: userName });
+      return await User.findOne({ userName: userName }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getUserByUserEmail: async (parent, { email }) => {
-      return await User.find({ email: email });
+      return await User.findOne({ email: email }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getFollowersByUserId: async (parent, { userId }) => {
       return await User.find({ "followers.userId": userId }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
@@ -279,8 +279,28 @@ const resolvers = {
     updateDeal: async (parent, args) => {
       return await Deal.findByIdAndUpdate(args.dealId, args, { new: true } );
     },
+    likeDeal: async (parent, args) => {
+      return await Deal.findByIdAndUpdate(args.dealId, { $inc: { likes: 1 } }, { new: true } );
+    },
+
+    // not going to use this //
     removeTagFromDeal: async (parent, { tagId, dealId } ) => {
-      return await Deal.findByIdAndUpdate(dealId, { $pull: { "tags": { _id: tagId } } }, { new: true } );
+      return await Deal.findOneAndUpdate({ "_id": dealId }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
+    },
+
+    saveDealById: async (parent, { dealId }, context) => {
+      return await User.findByIdAndUpdate(context.user._id, { $addToSet: { savedDeals: dealId } }, { new: true } )
+    },
+    favoriteTagById: async (parent, { tagId }, context) => {
+      return await User.findByIdAndUpdate(context.user._id, { $addToSet: { favoriteTags: tagId } }, { new: true } )
+    },
+
+    addToFollowing: async (parent, { userId }, context) => {
+      addToFollowers(userId);
+      return await User.findByIdAndUpdate(context.user._id, { $addToSet: { following: userId } }, { new: true } )
+    },
+    addToFollowers: async (parent, { userId }, context) => {
+      return await User.findByIdAndUpdate(userId, { $addToSet: { followers: context.user._id } }, { new: true } )
     },
 
     // searchHistory mutation
@@ -290,7 +310,7 @@ const resolvers = {
     },
     addToSearchHistory: async (parent, { searchId }, context ) => {
       let userId = context.user._id
-      return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory:  searchId } }, { new: true } )
+      return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory: searchId } }, { new: true } )
     },
 
     // these two mutation were from starter code
