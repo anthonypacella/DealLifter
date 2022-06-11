@@ -36,9 +36,11 @@ function obtainYourFeed () {
 const recentDeals = dealArray;
 const yourFeed = dealArray;
 
+const loggedIn = true; // should remove this later
+
 export default function Home() {
 
-  if (auth.loggedIn) {
+  if (loggedIn) { // should be auth.loggedIn
     return (
       <div className = 'm-5'>
         <div className = 'is-flex'>
