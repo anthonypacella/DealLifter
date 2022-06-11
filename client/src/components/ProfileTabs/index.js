@@ -208,7 +208,6 @@ const followingExample = [
     PostedDealsByUser: 1,
   },
 ];
-
 const followersExample = [
   {
     userName: 'Sally',

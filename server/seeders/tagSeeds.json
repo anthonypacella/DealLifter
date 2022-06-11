@@ -1,0 +1,22 @@
+[
+    {
+        "tagName":"Good Deal!",
+        "color":"#ffd700"
+    },
+    {
+        "tagName":"Interesting",
+        "color":"#ff8db7"
+    },
+    {
+        "tagName":"Yum!",
+        "color":"#e082ac"
+    },
+    {
+        "tagName":"I Like It",
+        "color":"#77aabb"
+    },
+    {
+        "tagName":"Saved",
+        "color":"#7ab1a5"
+    }
+]

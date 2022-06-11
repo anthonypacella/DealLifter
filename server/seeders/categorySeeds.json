@@ -1,0 +1,27 @@
+[
+   {
+        "name": "Things To Do",
+        "icon": "fas fa-rocket",
+        "link": "results?category=things-to-do"
+    },
+    {
+        "name": "Food & Drink",
+        "icon": "fas fa-bowl-food",
+        "link": "results?category=food-and-drink"
+    },
+    {
+        "name": "Clothing & Accessories",
+        "icon": "fa-solid fa-spa",
+        "link": "results?category=clothing-and-accessories"
+    }, 
+    {
+        "name": "Goods",
+        "icon": "fa-solid fa-bag-shopping",
+        "link": "results?category=goods"
+    },
+    {
+        "name": "Groceries",
+        "icon": "fa-solid fa-basket-shopping",
+        "link": "results?category=groceries"
+    }
+]

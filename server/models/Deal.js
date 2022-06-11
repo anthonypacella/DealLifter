@@ -36,7 +36,6 @@ const dealSchema = new Schema({
   },
   merchant: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref: 'Merchant'
   },
   category: {
