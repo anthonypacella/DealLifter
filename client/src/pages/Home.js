@@ -7,6 +7,7 @@ import { GET_HOT_DEALS } from '../utils/queries';
 import dealArray from '../utils/sampledata'
 import { Link } from 'react-router-dom';
 
+//might need useEffect here
 
 function obtainHotDeals () {
   //add query as parameter

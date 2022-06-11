@@ -10,7 +10,6 @@ const DealSmall = ({ deal }) => {
     
     const saveDeal = ({deal}) => {
         setSaved(!saved);
-        console.log(saved);
         // saveDealToUserProfile(user._id, {deal}); //add UserID to param
     };
 
