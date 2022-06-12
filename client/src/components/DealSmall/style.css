@@ -1,9 +1,15 @@
-.row {
-    height: 250px;
+.card-img-top {
+    width: 100%;
+    height: 25vw;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
+.row {
+    height: 130px
+}
 
-
-.rowSmall {
-    height: 100px;
+.card-img-top:hover {
+    width: 90%;
+    height: 90%;
 }

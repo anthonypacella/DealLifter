@@ -120,6 +120,7 @@ export const LIKE_DEAL = gql`
     _id
     likes
   }
+}
 `
 
 export const SAVE_DEAL_BY_ID = gql`

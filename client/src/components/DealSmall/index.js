@@ -37,7 +37,7 @@ const DealSmall = ({ deal }) => {
 
     return (
         <div className = "dealSmall_Container card p-4 m-4 rows">
-            <div className = "media-content">
+            <div className = "row media-content">
                 <a 
                     className = "is-size-4 dealSmall_Title"
                     href = {deal.productLink}
@@ -56,18 +56,18 @@ const DealSmall = ({ deal }) => {
             </div>
 
 
-            <div className = 'card-image image'>
+            <div className = 'image_containter '>
                 <a
                     href = {deal.productLink}
                     target = '_blank'
                 >
-                     <img className = "dealSmall_Image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
+                     <img className = "card-img-top image is-centered" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
                  </a>
             </div>
 
             <div className = "dealSmall_InfoContainer rowSmall">
-                <div className = "is-size-5 dealSmall_StartingPrice">Original Price: {deal.startingPrice}</div>
-                <div className = "is-size-5 DealSmall_DealPrice">Price Now: {deal.dealPrice}</div>
+                <div className = "is-size-5 dealSmall_StartingPrice"><del>${deal.startingPrice}</del></div>
+                <div className = "is-size-5 DealSmall_DealPrice"><strong>${deal.dealPrice}</strong></div>
                 <br></br>
             </div>
 
@@ -77,7 +77,7 @@ const DealSmall = ({ deal }) => {
                             {deal.submittedBy.userName}
                         </Link>
                     </div>
-                <div className = 'dealSmall_UserPostTime'>Posted: {deal.submittedOn}</div>
+                <div className = 'dealSmall_UserPostTime'>Posted: {Date(deal.submittedOn)}</div>
             </div>
             
             <br></br>
