@@ -237,6 +237,22 @@ export const GET_USER_BY_ID = gql`
   }
 `;
 
+export const GET_USER_BY_USERNAME = gql`
+  query getUserByUserName($userName: String!) {
+    getUserByUserName(userName: $userName) {
+      _id
+    }
+  }
+`;
+
+export const GET_USER_BY_EMAIL = gql`
+  query getUserByUserEmail($email: String!) {
+    getUserByUserEmail(email: $email) {
+      _id
+    }
+  }
+`;
+
 // maybe add more properties of each followering that we get back?
 export const GET_FOLLOWERS_BY_USER_ID = gql`
   query getFollowersByUserId($userId: ID!) {
