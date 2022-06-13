@@ -3,12 +3,15 @@ import { Link, renderMatches } from 'react-router-dom';
 import './tabs';
 import tabs from './tabs';
 import {useState} from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import PostedDeals from '../PostedDeals/index'
 import SavedDeals from '../SavedDeals/index'
 import Following from '../Following/index'
 import Followers from '../Followers/index'
 
+import { GET_USER_BY_USERNAME, GET_POSTED_DEALS_BY_USER_ID } from '../../utils/queries';
 
 const postedDealsExample = [
   {
@@ -231,7 +234,11 @@ const followersExample = [
   },
 ];
 
-const InfoBar = () => {
+const ProfileTabs = (data) => {
+  
+  console.log(data);
+  
+
   const [isShown, setIsShown] = useState(false);
   const [buttonState, setButtonState] = useState(1);
 
@@ -274,4 +281,4 @@ const InfoBar = () => {
   );
 };
 
-export default InfoBar;
+export default ProfileTabs;

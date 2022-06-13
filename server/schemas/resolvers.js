@@ -49,10 +49,10 @@ const resolvers = {
       return await User.findById(context.user._id).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getUserByUserName: async (parent, { userName }) => {
-      return await User.find({ userName: userName });
+      return await User.findOne({ userName: userName }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getUserByUserEmail: async (parent, { email }) => {
-      return await User.find({ email: email });
+      return await User.findOne({ email: email }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getFollowersByUserId: async (parent, { userId }) => {
       return await User.find({ "followers.userId": userId }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
@@ -118,7 +118,7 @@ const resolvers = {
 
     // this is used on both viewing my own profile page, and viewing anothers
     getPostedDealsByUserId: async (parent, { userId }) => {
-      return await Deal.find({ submittedBy: userId });
+      return await Deal.find({ submittedBy: userId }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 
     getDealsByMerchantId: async (parent, { merchantId }) => {

@@ -39,6 +39,21 @@ const InfoBar = () => {
             ))}
           </div>
         </div>
+
+        <div className="navbar-item navbar-end">
+          <div className="field has-addons">
+            <p className="control">
+              <input className="input is-rounded" type="text" placeholder="Search the deals" autocomplete="off"></input>
+            </p>
+            <p className="control">
+              <button className="button is-rounded is-warning">
+                <span className="icon is-small is-left">
+                  <i className="fas fa-search"></i>
+                </span>
+              </button>
+            </p>
+          </div>
+        </div>
       </div>
     </nav>
   );

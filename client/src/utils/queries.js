@@ -484,3 +484,11 @@ export const GET_SAVED_DEALS_BY_USER_ID = gql`
     }
   }
 `;
+
+export const GET_USER_BY_USERNAME = gql`
+query GetUserByUserName($userName: String!) {
+  getUserByUserName(userName: $userName) {
+    _id
+  }
+}
+`;
