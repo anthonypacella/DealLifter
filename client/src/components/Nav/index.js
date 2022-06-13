@@ -23,7 +23,7 @@ const Nav = () => {
                     {Auth.loggedIn() ? (
                         <ul>
                             <li>
-                                <span><Link to="/me">Account</Link></span>
+                                <span><Link to="/">Account</Link></span>
                             </li>
                             <li>
                                 <span><Link onClick={logout}>Log Out</Link></span>
