@@ -42,7 +42,7 @@ export default function Home() {
         <div className = 'is-flex'>
           <h1>Home Page</h1>
           <Link to = '/post'>
-            <button className = 'button is-large is-pulled-right'>POST A DEAL +</button>
+            <button className = 'button is-large is-pulled-right has-background-danger-dark is-white'>POST A DEAL +</button>
           </Link>
         </div>
   

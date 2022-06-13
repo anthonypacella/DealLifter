@@ -9,7 +9,7 @@
         "tags": [],
         "isUsable":1,
         "likes":10,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Women's Short Sleeve T-Shirt Dress",
@@ -20,7 +20,7 @@
         "dealPrice": "12.99",
         "isUsable":1,
         "likes":12,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"adidas Men's Grand Court Tennis Shoes",
@@ -31,7 +31,7 @@
         "dealPrice": "51.99",
         "isUsable":1,
         "likes":8,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Diet Pepsi Soda, 7.5 Ounce Mini Cans, 10 Pack",
@@ -42,7 +42,7 @@
         "dealPrice": "4.19",
         "isUsable":1,
         "likes":17,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Bar Mitzvah Cake",
@@ -53,7 +53,7 @@
         "dealPrice": "33.99",
         "isUsable":1,
         "likes":14,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Joe Light Roast Ground Coffee",
@@ -64,7 +64,7 @@
         "dealPrice": "5.49",
         "isUsable":1,
         "likes":10,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Planet Fitness Membership",
@@ -75,7 +75,7 @@
         "dealPrice": "29.99",
         "isUsable":1,
         "likes":9,
-        "expiration": 1664574486
+        "expiration": "1655708400000"
     },
     {
         "title":"Blackstone 4-Burner 36\" Griddle Cooking Station with Side Shelves",
@@ -86,29 +86,6 @@
         "dealPrice": "219.99",
         "isUsable":1,
         "likes":10,
-        "expiration": 1664574486
-    },
-    {
-    "_id": "62a4b7dc890ca182f30b383a",
-        "title": "semi okay deal updated 2",
-        "description": "only an okay description",
-        "photoLink": "okaydeal2.jpg",
-        "productLink": "linktoproduct2.com",
-        "startingPrice": 39.99,
-        "dealPrice": 24.99,
-        "merchant": {
-          "_id": "62a4b72a890ca182f30b3837",
-          "name": "better example updated 5"
-        },
-        "category": {
-          "_id": "62a14489a93d44182042d8f0",
-          "name": "ShoesExample"
-        },
-        "tags": [],
-        "submittedBy": null,
-        "submittedOn": "1654962140469",
-        "expiration": "1655708400000",
-        "isUsable": [],
-        "likes": 6
+        "expiration": "1664574486"
     }
 ]
