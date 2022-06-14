@@ -7,10 +7,10 @@ React.createElement("div", { style: cardWidth });
 const PostedDeals = ({
   postedDeals,//all params need to be changed later
 }) => {
-  if (!postedDeals.length) { //needs to be changed later
-    console.log(postedDeals);
-    return <h3>No Saved Deals Yet</h3>;
-  }
+  // if (userObj.postedDeals.length===0) { //needs to be changed later
+  //   console.log(userObj.postedDeals);
+  //   return <h3>No Posted Deals Yet</h3>;
+  // }
 
   return (
     <div className="columns parent">
@@ -37,7 +37,8 @@ const PostedDeals = ({
                 </div>
             </div>
           </div>
-        ))}
+        ))
+      }
     </div>
   );
 };

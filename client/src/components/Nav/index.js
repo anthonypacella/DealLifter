@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import logo from './logo.png'
 
@@ -8,7 +9,10 @@ const Nav = () => {
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
+
   };
+
+console.log(`username: ${Auth.getProfile().data.userName}`)
   return (
     <nav>
         <div className='navbar-brand'>
@@ -23,19 +27,19 @@ const Nav = () => {
                     {Auth.loggedIn() ? (
                         <ul>
                             <li>
-                                <span><Link to="/">Account</Link></span>
+                                <span><Link to={`/profile/${Auth.getProfile().data.userName}`}><button className="button is-warning">Account</button></Link></span>
                             </li>
                             <li>
-                                <span><Link onClick={logout}>Log Out</Link></span>
+                                <span><button onClick={logout} className="button is-warning">Log Out</button></span>
                             </li>
                         </ul>
                     ) : (
                         <ul>
                             <li>
-                                <span><Link to="/login">Log In</Link></span>
+                                <span><Link to="/login"><button className="button is-warning">Log In</button></Link></span>
                             </li>
                             <li>
-                                <span><Link to="/signup">Sign Up</Link></span>
+                                <span><Link to="/signup"><button className="button is-warning">Sign Up</button></Link></span>
                             </li>
                         </ul>
                     )}

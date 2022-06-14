@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import '../Deal/style.css'
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_USER, SAVE_DEAL_BY_ID } from "../../utils/mutations";
+import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
+import Auth from '../../utils/auth';
 
 const vcenter = {height: 'auto', position: 'relative'};
 React.createElement("div", {style: vcenter});
@@ -13,13 +18,34 @@ const Deal = ({ deal }) => {
     const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     console.log(saved);
-    
-    const saveDeal = ({deal}) => {
-        setSaved(!saved);
-        // saveDealToUserProfile(user._id, {deal}); //add UserID to param
-    };
+    const [saveDeal, { data, loading, error }] = useMutation(UPDATE_USER);
 
-    const likeDeal = ({deal}) => {
+    function GetUserName (name) {
+        const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: name }});
+        const userId = data?.getUserByUserName._id || {};
+        console.log(userId);
+        return userId;
+    }
+      
+    function GetUserByUserId (userId) {
+        const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
+        const user = data?.getUserById || [];
+        return user;
+    }
+    
+      function SaveDeal (dealId) {
+        console.log(dealId);
+        // saveDeal({ variables: { savedDeals: dealId }});
+        console.log(data);
+      }
+
+
+    const userObj = GetUserByUserId(GetUserName(Auth.getProfile().data.userName));
+    console.log(userObj);
+
+
+
+    const LikeDeal = ({deal}) => {
         setLiked(!liked);
         console.log(saved);
         // saveDealToUserProfile(user._id, {deal}); //add UserID to param
@@ -36,10 +62,11 @@ const Deal = ({ deal }) => {
     //     }
     // }
 
-    const saveDealToUserProfile = (userId, {deal}) => {
+    const saveDealToUserProfile = async (userId, {deal}) => {
         //talk to backend to save the deal to the user profile with matching userID
-
+        
         //call Mutation from back end
+        
     }
 
     return (
@@ -95,14 +122,14 @@ const Deal = ({ deal }) => {
 
             <div className = "deal_UserInteractionContainter columns is-flex is-vcentered">
                 <div className = 'column is-full'>
-                    <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => saveDeal({deal},[])}>
+                    <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => SaveDeal(deal._id)}>
                         <div className = 'saveButon'>
                             <i className={saved === true ? 'is-centered fas fa-solid fa-star icon' : 'is-centered fas fa-light fa-star icon'}></i>  
                         </div>
                     </button>
                     <div>Save</div>
                     <br></br>
-                    <button className = {liked === true ? 'button is-large is-pulled-right is-full-width has-background-danger' : 'button is-full-width is-large is-pulled-right has-background-white'} onClick= {() => likeDeal({deal},[])}>
+                    <button className = {liked === true ? 'button is-large is-pulled-right is-full-width has-background-danger' : 'button is-full-width is-large is-pulled-right has-background-white'} onClick= {() => LikeDeal(deal._id)}>
                         <div className = 'likeButton'>
                             <i className={liked === true ? 'is-centered fas fa-solid fa-heart icon' : 'is-centered fas fa-light fa-heart icon'}></i>  
                         </div>

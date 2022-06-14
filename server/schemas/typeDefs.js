@@ -129,7 +129,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(userName: String!, email: String!, password: String!, avatar: String!): Auth
-    updateUser(userName: String, email: String, password: String, avatar: String): User
+    updateUser(userName: String, email: String, password: String, savedDeals: [ID], favoriteTags: [ID]): User
     login(userName: String!, password: String!): Auth
     
     createTag(tagName: String!, color: String): Tag
@@ -173,7 +173,7 @@ const typeDefs = gql`
 
     removeTagFromDeal(tagId: ID!, dealId: ID!): Deal
 
-    saveDealById(dealId: ID!): User
+    saveDealById(userId: ID!, dealId: ID!): User
     favoriteTagById(tagId: ID!): User
     addToFollowing(userId: ID!): User
     addToFollowers(userId: ID!): User

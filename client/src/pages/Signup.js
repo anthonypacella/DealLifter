@@ -49,8 +49,8 @@ const Signup = () => {
     if (event.target.name==="userName") setAvatarState(identicon(event.target.value)) ;
     
     //check if userName and email have been registered
-    if (Object.values(userNameExample).includes(event.target.value)) setUserNameExistState(true) ;
-    if (Object.values(userEmailExample).includes(event.target.value)) setEmailExistState(true) ;
+    Object.values(userNameExample).includes(event.target.value) ? setUserNameExistState(true) : setUserNameExistState(false) ;
+    Object.values(userEmailExample).includes(event.target.value) ? setEmailExistState(true) : setEmailExistState(false) ;
 
   };
 
