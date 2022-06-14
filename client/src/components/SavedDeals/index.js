@@ -8,8 +8,9 @@ React.createElement("div", { style: cardWidth });
 const SavedDeals = ({
   savedDeals,//all params need to be changed later
 }) => {
-  if (!savedDeals.length) { //needs to be changed later
-    console.log(savedDeals);
+  console.log(savedDeals);
+
+  if (savedDeals.length===0) { //needs to be changed later
     return <h3>No Saved Deals Yet</h3>;
   }
 

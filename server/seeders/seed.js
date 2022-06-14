@@ -29,6 +29,9 @@ db.once('open', async () => {
       newDeal.merchant = tempMerchant._id;
       await newDeal.save();
       
+      tempMerchant.deals.push(newDeal._id);
+      await tempMerchant.save();
+      
       const tempCategory = categories[Math.floor(Math.random() * categories.length)];
       newDeal.category = tempCategory._id;
       await newDeal.save(); 
