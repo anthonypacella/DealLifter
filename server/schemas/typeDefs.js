@@ -173,7 +173,7 @@ const typeDefs = gql`
 
     removeTagFromDeal(tagId: ID!, dealId: ID!): Deal
 
-    saveDealById(userId: ID!, dealId: ID!): User
+    saveDealById(dealId: ID!): User
     favoriteTagById(tagId: ID!): User
     addToFollowing(userId: ID!): User
     addToFollowers(userId: ID!): User

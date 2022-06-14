@@ -17,34 +17,29 @@ import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
 const ProfileTabs = () => {
   const [isShown, setIsShown] = useState(false);
   const [buttonState, setButtonState] = useState(1);
+  const { userName: userParam } = useParams();
 
+  
+    const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: userParam }});
+    const userObj = data?.getUserByUserName || [];
+    console.log(`userObj: `, userObj);
+    console.log(userObj.savedDeals);
+    // const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
+    // const user = data?.getUserById || [];
+    // console.log('user', user);
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+  // const userObj = GetUserByUserId(GetUserName());
+  //   console.log('userobj', userObj);
+  
   const handleClick = (id) => {
     console.log(id);
     setIsShown(current => !current);
     setButtonState(id);
-    };
+  };
 
-    const { userName: userParam } = useParams();
-    
-    function GetUserName (name) {
-      const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: name }});
-      const userId = data?.getUserByUserName._id || {};
-      console.log(data);
-      console.log(userId);
-
-      return userId;
-    }
-    
-    function GetUserByUserId (userId) {
-      const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
-      const user = data?.getUserById || [];
-      return user;
-    }
-  
-  const userObj = GetUserByUserId(GetUserName(userParam));
-  console.log(userObj);
-  console.log(userObj.savedDeals)
-  
   return (
     <div className="columns">
       <div className="column is-one-fifth">
@@ -66,15 +61,15 @@ const ProfileTabs = () => {
 
       <div className="column is-four-fifths" >
         {buttonState===1 ? (
-          <PostedDeals postedDeals = {userObj.savedDeals} />
+          <PostedDeals postedDeals = {data.savedDeals} />
         ) : buttonState === 2 ? (
           <SavedDeals savedDeals = {userObj.savedDeals} />
         ) : buttonState === 3 ? (
-          <Following favoriteTags = {userObj.favoriteTags} />
+          <Following favoriteTags = {data.favoriteTags} />
         ) : buttonState === 4 ? (
-          <Following following = {userObj.following} />
+          <Following following = {data.following} />
         ) : buttonState === 5 ? (
-          <Followers followers = {userObj.followers} />
+          <Followers followers = {data.followers} />
         ) : 
               <p className="title is-align-self-stretch">
                 Welcome!

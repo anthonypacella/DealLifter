@@ -223,10 +223,10 @@ const resolvers = {
       return { token, user };
     },
     updateUser: async (parent, args, context) => {
-      // if (context.user) {
+      if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-      // }
-      // throw new AuthenticationError('Not logged in');
+      }
+      throw new AuthenticationError('Not logged in');
     },
     login: async (parent, { userName, password }) => {
       const user = await User.findOne({ userName: userName });
@@ -288,10 +288,17 @@ const resolvers = {
       return await Deal.findOneAndUpdate({ "_id": dealId }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
     },
 
-    saveDealById: async (parent, {dealId}, context) => {
-      return await User.findByIdAndUpdate(context.user._id, { $addToSet: { savedDeals: dealId } }, { new: true } )
+    saveDealById: async (parent, { dealId }, context) => {
+      // return await User.findByIdAndUpdate(context.user._id, { $addToSet: { savedDeals: dealId } }, { new: true } )
+      // if (context.user) {
+      const deal = await Deal.findOne({_id: dealId});
+
+      return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedDeals: deal._id } }
+        );
+      // }
     },
-   
     favoriteTagById: async (parent, { tagId }, context) => {
       return await User.findByIdAndUpdate(context.user._id, { $addToSet: { favoriteTags: tagId } }, { new: true } )
     },

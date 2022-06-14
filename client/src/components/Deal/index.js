@@ -17,31 +17,40 @@ const Deal = ({ deal }) => {
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
-    console.log(saved);
-    const [saveDeal, { data, loading, error }] = useMutation(UPDATE_USER);
+    console.log('saved', saved);
+    const [saveDeal, { data, loading, error }] = useMutation(SAVE_DEAL_BY_ID);
 
     function GetUserName (name) {
         const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: name }});
         const userId = data?.getUserByUserName._id || {};
-        console.log(userId);
+        console.log('userid', userId);
         return userId;
     }
       
     function GetUserByUserId (userId) {
         const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
         const user = data?.getUserById || [];
+        console.log('user', user);
         return user;
     }
     
-      function SaveDeal (dealId) {
-        console.log(dealId);
-        // saveDeal({ variables: { savedDeals: dealId }});
-        console.log(data);
+      const SaveDeal = async (dealId) => {
+
+        try {
+            console.log(dealId);
+            const { data } = await saveDeal({ variables: { dealId: dealId }});
+            setSaved(true);
+            console.log('userobj', userObj);
+        } catch (err) {
+            console.error(err);
+  }
+        
       }
 
 
     const userObj = GetUserByUserId(GetUserName(Auth.getProfile().data.userName));
-    console.log(userObj);
+    console.log(Auth.getProfile().data.userName);
+    console.log('userobj', userObj);
 
 
 

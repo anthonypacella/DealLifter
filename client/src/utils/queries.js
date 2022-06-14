@@ -238,11 +238,43 @@ export const GET_USER_BY_ID = gql`
 `;
 
 export const GET_USER_BY_USERNAME = gql`
-  query getUserByUserName($userName: String!) {
-    getUserByUserName(userName: $userName) {
+query getUserByUserName($userName: String!) {
+  getUserByUserName(userName: $userName) {
+    _id
+    userName
+    email
+    password
+    savedDeals {
       _id
+      title
+      description
+      photoLink
+      productLink
+      startingPrice
+      dealPrice
     }
+    favoriteTags {
+      _id
+      tagName
+      color
+    }
+    following {
+      _id
+      userName
+    }
+    followers {
+      _id
+      userName
+    }
+    avatar
+    searchHistory {
+      _id
+      keyword
+    }
+    totalFollowing
+    totalFollowers
   }
+}
 `;
 
 export const GET_USER_BY_EMAIL = gql`
