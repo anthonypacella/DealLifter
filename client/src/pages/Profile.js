@@ -4,21 +4,21 @@ import { useQuery } from '@apollo/client';
 
 import ProfileTabs from '../components/ProfileTabs';
 
-import { GET_USER_BY_ID, QUERY_ME } from '../utils/queries';
+import { GET_USER_BY_USERNAME, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 const Profile = () => {
-  const { username: userParam } = useParams();
+  const { userName: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? GET_USER_BY_ID : QUERY_ME, {
-    variables: { username: userParam },
+  const { loading, data } = useQuery(userParam ? GET_USER_BY_USERNAME : QUERY_ME, {
+    variables: { userName: userParam },
   });
 
   const user = data?.me || data?.user || {};
   // navigate to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-    return <Navigate to="/" />;
+  if (Auth.loggedIn() && Auth.getProfile().data.userName === userParam) {
+    return <Navigate to="/me" />;
   }
 
   if (loading) {
@@ -39,7 +39,7 @@ const Profile = () => {
         <div className="columns">
             <div className="column is-full">
                 <p className="title has-text-centered my-1 py-3 has-background-warning">
-                    Viewing {userParam ? `${user.username}'s` : 'your'} profile
+                    Viewing {userParam ? `${userParam}'s` : 'your'} profile
                 </p>
             </div>
         </div>        

@@ -106,7 +106,7 @@ const typeDefs = gql`
     getMerchantByName(name: String!): [Merchant]
     getMerchantByCategory(categoryId: ID!): [Merchant]
     
-    getMe(userId: ID!): User
+    getMe(userName: String!): User
     getUserById(userId: ID!): User
     getUserByUserName(userName: String!): User
     getUserByUserEmail(email: String!): User
@@ -143,7 +143,6 @@ const typeDefs = gql`
 
     postDeal(title: String!,
       description: String,
-      link: String!,
       photoLink: String!,
       productLink: String!,
       startingPrice: Float,
