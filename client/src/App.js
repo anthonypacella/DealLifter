@@ -53,6 +53,10 @@ function App() {
                 </div>
               }>
               </Route>
+              <Route 
+                path="/me" 
+                element={<Profile />}
+              />
               <Route exact = 'true' path = '/login' element = {
                 < Login />
               }>

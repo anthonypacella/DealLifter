@@ -106,7 +106,7 @@ const typeDefs = gql`
     getMerchantByName(name: String!): [Merchant]
     getMerchantByCategory(categoryId: ID!): [Merchant]
     
-    getMe(userId: ID!): User
+    getMe(userName: String!): User
     getUserById(userId: ID!): User
     getUserByUserName(userName: String!): User
     getUserByUserEmail(email: String!): User
