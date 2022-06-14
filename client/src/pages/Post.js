@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
+import { GET_ALL_CATEGORIES, GET_ALL_TAGS, GET_ALL_MERCHANTS } from '../utils/queries';
+import { POST_DEAL } from '../utils/mutations';
 
 const adjustfieldWidth = { width: '250%' };
 React.createElement("div", { style: adjustfieldWidth });
@@ -10,7 +13,31 @@ React.createElement("div", { style: adjustfieldWidth });
 const adjustCardWidth = { width: '40%' };
 React.createElement("div", { style: adjustCardWidth });
 
-const PostDeal = () => {
+const PostDealPage = () => {
+
+    const [postDeal, {error, data}] = useMutation(POST_DEAL);
+
+    function GetAllMerchants () {
+        const {loading, data} = useQuery(GET_ALL_MERCHANTS);
+        const allMerchants = data?.getAllMerchants || [];
+        return allMerchants;
+    }
+
+    const merchantList = GetAllMerchants();
+    console.log(merchantList);
+
+    function GetAllCategories () {
+        const {loading, data} = useQuery(GET_ALL_CATEGORIES);
+        const allCategories = data?.getAllCategories || [];
+        return allCategories;
+    }
+
+    function GetAllTags () {
+        const {loading, data} = useQuery(GET_ALL_TAGS);
+        const allTags = data?.getAllTags || [];
+        return allTags;
+    }
+
   const [formState, setFormState] = useState({
     title: '',
     description: '',
@@ -20,8 +47,8 @@ const PostDeal = () => {
     dealPrice: '',
     merchant: '',
     category: '',
-    tags: '',
-    submittedBy: 'UserID here',
+    tags: [],
+    submittedBy: Auth.getProfile().data._id,
     submittedOn: Date.now
   });
 
@@ -36,6 +63,17 @@ const PostDeal = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+
+    try {
+        const { data } = await postDeal({
+            variables: { ...formState },
+        });
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+
   };
 
 
@@ -173,14 +211,17 @@ const PostDeal = () => {
                             <label className="label">Merchant</label>
                             <div className="control has-icons-left">
                                 <div> 
-                                    <input 
-                                    className="input is-warning"
-                                    name="merchant" 
-                                    placeholder="Best Buy"
-                                    type="text"  
-                                    value={formState.merchant}
-                                    onChange={handleChange}
-                                    />
+                                    <select onChange={handleChange}>
+                                        {GetAllMerchants().map((merch) => 
+                                        <option
+                                        className="input is-warning"
+                                        name="category" 
+                                        placeholder="Best Buy"
+                                        type="text"  
+                                        value={merch._id}
+                                        >{merch.name}</option>
+                                        )}
+                                    </select>
                                 </div>
                                 <span className="icon is-small is-left">
                                     <i className="fas fa-store"></i>
@@ -192,14 +233,17 @@ const PostDeal = () => {
                             <label className="label">Category</label>
                             <div className="control has-icons-left">
                                 <div> 
-                                    <input 
+                                <select>
+                                    {GetAllCategories().map((cat) => 
+                                    <option
                                     className="input is-warning"
                                     name="category" 
-                                    placeholder="Clothing"
+                                    placeholder="Best Buy"
                                     type="text"  
                                     value={formState.category}
-                                    onChange={handleChange}
-                                    />
+                                    onChange={handleChange}>{cat.name}</option>
+                                    )}
+                                </select>
                                 </div>
                                 <span className="icon is-small is-left">
                                     <i className="fas fa-layer-group"></i>
@@ -211,14 +255,17 @@ const PostDeal = () => {
                             <label className="label">Tags</label>
                             <div className="control has-icons-left">
                                 <div> 
-                                    <input 
-                                    className="input is-warning"
-                                    name="tags" 
-                                    placeholder="mens sunglasses accessory brown"
-                                    type="text"  
-                                    value={formState.tags}
-                                    onChange={handleChange}
-                                    />
+                                    <select multiple>
+                                        {GetAllTags().map((tag) => 
+                                        <option
+                                        className="input is-warning"
+                                        name="tags" 
+                                        placeholder="Best Buy"
+                                        type="text"  
+                                        value={formState.tags}
+                                        onChange={handleChange}>{tag.name}</option>
+                                        )}
+                                    </select>
                                 </div>
                                 <span className="icon is-small is-left">
                                     <i className="fas fa-tag"></i>
@@ -228,7 +275,7 @@ const PostDeal = () => {
 
                         <div className="field" style={adjustfieldWidth}>
                                 <div className="buttons is-centered my-2">
-                                    <button className="button is-warning">
+                                    <button className="button is-warning" type = 'submit'>
                                         <span className="icon is-small">
                                             <i className="fas fa-check"></i>
                                         </span>
@@ -255,4 +302,4 @@ const PostDeal = () => {
   );
 };
 
-export default PostDeal;
+export default PostDealPage;

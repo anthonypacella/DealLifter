@@ -17,6 +17,7 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "bulma-pagination-react": "^0.1.1"
+    "bulma-pagination-react": "^0.1.1",
+    "react-select": "^5.3.2"
   }
 }

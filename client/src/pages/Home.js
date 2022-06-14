@@ -4,7 +4,7 @@ import Deal from '../components/Deal'
 import DealSmall from '../components/DealSmall'
 import auth from '../utils/auth';
 import { GET_HOT_DEALS, GET_PERSONALIZED_DEALS_BY_USER_ID } from '../utils/queries';
-import { GET_ALL_DEALS } from '../utils/queries';
+import { GET_EXPIRING_DEALS } from '../utils/queries';
 import dealArray from '../utils/sampledata'
 import { Link } from 'react-router-dom';
 
@@ -23,9 +23,13 @@ function ObtainExpiringDeals () {
 }
 
 function ObtainYourFeed () {
-  const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID);
-  //yourFeed = data;
-  const yourFeed = dealArray;
+  const userId = auth.getProfile().data._id;
+
+  const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID, {
+    variables: userId
+  });
+
+  const yourFeed = data?.getPersonalizedDealsByUserId || [];
   return yourFeed
 }
 
@@ -58,7 +62,7 @@ export default function Home() {
         <div className = 'feedDeals columns'>
           <h3>Your Feed:</h3>
           <div className = 'column is-full'>
-              {ObtainExpiringDeals().slice(0,10).map((dealObj) => (
+              {ObtainYourFeed().slice(0,10).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>
               ))}
           </div>
@@ -83,9 +87,9 @@ export default function Home() {
         </div>
   
         <div className = 'feedDeals columns'>
-          <h3>Recent Deals:</h3>
+          <h3>Act Fast Deals:</h3>
           <div className = 'column is-full'>
-              {ObtainYourFeed().slice(0,3).map((dealObj) => (
+              {ObtainExpiringDeals().slice(0,3).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>
               ))}
           </div>
