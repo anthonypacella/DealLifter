@@ -61,31 +61,33 @@ export default function Home() {
   if (loggedIn) { // should be auth.loggedIn
     return (
       <div className = 'm-5'>
-        <div className = 'is-flex'>
-          <h1>Home Page</h1>
+        <div className = 'is-flex is-justify-content-right'>
           <Link to = '/post'>
-            <button className = 'button is-large is-pulled-right has-background-danger-dark is-white'>POST A DEAL +</button>
+            <button className = 'button is-large is-pulled-right has-background-danger-light is-white'>POST A DEAL +</button>
           </Link>
         </div>
   
-        <div className = 'featuredDeals'>
+        <section className = 'featuredDeals section is-flex is-justify-content-center'>
           <h3>Featured Deals</h3>
           <div className = 'is-flex p-6'>
               {ObtainHotDeals().slice(0,4).map((dealObj) => (
                 <DealSmall deal = {dealObj}></DealSmall>
               ))}
           </div>
-        </div>
+        </section>
             
-        <div>
-          <h3>Follow Popular Tags</h3>
+        <section className = 'featuredDeals section is-flex is-justify-content-center'>
+          <div className='container'>
+            <h3>Follow Popular Tags</h3>
+          </div>
             <div className='columns'>
-              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><button onClick={()=>SaveTag(tag._id)}>{tag.tagName}</button></div>))}
+              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><button className="button is-large" onClick={()=>SaveTag(tag._id)}>{tag.tagName}</button></div>))}
             </div>
-        </div>
+        </section>
 
         <div className = 'feedDeals columns'>
           <h3>Your Feed</h3>
+          
           <div className = 'column is-full'>
               {ObtainRecentDeals().slice(0,10).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>

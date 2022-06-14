@@ -16,10 +16,7 @@ const Profile = () => {
   });
 
   const user = data?.user || {};
-  // navigate to personal profile page if username is yours
-  // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-  //   return <Navigate to={`/profile/${Auth.getProfile().data.userName}`} />;
-  // }
+
 
   if (loading) {
     return <progress className="progress is-warning" max="100"></progress>;
