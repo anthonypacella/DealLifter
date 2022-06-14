@@ -3,18 +3,12 @@ import { Link } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 import { identicon } from 'minidenticons'
 
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+
+import { GET_USER_BY_EMAIL, GET_USER_BY_USERNAME } from '../utils/queries';
 import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
-
-//sample data
-const userEmailExample = {
-    email: "sallyhoney96@gmail.com",
-};
-const userNameExample = {
-    userName: "banbanleelee",
-};
 
 const adjustfieldWidth = { width: '250%' };
 React.createElement("div", { style: adjustfieldWidth });
@@ -26,17 +20,24 @@ React.createElement("div", { style: adjustCardWidth });
 const initAvatar = '<svg viewBox="-1.5 -1.5 8 8" xmlns="http://www.w3.org/2000/svg" fill="hsl(51 84% 69%)"><rect x="0" y="3" width="1" height="1"></rect><rect x="1" y="0" width="1" height="1"></rect><rect x="1" y="4" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="3" y="0" width="1" height="1"></rect><rect x="2" y="4" width="1" height="1"></rect></svg>';
 
 const Signup = () => {
+
   const [formState, setFormState] = useState({
     userName: '',
     email: '',
     password: '',
   });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const [avatarState, setAvatarState] = useState(initAvatar);
-  const [userNameExistState, setUserNameExistState] = useState(false); //false if userName/email input not taken
-  const [emailExistState, setEmailExistState] = useState(false); //false if userName/email input not taken
+  const {loading: userNameLoading, data: userNameData} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: formState.userName }});
+  const {loading: emailLoading, data: emailData} = useQuery(GET_USER_BY_EMAIL, { variables: { email: formState.email }});
 
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const userNameObj = userNameData?.getUserByUserName || [];
+//   console.log("userNameObj",userNameObj);
+
+  const emailObj = emailData?.getUserByUserEmail || [];
+//   console.log("emailObj",emailObj);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -44,13 +45,9 @@ const Signup = () => {
       ...formState,
       [name]: value,
     });
-    
+
     //render avatar based on userName input
-    if (event.target.name==="userName") setAvatarState(identicon(event.target.value)) ;
-    
-    //check if userName and email have been registered
-    if (Object.values(userNameExample).includes(event.target.value)) setUserNameExistState(true) ;
-    if (Object.values(userEmailExample).includes(event.target.value)) setEmailExistState(true) ;
+    if (event.target.name==="userName") setAvatarState(identicon(event.target.value)) ;   
 
   };
 
@@ -68,7 +65,6 @@ const Signup = () => {
       console.error(e);
     }
   };
-
 
   return (
     <section className='section'>    
@@ -95,7 +91,7 @@ const Signup = () => {
                     {data ? (
                         <p>
                             Success! You may now head{' '}
-                            <Link to="/">back to the homepagehhhhhh.</Link>
+                            <Link to="/">back to the homepage.</Link>
                         </p>
                     ) : (
                     <form onSubmit={handleFormSubmit}>
@@ -116,9 +112,9 @@ const Signup = () => {
                                 <i className="fas fa-user"></i>
                                 </span>
                             </div>
-                            {userNameExistState ? (
+                            {userNameObj._id ? (
                                     <p className="help is-warning">This username is taken. <Link to="/login">Log in?</Link></p>
-                                ) : !userNameExistState ? (
+                                ) : !userNameObj._id ? (
                                     <span></span>
                                 ) : (
                                     <span></span>
@@ -143,9 +139,9 @@ const Signup = () => {
                                     <i className="fas fa-envelope"></i>
                                 </span>
                             </div>
-                            {emailExistState ? (
+                            {emailObj._id ? (
                                 <p className="help is-warning">This email is taken. <Link to="/login">Log in?</Link></p>
-                                ) : !emailExistState ? (
+                                ) : !emailObj._id ? (
                                 <span></span>
                                 ) : (
                                 <span></span>
@@ -172,7 +168,7 @@ const Signup = () => {
                             </div>
                         </div>
 
-                        { emailExistState || userNameExistState || !formState ? (
+                        { emailObj._id || userNameObj._id || !formState ? (
                             <div className="field" style={adjustfieldWidth}>
                                 <div className="buttons is-centered my-2">
                                     <button className="button is-warning disabled">
@@ -220,7 +216,7 @@ const Signup = () => {
                     )}
                     {error && (
                     <div className="is-warning">
-                        {/* {error.message} */}
+                        {error.message}
                         Something went wrong...
                     </div>
                     )}

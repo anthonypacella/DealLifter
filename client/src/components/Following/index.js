@@ -8,9 +8,9 @@ const cardWidth = { width: '100%' };
 React.createElement("div", { style: cardWidth });
 
 const Following = ({
-  following,//all params need to be changed later
+    following,//all params need to be changed later
 }) => {
-  if (!following.length) { //needs to be changed later
+  if (following.length ===0) { //needs to be changed later
     console.log(following);
     return <h3>This user does not follow anyone...</h3>;
   }
