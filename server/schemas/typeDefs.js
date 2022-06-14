@@ -143,7 +143,6 @@ const typeDefs = gql`
 
     postDeal(title: String!,
       description: String,
-      link: String!,
       photoLink: String!,
       productLink: String!,
       startingPrice: Float,
