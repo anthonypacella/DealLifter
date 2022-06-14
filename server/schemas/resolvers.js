@@ -38,7 +38,7 @@ const resolvers = {
       return await User.findById(userId).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getMe: async (parent, args, context) => {
-      return await User.findOne(context.user.userName).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
+      return await User.findById(context.user._id).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
     },
     getUserByUserName: async (parent, { userName }) => {
       return await User.findOne({ userName: userName }).populate('savedDeals').populate('favoriteTags').populate('following').populate('followers').populate('searchHistory');
@@ -89,14 +89,17 @@ const resolvers = {
     // https://mongoosejs.com/docs/api.html#query_Query-and
     // logic here is finding deals that will expire in the next week
     getExpiringDeals: async() => {
-      let currentDate = Date.now();
-      let weekAheadDate = currentDate.getDate() + 7;
-      return await Deal.find({
-        $and: [
-          {expiration: { $gt: currentDate } },
-          {expiration: { $lt: weekAheadDate } },
-        ]
-      }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
+      // let currentDate = Date.now();
+      // let weekAheadDate = currentDate.getDate() + 7;
+      // return await Deal.find({
+      //   $and: [
+      //     {expiration: { $gt: currentDate } },
+      //     {expiration: { $lt: weekAheadDate } },
+      //   ]
+      // }).populate('category').populate('tags').populate('merchant').populate('submittedBy');
+      return await Deal.find({ expiration: {$gt: Date.now() } })
+      .populate('category').populate('tags').populate('merchant').populate('submittedBy')
+      .sort({ expiration: -1 }).limit(10);
     },
 
     // this is used on both viewing my own profile page, and viewing anothers

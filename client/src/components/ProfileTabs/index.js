@@ -15,9 +15,70 @@ import Followers from '../Followers/index'
 
 import { GET_USER_BY_USERNAME } from '../../utils/queries';
 
+const followingExample = [
+  {
+    userName: 'Anthony',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 2,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Kashane',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 6,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Xuyang',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 8,
+    PostedDealsByUser: 4,
+  },
+  {
+    userName: 'Jeff',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 2,
+    PostedDealsByUser: 3,
+  },
+  {
+    userName: 'Andres',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 5,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Jacob',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 3,
+    PostedDealsByUser: 7,
+  },
+  {
+    userName: 'AJ',
+    avatar: 'https://avatars.githubusercontent.com/u/93337957?v=4',
+    totalFollowers: 3,
+    PostedDealsByUser: 1,
+  },
+];
+const followersExample = [
+  {
+    userName: 'Anthony',
+    totalFollowers: 2,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Kashane',
+    totalFollowers: 6,
+    PostedDealsByUser: 1,
+  },
+  {
+    userName: 'Xuyang',
+    totalFollowers: 8,
+    PostedDealsByUser: 4,
+  },
+];
 const ProfileTabs = () => {
   const [isShown, setIsShown] = useState(false);
-  const [buttonState, setButtonState] = useState(1);
+  const [buttonState, setButtonState] = useState(0);
   const { userName: userParam } = useParams();
 
   
@@ -62,19 +123,17 @@ const ProfileTabs = () => {
 
       <div className="column is-four-fifths" >
         {buttonState===1 ? (
-          <PostedDeals postedDeals = {userObj.savedDeals} />
-        ) : buttonState === 2 ? (
           <SavedDeals savedDeals = {userObj.savedDeals} />
-        ) : buttonState === 3 ? (
+        ) : buttonState === 2 ? (
           <FavoriteTags favoriteTags = {userObj.favoriteTags} />
+        ) : buttonState === 3 ? (
+          <Following following = {followingExample} />
         ) : buttonState === 4 ? (
-          <Following following = {userObj.savedDeals} />
-        ) : buttonState === 5 ? (
-          <Followers followers = {userObj.savedDeals} />
+          <Followers followers = {followersExample} />
         ) : 
-              <p className="title is-align-self-stretch">
-                Welcome!
-              </p>
+          <p className="title is-align-self-stretch">
+            Welcome!
+          </p>
         }
       </div>
     </div>
