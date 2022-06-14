@@ -3,7 +3,7 @@ import { Link, renderMatches } from 'react-router-dom';
 import './tabs';
 import tabs from './tabs';
 import {useState} from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 
@@ -13,7 +13,7 @@ import FavoriteTags from '../FavoriteTags/index'
 import Following from '../Following/index'
 import Followers from '../Followers/index'
 
-import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
+import { GET_USER_BY_USERNAME } from '../../utils/queries';
 
 const ProfileTabs = () => {
   const [isShown, setIsShown] = useState(false);
