@@ -49,7 +49,7 @@ function App() {
             <InfoBar />
             <Routes>
               <Route exact = 'true' path = '/' element = {
-                <div className = 'is-flex'>
+                <div>
                   < Home />
                 </div>
               }>
