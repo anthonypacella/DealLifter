@@ -142,8 +142,8 @@ export const GET_MERCHANT_BY_CATEGORY = gql`
 `;
 
 export const QUERY_ME = gql`
-  query getMe($userId: ID!) {
-    getMe(userId: $userId) {
+  query getMe($userName: String!) {
+    getMe(userName: $userName) {
       _id
       userName
       email

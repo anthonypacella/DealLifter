@@ -16,10 +16,10 @@ function ObtainHotDeals () {
   return hotDeals
 }
 
-function ObtainRecentDeals () {
-  const {loading, error, data} = useQuery(GET_ALL_DEALS);
-  const recentDeals = data?.getAllDeals || [];
-  return recentDeals
+function ObtainExpiringDeals () {
+  const {loading, error, data} = useQuery(GET_EXPIRING_DEALS);
+  const expiringDeals = data?.getExpiringDeals || [];
+  return expiringDeals
 }
 
 function ObtainYourFeed () {
@@ -58,7 +58,7 @@ export default function Home() {
     }
   }
 
-  if (loggedIn) { // should be auth.loggedIn
+  if (auth.loggedIn()) { // should be auth.loggedIn
     return (
       <div className = 'm-5'>
         <div className = 'is-flex'>
@@ -87,7 +87,7 @@ export default function Home() {
         <div className = 'feedDeals columns'>
           <h3>Your Feed</h3>
           <div className = 'column is-full'>
-              {ObtainRecentDeals().slice(0,10).map((dealObj) => (
+              {ObtainExpiringDeals().slice(0,10).map((dealObj) => (
                 <Deal deal = {dealObj}></Deal>
               ))}
           </div>
