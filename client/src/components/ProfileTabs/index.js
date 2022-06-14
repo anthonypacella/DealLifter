@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 
 import PostedDeals from '../PostedDeals/index'
 import SavedDeals from '../SavedDeals/index'
+import FavoriteTags from '../FavoriteTags/index'
 import Following from '../Following/index'
 import Followers from '../Followers/index'
 
@@ -23,7 +24,7 @@ const ProfileTabs = () => {
     const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: userParam }});
     const userObj = data?.getUserByUserName || [];
     console.log(`userObj: `, userObj);
-    console.log(userObj.savedDeals);
+    console.log(userObj.favoriteTags);
     // const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
     // const user = data?.getUserById || [];
     // console.log('user', user);
@@ -61,15 +62,15 @@ const ProfileTabs = () => {
 
       <div className="column is-four-fifths" >
         {buttonState===1 ? (
-          <PostedDeals postedDeals = {data.savedDeals} />
+          <PostedDeals postedDeals = {userObj.savedDeals} />
         ) : buttonState === 2 ? (
           <SavedDeals savedDeals = {userObj.savedDeals} />
         ) : buttonState === 3 ? (
-          <Following favoriteTags = {data.favoriteTags} />
+          <FavoriteTags favoriteTags = {userObj.favoriteTags} />
         ) : buttonState === 4 ? (
-          <Following following = {data.following} />
+          <Following following = {userObj.savedDeals} />
         ) : buttonState === 5 ? (
-          <Followers followers = {data.followers} />
+          <Followers followers = {userObj.savedDeals} />
         ) : 
               <p className="title is-align-self-stretch">
                 Welcome!

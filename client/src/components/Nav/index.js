@@ -11,8 +11,7 @@ const Nav = () => {
     Auth.logout();
 
   };
-
-console.log(`username: ${Auth.getProfile().data.userName}`)
+  
   return (
     <nav>
         <div className='navbar-brand'>

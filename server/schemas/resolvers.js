@@ -294,13 +294,17 @@ const resolvers = {
       const deal = await Deal.findOne({_id: dealId});
 
       return await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedDeals: deal._id } }
-        );
+        { _id: context.user._id },
+        { $addToSet: { savedDeals: deal._id } }
+      );
       // }
     },
     favoriteTagById: async (parent, { tagId }, context) => {
-      return await User.findByIdAndUpdate(context.user._id, { $addToSet: { favoriteTags: tagId } }, { new: true } )
+      const tag = await Tag.findOne({_id: tagId});
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { favoriteTags: tag._id } }
+      );
     },
 
     addToFollowing: async (parent, { userId }, context) => {
