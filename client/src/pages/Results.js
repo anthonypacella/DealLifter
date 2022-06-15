@@ -6,28 +6,29 @@ import DealSmall from '../components/DealSmall';
 import auth from '../utils/auth';
 import dealArray from '../utils/sampledata';
 import Pagination from '../components/Pagination';
-import { GET_ALL_DEALS } from '../utils/queries';
+import { GET_ALL_DEALS, GET_DEALS_BY_KEYWORD } from '../utils/queries';
 import {useQuery} from '@apollo/client';
 
 export default function Results() {
+  // obtain search keyword from URL
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get('keyword');
+  // call the query
 
-  const { loading, data } = useQuery(GET_ALL_DEALS);
+  console.log(keyword);
 
+  const { loading, data } = useQuery(GET_DEALS_BY_KEYWORD, {
+    variables: {keyword}
+  });
 
-  const resultDeals = data?.getAllDeals || [];
+  console.log(data);
+
+  const resultDeals = data?.getDealsByKeyword || [];
 
   console.log(resultDeals);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [dealsPerPage, setDealsPerPage] = useState(8);
-
-
-    // obtain search keyword from URL
-    const [searchParams, setSearchParams] = useSearchParams();
-    const searchKeyword = searchParams.get('store');
-    // call the query
-
-  
 
   //get current posts
   const indexOfLastDeal = currentPage * dealsPerPage;
