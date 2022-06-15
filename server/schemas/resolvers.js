@@ -130,9 +130,9 @@ const resolvers = {
           {"title": new RegExp(keyword, "i")} ,
         ]
       })
-      .where("merchant").in(merchantFilter)
-      .where("category").in(categoryFilter)
-      .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
+      // .where("merchant").in(merchantFilter)
+      // .where("category").in(categoryFilter)
+      // .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
       .populate('category').populate('tags').populate('merchant').populate('submittedBy');
     },
 

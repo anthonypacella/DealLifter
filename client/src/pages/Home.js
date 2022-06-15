@@ -27,7 +27,7 @@ function ObtainYourFeed () {
   const userId = auth.getProfile().data._id;
 
   const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID, {
-    variables: userId
+    variables: {userId}
   });
 
   const yourFeed = data?.getPersonalizedDealsByUserId || [];
