@@ -49,8 +49,8 @@ const PostDealPage = () => {
     photoLink: '',
     startingPrice: 0,
     dealPrice: 0,
-    merchant: '62a9260605ec011568b34ff8',
-    category: '62a9260605ec011568b34fff',
+    merchant: '62a7e883682632424d7b732e',
+    category: '62a7e883682632424d7b7334',
     tags: [],
     submittedBy: Auth.getProfile().data._id,
     submittedOn: Date.now
@@ -78,6 +78,10 @@ const PostDealPage = () => {
             // variables: { startingPrice: parseFloat(formState.startingPrice,2), dealPrice: parseFloat(formState.dealPrice,2),...formState },
             variables: { ...formState },
         });
+
+        window.alert('Deal posted successfully!')
+        
+        window.location.assign('/');
     }
 
     catch (e) {

@@ -35,7 +35,6 @@ const InfoBar = () => {
     console.log(formState);
     try {
 
-     
       const { history } = await addToSearchHistory({
         variables: { ...formState },
       })
@@ -43,9 +42,7 @@ const InfoBar = () => {
     } catch (error) {
 
     }
-
-    window.location.assign(`/results?keyword=${formState.keyword}`)
-
+    window.location.assign(`/results/${formState.keyword}`)
   };
 
 

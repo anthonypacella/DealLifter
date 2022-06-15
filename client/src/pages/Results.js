@@ -11,14 +11,15 @@ import {useQuery} from '@apollo/client';
 
 export default function Results() {
   // obtain search keyword from URL
-  const [searchParams, setSearchParams] = useSearchParams();
-  const keyword = searchParams.get('keyword');
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const keyword = searchParams.get('keyword');
   // call the query
 
+  const { keyword: keyword } = useParams();
   console.log(keyword);
 
   const { loading, data } = useQuery(GET_DEALS_BY_KEYWORD, {
-    variables: {keyword}
+    variables: { keyword }
   });
 
   console.log(data);
