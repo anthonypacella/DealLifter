@@ -282,8 +282,16 @@ const resolvers = {
     updateDeal: async (parent, args) => {
       return await Deal.findByIdAndUpdate(args.dealId, args, { new: true } );
     },
-    likeDeal: async (parent, args) => {
-      return await Deal.findByIdAndUpdate(args.dealId, { $inc: { likes: 1 } }, { new: true } );
+    likeDeal: async (parent, { dealId }) => {
+      // return await Deal.findByIdAndUpdate(args.dealId, { $inc: { likes: 1 } }, { new: true } );
+
+      const deal = await Deal.findOne({_id: dealId});
+
+      return await Deal.findOneAndUpdate(
+        { _id: deal._id },
+        { $inc: { likes: 1 } }, 
+        { new: true }
+      );
     },
 
     // not going to use this //
