@@ -47,10 +47,9 @@ const InfoBar = () => {
 
 
   return (
-    <nav className='navbar'>
-      <div className='navbar-menu'>
+      <div>
 
-        <div className='navbar-item has-dropdown is-hoverable'>
+        {/* <div className='navbar-item has-dropdown is-hoverable'>
           <a className="navbar-link">
             Categories
           </a>
@@ -78,44 +77,34 @@ const InfoBar = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <div className="navbar-item navbar-end">
-          <div className="field has-addons">
-            <p className="control">
-              <form onSubmit={handleFormSubmit}>
+        <div className="navbar-item">
+          <form onSubmit={handleFormSubmit}>
+            <div className="field has-addons">
+              <p className="control">
                 <input
-                  className="input is-rounded"
+                  className="input is-rounded is-medium"
                   type="text"
                   placeholder="Search the deals"
                   autoComplete="off"
                   name="keyword"
                   value={formState.keyword}
                   onChange={handleChange}
-                />
-                <div className="field">
-                  <div className="buttons my-2">
-                    <button className="button is-warning">
-                      <span className="icon is-small">
-                        <i className="fas fa-check"></i>
-                      </span>
-                      <span>Submit</span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </p>
-            <p className="control">
-              <button className="button is-rounded is-warning">
-                <span className="icon is-small is-left">
-                  <i className="fas fa-search"></i>
-                </span>
-              </button>
-            </p>
-          </div>
+                  style={{width: '240px'}}          
+                  />
+              </p>
+              <p className="control">
+                <button className="button is-rounded is-warning is-medium" type='submit'>
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-search"></i>
+                  </span>
+                </button>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
-    </nav>
   );
 };
 

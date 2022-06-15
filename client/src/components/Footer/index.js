@@ -8,7 +8,7 @@ const Footer = () => {
         <Link to="/">
           <p>Home</p>
         </Link>
-        <Link to="/">
+        <a href="https://github.com/anthonypacella/DealLifter" target="_blank">
           <p>
             <span>Donate</span>
             <span
@@ -20,14 +20,13 @@ const Footer = () => {
                 ❤️
             </span>{' '}
           </p>
-        </Link>
-        <Link to="/">
-          <p>Contact Us</p>
-        </Link>
-        <p>
-        © 2022 DealLifter. All Rights Reserved.
-        </p>
-        <p><a href="https://clearbit.com">Logos provided by Clearbit</a></p>
+        </a>
+
+        <p><a href="https://github.com/anthonypacella/DealLifter" target="_blank">Contact Us</a></p>
+
+        <p>© 2022 DealLifter. All Rights Reserved.</p>
+        
+        <p><a href="https://clearbit.com" target="_blank">Logos provided by Clearbit</a></p>
       </div>
     </footer>
   );

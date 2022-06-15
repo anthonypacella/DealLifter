@@ -17,7 +17,7 @@ React.createElement("div", { style: adjustCardWidth });
 const PostDealPage = () => {
 
     const [postDeal, {error, data}] = useMutation(POST_DEAL);
-
+    
     function GetAllMerchants () {
         const {loading, data} = useQuery(GET_ALL_MERCHANTS);
         const allMerchants = data?.getAllMerchants || [];
@@ -39,6 +39,7 @@ const PostDealPage = () => {
     function GetAllTags () {
         const {loading, data} = useQuery(GET_ALL_TAGS);
         const allTags = data?.getAllTags || [];
+        console.log(allTags);
         return allTags;
     }
 
@@ -224,7 +225,7 @@ const PostDealPage = () => {
                         <div className="field" style={adjustfieldWidth}>
                             <label className="label">Merchant</label>
                             <div className="control has-icons-left">
-                                <div> 
+                                <div className='select'> 
                                     <select onChange={handleChange}>
                                         {GetAllMerchants().map((merch) => 
                                         <option
@@ -246,7 +247,7 @@ const PostDealPage = () => {
                         <div className="field" style={adjustfieldWidth}>
                             <label className="label">Category</label>
                             <div className="control has-icons-left">
-                                <div> 
+                                <div className='select'> 
                                 <select>
                                     {GetAllCategories().map((cat) => 
                                     <option
@@ -268,7 +269,7 @@ const PostDealPage = () => {
                         <div className="field" style={adjustfieldWidth}>
                             <label className="label">Tags</label>
                             <div className="control has-icons-left">
-                                <div> 
+                                <div className='select is-multiple'> 
                                     <select multiple>
                                         {GetAllTags().map((tag) => 
                                         <option
@@ -277,7 +278,7 @@ const PostDealPage = () => {
                                         placeholder="Best Buy"
                                         type="text"  
                                         value={formState.tags}
-                                        onChange={handleChange}>{tag.name}</option>
+                                        onChange={handleChange}>{tag.tagName}</option>
                                         )}
                                     </select>
                                 </div>

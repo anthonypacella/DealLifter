@@ -55,7 +55,6 @@ function App() {
       <Router>
         <div>
             <Nav />
-            <InfoBar />
             <Routes>
               <Route exact = 'true' path = '/' element = {
                 <div>

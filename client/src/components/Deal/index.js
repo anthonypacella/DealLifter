@@ -6,6 +6,8 @@ import '../Deal/style.css'
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER, SAVE_DEAL_BY_ID, LIKE_DEAL } from "../../utils/mutations";
 import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
+import Auth from '../../utils/auth';
+import { format } from 'date-fns';
 
 const vcenter = {height: 'auto', position: 'relative'};
 React.createElement("div", {style: vcenter});
@@ -68,89 +70,103 @@ const Deal = ({ deal }) => {
     }
 
     return (
-        <div className = "p-6 ml-6 deal_Container card is-horizontal card-content column is-four-fifths is-flex">
-            <div className='columns is-ventered'>
+        <div className = "box has-background-white-bis px-6 py-3">
+            <header className='has-background-white-bis is-flex is-vcentered is-justify-content-end pt-3'>
+                    {deal.tags.map((tag) => (
+                        <div className="tag is-large is-fullwidth " style={{backgroundColor: `${tag.color}`}}>
+                            {tag.tagName}
+                        </div>
+                    ))}           
+            </header>
+
+            <div className='columns is-flex is-align-items-center'>
                 <div className = 'column is-3'> 
                     <div className = 'media-content card-image is-flex is-vcentered m-1'>
-                        <a  href = {deal.productLink}
-                            target = '_blank'    
-                        >
+                        <a  href = {deal.productLink} target = '_blank'>
                             <img className = "deal_Image image" src = {deal.photoLink} alt = {`photo of ${deal.title}`}></img>
                         </a>
                     </div>
                 </div>
                
-                <div className = "column media-content dealInfoContainer is-4 m-1">
-                    <a 
-                        className = "is-size-3 deal_Title"
-                        href = {deal.productLink}
-                        target = '_blank'
-                    >
+                <div className = "column is-5 ">
+                    <a className = "is-size-3 deal_Title" href = {deal.productLink} target = '_blank'>
                         {deal.title}
                     </a>
                     <br></br>
-                    <a 
-                        className = "deal_Merchant is-size-5"
-                        href = {deal.merchant.homepage}
-                        target = '_blank'
-                    >
+                    <a className = "deal_Merchant is-size-5" href = {deal.merchant.homepage} target = '_blank'>
                         {deal.merchant.name}
                     </a>
                     <div className = "deal_Description">{deal.description}</div>
                     <br></br>
-                    <div className = "deal_StartingPrice">Original Price: ${deal.startingPrice}</div>
-                    <div className = "deal_DealPrice">Price Now: ${deal.dealPrice}</div>
+                    <div className = "deal_StartingPrice">Original Price: <del>${deal.startingPrice}</del></div>
+                    <div className = "deal_DealPrice has-text-warning-dark is-size-4">Price Now: ${deal.dealPrice}</div>
                     <br></br>
                 </div>
 
-                <div className = "deal_UserInfo card-content column is-2" style={vcenter}>
-                    <div style={vcenterChild}>
-                        <div className = 'deal_UserUsername'>Posted by: 
-                            <Link to = {`/profile/${deal.submittedBy.userName}`}>
-                                {deal.submittedBy.userName}
-                            </Link>
+                <div className = "deal_UserInfo column is-2 is-flex is-vcentered">
+                    <div>
+                        <div className = 'deal_UserUsername'>
+                            <div>
+                                <p><b>Posted by</b></p>
+                            </div>
+                            <div>
+                                <p>
+                                    <Link to = {`/profile/${deal.submittedBy.userName}`}>
+                                        {deal.submittedBy.userName}
+                                    </Link>
+                                </p>
+                            </div>
                         </div>
+                        <br></br>
                         <div className = 'deal_UserPostTime'>
-                            Posted: {Date(deal.submittedOn)}
+                            <div>
+                                <p><b>Posted on</b></p>
+                            </div> 
+                            <div>
+                                <p>{format(new Date(), 'yyyy/MM/dd kk:mm')}</p>
+                            </div>
                         </div>
+                        <br></br>
                         <div className = 'deal_Expiration'>
-                            Expiration: {Date(deal.expiration)}
+                            <div>
+                                <p><b>Expires on</b></p>
+                            </div> 
+                            <div>
+                                <p>{format(new Date().setDate(new Date().getDate() + 7), 'yyyy/MM/dd')}</p>
+                            </div>
                         </div>
                     </div>
                     
                 </div>
                 
-                <div className='column is-1 is-flex is-vcentered'>
-                    <div className = "deal_UserInteractionContainter columns is-flex is-vcentered">
-                        <div className = 'column is-full'>
-                            {/* <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => SaveDeal(deal._id)}>
-                                <div className = 'saveButon'>
-                                    <i className={saved === true ? 'is-centered fas fa-solid fa-star icon' : 'is-centered fas fa-light fa-star icon'}></i>  
+                <div className='column is-2 is-flex is-vcentered is-pulled-right'>
+                    <div className = "deal_UserInteractionContainter columns">
+                        <div className = 'column'>
+                            {Auth.loggedIn() ? 
+                                (<div className = "dealSmall_UserInteractionContainter is-pulled-right">
+                                    <button className = {saved === true ? 'button is-large is-pulled-right box has-background-warning is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => SaveDeal(deal._id)}>
+                                        <div className = 'saveButon'>
+                                            <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                                        </div>
+                                    </button>
+                                    <button className = {liked === true ? 'button is-large is-pulled-rightbox has-background-danger-light is-fullwidth' : 'button is-large is-pulled-right is-pulled-right box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
+                                        <div className = 'likeButton'>
+                                            <i className={liked === true ? 'fas fa-solid fa-heart icon' : 'fas fa-light fa-heart icon'}></i>  
+                                        </div>
+                                    </button>
+                                    <div> {deal.likes} Likes</div>
+                                </div> )
+                                : (
+                                <div>
+                                    <button className = {liked === true ? 'button is-large is-pulled-right box has-background-danger-light is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
+                                        <div className = 'likeButton'>
+                                            <i className={liked === true ? 'fas fa-solid fa-heart icon' : 'fas fa-light fa-heart icon'}></i>  
+                                        </div>
+                                    </button>
+                                    <div> {deal.likes} Likes</div>
                                 </div>
-                            </button>
-                            <div>Save</div>
-                            <br></br> */}
-                            <button className = {liked === true ? 'button is-large is-pulled-right is-full-width has-background-danger' : 'button is-full-width is-large is-pulled-right has-background-white'} onClick= {() => LikeDeal(deal._id)}>
-                                <div className = 'likeButton'>
-                                    <i className={liked === true ? 'is-centered fas fa-solid fa-heart icon' : 'is-centered fas fa-light fa-heart icon'}></i>  
-                                    <span>{deal.likes}</span> 
-                                </div>
-                            </button>
-                            <div>Like</div>
+                                )}
                         </div>
-                    </div>
-                </div>
-
-                <div className='column is-2 is-flex is-vcentered'>
-                    <div className='columns is-flex is-vcentered'>
-                        {deal.tags.map((tag) => (
-                            <div className='column'>
-                                <div className="tags has-addons">
-                                    <span className="tag">
-                                        {tag.tagName}
-                                    </span>
-                            </div><br></br>
-                        </div>))}           
                     </div>
                 </div>
                

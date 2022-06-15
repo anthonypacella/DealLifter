@@ -55,6 +55,7 @@ export default function Home() {
         console.log(tagId);
         const { data } = await favoriteTag({ variables: { tagId: tagId }});
         console.log('saved tag!')
+        window.alert("This tag has been saved!");
     } catch (err) {
         console.error(err);
     }
@@ -65,7 +66,7 @@ export default function Home() {
       <div className = 'm-5'>
         <section className = 'section is-flex is-justify-content-right'>
           <Link to = '/post'>
-            <button className = 'button is-large is-pulled-right has-background-danger-light is-white'>POST A DEAL +</button>
+            <button className = 'box button is-large is-pulled-right has-background-danger-light is-white'>POST A DEAL +</button>
           </Link>
         </section>
   
@@ -84,7 +85,7 @@ export default function Home() {
           <div className='box'>
             <h3 className='title'>Follow Popular Tags</h3>
             <div className='columns'>
-              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><div className='box has-background-warning' onClick={()=>SaveTag(tag._id)}><p className='is-size-4 has-text-centered'>{tag.tagName}</p></div></div>))}
+              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><div className='box' style={{backgroundColor: `${tag.color}`}} onClick={()=>SaveTag(tag._id)}><p className='is-size-4 has-text-centered'>{tag.tagName}</p></div></div>))}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from './logo.png'
 
 import Auth from '../../utils/auth';
+import InfoBar from '../InfoBar';
 
 const Nav = () => {
   const logout = (event) => {
@@ -13,12 +14,15 @@ const Nav = () => {
   };
   
   return (
-    <nav>
-        <div className='navbar-brand'>
-        <Link to="/">
-            <img className='image is-128x128' src={logo} alt="logo"></img>
-        </Link>
+    <nav className='navbar' role='navigation'>
+        <div className='navbar-start'>
+            <div className='navbar-item'>
+            <Link to="/">
+                <img src={logo} alt="logo" style={{'maxHeight': `300px`}}></img>
+            </Link>
+            </div>
         </div>
+        
 
         <div className='navbar-end'>
             <div className='navbar-item'>
@@ -29,7 +33,7 @@ const Nav = () => {
                                 <span><Link to={`/profile/${Auth.getProfile().data.userName}`}><button className="button is-warning">Account</button></Link></span>
                             </li>
                             <li>
-                                <span><button onClick={logout} className="button is-warning">Log Out</button></span>
+                                <span><Link to="/"><button onClick={logout} className="button is-warning">Log Out</button></Link></span>
                             </li>
                         </ul>
                     ) : (
@@ -42,6 +46,10 @@ const Nav = () => {
                             </li>
                         </ul>
                     )}
+
+                    <InfoBar />
+
+                    
                 </div>
             </div>
         </div>
