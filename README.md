@@ -9,7 +9,7 @@
 - [License](#license)
 
 ## General
-Website is deployed on https://rocky-dusk-57645.herokuapp.com/
+Website is deployed on https://deallifters.herokuapp.com/
 
 A user can create a profile on our site and begin contributing new deals and use the extra features.
 
