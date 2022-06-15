@@ -79,7 +79,7 @@ function App() {
                 < Profile />
               }>
               </Route>
-              <Route exact = 'true' path = '/results' element = {
+              <Route exact = 'true' path = '/results/:keyword' element = {
                 < Results />
               }>
               </Route>

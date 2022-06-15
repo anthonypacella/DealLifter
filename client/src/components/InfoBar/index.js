@@ -44,8 +44,7 @@ const InfoBar = () => {
 
     }
 
-    window.location.assign(`/results?keyword=${formState.keyword}`)
-
+    window.location.assign(`/results/${formState.keyword}`)
   };
 
 
