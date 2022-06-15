@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import '../Deal/style.css'
 import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_USER, SAVE_DEAL_BY_ID } from "../../utils/mutations";
+import { UPDATE_USER, SAVE_DEAL_BY_ID, LIKE_DEAL } from "../../utils/mutations";
 import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
 
 const vcenter = {height: 'auto', position: 'relative'};
@@ -17,6 +17,7 @@ const Deal = ({ deal }) => {
     const [liked, setLiked] = useState(false);
     const [saved, setSaved] = useState(false);
     const [saveDeal, { data, loading, error }] = useMutation(SAVE_DEAL_BY_ID);
+    const [likeDeal, {data:dealData, loading:dealLoading, error:dealError}] = useMutation(LIKE_DEAL);
 
     function GetUserName (name) {
         const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: name }});
@@ -41,11 +42,14 @@ const Deal = ({ deal }) => {
 
 
 
-    const LikeDeal = ({deal}) => {
-        setLiked(!liked);
-        console.log(saved);
-        // saveDealToUserProfile(user._id, {deal}); //add UserID to param
-    };
+    const LikeDeal = async (dealId) => {
+        try {
+            const {data} = await likeDeal({ variables: { dealId: dealId }});
+            setLiked(true);
+        } catch (err) {
+            console.error(err);
+        }
+    }
     // const likeDeal = ({deal}) => {
     //     setLiked(!liked)
 
@@ -109,10 +113,10 @@ const Deal = ({ deal }) => {
                             </Link>
                         </div>
                         <div className = 'deal_UserPostTime'>
-                            Posted: {deal.submittedOn}
+                            Posted: {Date(deal.submittedOn)}
                         </div>
                         <div className = 'deal_Expiration'>
-                            Expiration: {deal.expiration}
+                            Expiration: {Date(deal.expiration)}
                         </div>
                     </div>
                     
@@ -121,16 +125,17 @@ const Deal = ({ deal }) => {
                 <div className='column is-1 is-flex is-vcentered'>
                     <div className = "deal_UserInteractionContainter columns is-flex is-vcentered">
                         <div className = 'column is-full'>
-                            <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => SaveDeal(deal._id)}>
+                            {/* <button className = {saved === true ? 'button is-large is-full-width is-pulled-right has-background-warning' : 'button is-large is-full-width is-pulled-right has-background-white'} onClick= {() => SaveDeal(deal._id)}>
                                 <div className = 'saveButon'>
                                     <i className={saved === true ? 'is-centered fas fa-solid fa-star icon' : 'is-centered fas fa-light fa-star icon'}></i>  
                                 </div>
                             </button>
                             <div>Save</div>
-                            <br></br>
+                            <br></br> */}
                             <button className = {liked === true ? 'button is-large is-pulled-right is-full-width has-background-danger' : 'button is-full-width is-large is-pulled-right has-background-white'} onClick= {() => LikeDeal(deal._id)}>
                                 <div className = 'likeButton'>
                                     <i className={liked === true ? 'is-centered fas fa-solid fa-heart icon' : 'is-centered fas fa-light fa-heart icon'}></i>  
+                                    <span>{deal.likes}</span> 
                                 </div>
                             </button>
                             <div>Like</div>

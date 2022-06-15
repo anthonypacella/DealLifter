@@ -95,7 +95,7 @@ export const UPDATE_MERCHANT = gql`
 `
 
 export const POST_DEAL = gql`
-  mutation postDeal($title: String!, $productLink: String!, $photoLink: String!, $description: String, $startingPrice: Float, $dealPrice: Float, $merchant: ID!, $category: ID!, $tags: [ID], $submittedBy: ID, $expiration: String) {
+  mutation postDeal($title: String!, $productLink: String!, $photoLink: String!, $description: String, $startingPrice: String, $dealPrice: String, $merchant: ID!, $category: ID!, $tags: [ID], $submittedBy: ID, $expiration: String) {
     postDeal(title: $title, productLink: $productLink, photoLink: $photoLink, description: $description, startingPrice: $startingPrice, dealPrice: $dealPrice, merchant: $merchant, category: $category, tags: $tags, submittedBy: $submittedBy, expiration: $expiration) {
       _id
       title
@@ -105,7 +105,7 @@ export const POST_DEAL = gql`
 `
 
 export const UPDATE_DEAL = gql`
-  mutation updateDeal($dealId: ID!, $title: String!, $description: String, $link: String, $photoLink: String, $productLink: String, $startingPrice: Float, $dealPrice: Float, $merchant: ID, $category: ID, $tags: [ID]) {
+  mutation updateDeal($dealId: ID!, $title: String!, $description: String, $link: String, $photoLink: String, $productLink: String, $startingPrice: String, $dealPrice: String, $merchant: ID, $category: ID, $tags: [ID]) {
     updateDeal(dealId: $dealId, title: $title, description: $description, link: $link, photoLink: $photoLink, productLink: $productLink, startingPrice: $startingPrice, dealPrice: $dealPrice, merchant: $merchant, category: $category, tags: $tags) {
       _id
       title

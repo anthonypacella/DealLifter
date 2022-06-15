@@ -43,8 +43,8 @@ const PostDealPage = () => {
     description: '',
     productLink: '',
     photoLink: '',
-    startingPrice: '',
-    dealPrice: '',
+    startingPrice: 0,
+    dealPrice: 0,
     merchant: '',
     category: '',
     tags: [],
@@ -52,12 +52,17 @@ const PostDealPage = () => {
     submittedOn: Date.now
   });
 
+  
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
       ...formState,
       [name]: value,
     });
+
+   
   };
 
   const handleFormSubmit = async (event) => {
@@ -66,6 +71,7 @@ const PostDealPage = () => {
 
     try {
         const { data } = await postDeal({
+            // variables: { startingPrice: parseFloat(formState.startingPrice,2), dealPrice: parseFloat(formState.dealPrice,2),...formState },
             variables: { ...formState },
         });
     }
