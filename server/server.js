@@ -20,14 +20,29 @@ app.use(express.json());
 // Serve up static assets
 app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
+// }
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
+
+// List of all the files that should be served as-is
+let protected = ['transformed.js', 'index.css', 'favicon.ico']
+
+app.get("*", (req, res) => {
+
+  let path = req.params['0'].substring(1)
+
+  if (protected.includes(path)) {
+    // Return the actual file
+    res.sendFile(`${__dirname}/build/${path}`);
+  } else {
+    // Otherwise, redirect to /build/index.html
+    res.sendFile(`${__dirname}/build/index.html`);
+  }
 });
-
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
