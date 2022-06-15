@@ -37,17 +37,17 @@ const authLink = setContext((_, { headers }) => {
 });
 
 // commenting out to try and get heroku deployment
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-
 // const client = new ApolloClient({
-//   ssrMode: true,
-//   // Instead of "createHttpLink" use SchemaLink here
-//   link: new SchemaLink({ schema }),
+//   link: authLink.concat(httpLink),
 //   cache: new InMemoryCache(),
 // });
+
+const client = new ApolloClient({
+  ssrMode: true,
+  // Instead of "createHttpLink" use SchemaLink here
+  link: new SchemaLink({ schema }),
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
