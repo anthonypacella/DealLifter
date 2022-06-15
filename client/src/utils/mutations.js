@@ -54,6 +54,17 @@ export const UPDATE_TAG = gql`
     }
   }
 `
+
+export const REMOVE_TAG_FROM_DEAL = gql`
+  mutation RemoveTagFromDeal($tagId: ID!, $dealId: ID!) {
+    removeTagFromDeal(tagId: $tagId, dealId: $dealId) {
+      tags {
+        _id
+      }
+      _id
+    }
+  }
+`
 export const CREATE_CATEGORY = gql`
   mutation createCategory($name: String!, $icon: String!, $link: String!) {
     createCategory(name: $name, icon: $icon, link: $link) {
@@ -145,6 +156,18 @@ export const FAVORITE_TAG_BY_ID = gql`
     }
   }
 `
+export const UNFAVORITE_TAG_BY_ID = gql`
+  mutation unfavoriteTagById($tagId: ID!) {
+    unfavoriteTagById(tagId: $tagId) {
+      _id
+      userName
+      favoriteTags {
+        _id
+      }
+    }
+  }
+`
+
 export const ADD_TO_FOLLOWING = gql`
   mutation addToFollowing($userId: ID!) {
     addToFollowing(userId: $userId) {
