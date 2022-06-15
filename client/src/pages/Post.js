@@ -43,8 +43,8 @@ const PostDealPage = () => {
     description: '',
     productLink: '',
     photoLink: '',
-    startingPrice: '',
-    dealPrice: '',
+    startingPrice: 0,
+    dealPrice: 0,
     merchant: '',
     category: '',
     tags: [],
@@ -52,11 +52,27 @@ const PostDealPage = () => {
     submittedOn: Date.now
   });
 
+  const [formNumberState, setFormNumberState] = useState({
+    
+    startingPrice: 0,
+    dealPrice: 0,
+    
+  });
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
       ...formState,
       [name]: value,
+    });
+
+    const priceValue = Number(event.target.value); 
+
+    setFormNumberState({
+        ...formNumberState,
+        [name]: priceValue,
+    
     });
   };
 
@@ -177,7 +193,7 @@ const PostDealPage = () => {
                                     className="input is-warning"
                                     name="startingPrice" 
                                     placeholder="$19.99"
-                                    type="text"  
+                                    type="number"  
                                     value={formState.startingPrice}
                                     onChange={handleChange}
                                     />
@@ -196,7 +212,7 @@ const PostDealPage = () => {
                                     className="input is-warning"
                                     name="dealPrice" 
                                     placeholder="$14.99"
-                                    type="text"  
+                                    type="number"  
                                     value={formState.dealPrice}
                                     onChange={handleChange}
                                     />

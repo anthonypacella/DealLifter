@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const dateFormat = require('../utils/dateFormat');
 const dealSchema = new Schema({
 
   // needs to be changed
@@ -56,11 +56,12 @@ const dealSchema = new Schema({
   submittedOn: {
     type: Date,
     default: Date.now,
-    // get: (timestamp) => dateFormat(timestamp),
+    get: (timestamp) => dateFormat(timestamp),
   },
   // still needs work, expiration will need to be input when deal is created
   expiration: {
     type: Date,
+    get: (timestamp) => dateFormat(timestamp),
 
   },
   // needs a companiopn function to only keep 10 numbers in this array, 
@@ -88,7 +89,7 @@ const dealSchema = new Schema({
       createdAt: {
         type: Date,
         default: Date.now,
-        // get: (timestamp) => dateFormat(timestamp),
+        get: (timestamp) => dateFormat(timestamp),
       },
     },
   ],
