@@ -67,17 +67,20 @@ const resolvers = {
     
     getPersonalizedDealsByUserId: async(parent, args, context)=>{
       let dealsArray = [];
-      context.user.searchHistory.forEach(search => {
-        let keyword = search.keyword;
+      let userId = context.user._id;
+      const user = await User.findOne({_id:userId});
+      console.log("SearchHistory");
+      console.log(user.searchHistory);
+      user.searchHistory.forEach(keyword => {        
         let dealsArrayTemp = Deal.find({ 
           $or: [ 
             {"description": new RegExp(keyword, "i")} , 
             {"title": new RegExp(keyword, "i")} ,
           ]
         })
-        .where("merchant").in(merchantFilter)
-        .where("category").in(categoryFilter)
-        .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
+        // .where("merchant").in(merchantFilter)
+        // .where("category").in(categoryFilter)
+        // .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
         .populate('category').populate('tags').populate('merchant').populate('submittedBy');
 
         // dealsArray = dealsArray.concat(dealsArrayTemp);
@@ -297,7 +300,8 @@ const resolvers = {
     },
     // not going to use this //
     removeTagFromDeal: async (parent, { tagId, dealId } ) => {
-      return await Deal.findOneAndUpdate({ "_id": dealId }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
+      const deal = await Deal.findOne({_id: dealId});
+      return await Deal.findOneAndUpdate({ _id: deal._id }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
     },
 
     saveDealById: async (parent, { dealId }, context) => {
@@ -319,6 +323,14 @@ const resolvers = {
       );
     },
 
+    unfavoriteTagById: async (parent, { tagId }, context) => {
+      const tag = await Tag.findOne({_id: tagId});
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { favoriteTags: tag._id } }
+      );
+    },
+
     addToFollowing: async (parent, { userId }, context) => {
       addToFollowers(userId);
       return await User.findByIdAndUpdate(context.user._id, { $addToSet: { following: userId } }, { new: true } )
@@ -332,9 +344,11 @@ const resolvers = {
     createSearch: async (parent, args) => {
       return await Search.create(args);
     },
-    addToSearchHistory: async (parent, { searchId }, context ) => {
+    addToSearchHistory: async (parent, args, context ) => {
       let userId = context.user._id
-      return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory: searchId } }, { new: true } )
+      // return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory: searchId } }, { new: true } )
+      const user = await User.findOne({_id:userId});
+      return await User.findOneAndUpdate({_id:user._id},{ $addToSet: { searchHistory: args.keyword } }, { new: true });
     },
 
     // these two mutation were from starter code

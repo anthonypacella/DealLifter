@@ -164,10 +164,7 @@ export const QUERY_ME = gql`
         _id
       }
       avatar
-      searchHistory {
-        _id
-        keyword
-      }
+      searchHistory
     }
   }
 `;
@@ -227,10 +224,7 @@ export const GET_USER_BY_ID = gql`
         userName
       }
       avatar
-      searchHistory {
-        _id
-        keyword
-      }
+      searchHistory
       totalFollowing
       totalFollowers
     }
@@ -267,10 +261,7 @@ query getUserByUserName($userName: String!) {
       userName
     }
     avatar
-    searchHistory {
-      _id
-      keyword
-    }
+    searchHistory
     totalFollowing
     totalFollowers
   }

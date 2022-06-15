@@ -50,8 +50,8 @@ const userSchema = new Schema(
     },
     searchHistory: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Search'
+        type: String,
+        // ref: 'Search'
       }
     ], 
   },

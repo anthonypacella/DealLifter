@@ -40,8 +40,6 @@ const Deal = ({ deal }) => {
         }
     }
 
-
-
     const LikeDeal = async (dealId) => {
         try {
             const {data} = await likeDeal({ variables: { dealId: dealId }});
@@ -151,7 +149,6 @@ const Deal = ({ deal }) => {
                                     <span className="tag">
                                         {tag.tagName}
                                     </span>
-                                <button className="tag is-delete"></button>
                             </div><br></br>
                         </div>))}           
                     </div>
