@@ -78,6 +78,10 @@ const PostDealPage = () => {
             // variables: { startingPrice: parseFloat(formState.startingPrice,2), dealPrice: parseFloat(formState.dealPrice,2),...formState },
             variables: { ...formState },
         });
+
+        window.alert('Deal posted successfully!')
+        
+        window.location.assign('/');
     }
 
     catch (e) {
