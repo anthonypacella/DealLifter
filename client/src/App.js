@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { SchemaLink } from 'apollo-link-schema';
+import { SchemaLink, schema } from 'apollo-link-schema';
 
 import Logo from './components/Logo';
 import Nav from './components/Nav';
@@ -36,18 +36,18 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// commenting our to try and get heroku deployment
-// const client = new ApolloClient({
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache(),
-// });
-
+// commenting out to try and get heroku deployment
 const client = new ApolloClient({
-  ssrMode: true,
-  // Instead of "createHttpLink" use SchemaLink here
-  link: new SchemaLink({ schema }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
+// const client = new ApolloClient({
+//   ssrMode: true,
+//   // Instead of "createHttpLink" use SchemaLink here
+//   link: new SchemaLink({ schema }),
+//   cache: new InMemoryCache(),
+// });
 
 function App() {
   return (
