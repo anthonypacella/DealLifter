@@ -26,11 +26,12 @@ function ObtainExpiringDeals () {
 function ObtainYourFeed () {
   const userId = auth.getProfile().data._id;
 
-  const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID, {
-    variables: {userId}
-  });
+  // const {loading, error, data} = useQuery(GET_PERSONALIZED_DEALS_BY_USER_ID, {
+  //   variables: {userId}
+  // });
+  const {loading, error, data} = useQuery(GET_ALL_DEALS);
 
-  const yourFeed = data?.getPersonalizedDealsByUserId || [];
+  const yourFeed = data?.getAllDeals || [];
   return yourFeed
 }
 
@@ -39,10 +40,6 @@ function ObtainAllTags () {
   const allTags = data?.getAllTags || [];
   return allTags
 }
-
-
-
-
 
 const recentDeals = dealArray;
 const yourFeed = dealArray;
