@@ -84,7 +84,7 @@ export default function Home() {
           <div className='box'>
             <h3 className='title'>Follow Popular Tags</h3>
             <div className='columns'>
-              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><div className='box has-background-warning' onClick={()=>SaveTag(tag._id)}><p className='is-size-4 has-text-centered'>{tag.tagName}</p></div></div>))}
+              {ObtainAllTags().map((tag) => (<div className='column is-one-fifth'><div className='box' style={{backgroundColor: `${tag.color}`}} onClick={()=>SaveTag(tag._id)}><p className='is-size-4 has-text-centered'>{tag.tagName}</p></div></div>))}
             </div>
           </div>
         </div>

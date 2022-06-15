@@ -4,7 +4,9 @@ import '../DealSmall/style.css'
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER, SAVE_DEAL_BY_ID, LIKE_DEAL } from "../../utils/mutations";
 import { GET_USER_BY_USERNAME, GET_USER_BY_ID } from '../../utils/queries';
-import auth from '../../utils/auth';
+import Auth from '../../utils/auth';
+import { format } from 'date-fns';
+
 
 const DealSmall = ({ deal }) => {
     const [likes, setLikes] = useState(0);
@@ -101,32 +103,34 @@ const DealSmall = ({ deal }) => {
             </div>
 
             <div className = "dealSmall_UserInfo rowSmall">
-                    <div className = 'dealSmall_UserUsername'>Posted by: 
+                    <div className = 'dealSmall_UserUsername'>Posted by<span> </span>  
                         <Link to = {`/profile/${deal.submittedBy.userName}`}>
                             {deal.submittedBy.userName}
                         </Link>
                     </div>
-                <div className = 'dealSmall_UserPostTime'>Posted: {Date(deal.submittedOn)}</div>
+                <div className = 'dealSmall_UserPostTime'>Posted on<span> </span> {format(new Date(), 'yyyy/MM/dd kk:mm')}</div>
             </div>
             
             <br></br>
-{auth.loggedIn()?(<div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-left">
-                <button className = {saved === true ? 'button is-small is-pulled-right box has-background-warning' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => SaveDeal(deal._id)}>
-                    <div className = 'saveButon'>
-                        <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
-                    </div>
-                </button>
-            </div>):(
-                <>
-                </>
-            )}
+                {Auth.loggedIn() ? 
+                    (<div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-left">
+                        <button className = {saved === true ? 'button is-large box has-background-warning is-fullwidth' : 'button is-large box has-background-white is-fullwidth'} onClick= {() => SaveDeal(deal._id)}>
+                            <div className = 'saveButon'>
+                                <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
+                            </div>
+                        </button>
+                    </div> )
+                    : (
+                        <>
+                        </>
+                    )}
             
 
             <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-right">
-                <button className = {liked === true ? 'button is-small is-pulled-right box has-background-danger' : 'button is-pulled-right is-small box has-background-white'} onClick= {() => LikeDeal(deal._id)}>
+                <button className = {liked === true ? 'button is-large box has-background-danger-dark is-fullwidth' : 'button is-large box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
                     <div className = 'saveButon'>
                         <i className={liked === true ? 'fas fa-solid fa-heart' : 'fas fa-light fa-heart'}></i>
-                        <span>{deal.likes}</span>            
+                        <span>  {deal.likes}</span>            
                     </div>
                 </button>
                 
