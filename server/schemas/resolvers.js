@@ -67,17 +67,20 @@ const resolvers = {
     
     getPersonalizedDealsByUserId: async(parent, args, context)=>{
       let dealsArray = [];
-      context.user.searchHistory.forEach(search => {
-        let keyword = search.keyword;
+      let userId = context.user._id;
+      const user = await User.findOne({_id:userId});
+      console.log("SearchHistory");
+      console.log(user.searchHistory);
+      user.searchHistory.forEach(keyword => {        
         let dealsArrayTemp = Deal.find({ 
           $or: [ 
             {"description": new RegExp(keyword, "i")} , 
             {"title": new RegExp(keyword, "i")} ,
           ]
         })
-        .where("merchant").in(merchantFilter)
-        .where("category").in(categoryFilter)
-        .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
+        // .where("merchant").in(merchantFilter)
+        // .where("category").in(categoryFilter)
+        // .find( {"tags": { '$elemMatch': { '$in': tagFilter} } } )
         .populate('category').populate('tags').populate('merchant').populate('submittedBy');
 
         // dealsArray = dealsArray.concat(dealsArrayTemp);
@@ -341,9 +344,11 @@ const resolvers = {
     createSearch: async (parent, args) => {
       return await Search.create(args);
     },
-    addToSearchHistory: async (parent, { searchId }, context ) => {
+    addToSearchHistory: async (parent, args, context ) => {
       let userId = context.user._id
-      return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory: searchId } }, { new: true } )
+      // return await User.findByIdAndUpdate(userId, { $addToSet: { searchHistory: searchId } }, { new: true } )
+      const user = await User.findOne({_id:userId});
+      return await User.findOneAndUpdate({_id:user._id},{ $addToSet: { searchHistory: args.keyword } }, { new: true });
     },
 
     // these two mutation were from starter code

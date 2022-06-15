@@ -7,6 +7,7 @@ import Auth from '../utils/auth';
 import { GET_ALL_CATEGORIES, GET_ALL_TAGS, GET_ALL_MERCHANTS } from '../utils/queries';
 import { POST_DEAL } from '../utils/mutations';
 
+
 const adjustfieldWidth = { width: '250%' };
 React.createElement("div", { style: adjustfieldWidth });
 
@@ -32,6 +33,9 @@ const PostDealPage = () => {
         return allCategories;
     }
 
+    const categoryList =  GetAllCategories();
+
+
     function GetAllTags () {
         const {loading, data} = useQuery(GET_ALL_TAGS);
         const allTags = data?.getAllTags || [];
@@ -45,8 +49,8 @@ const PostDealPage = () => {
     photoLink: '',
     startingPrice: 0,
     dealPrice: 0,
-    merchant: '',
-    category: '',
+    merchant: '62a9260605ec011568b34ff8',
+    category: '62a9260605ec011568b34fff',
     tags: [],
     submittedBy: Auth.getProfile().data._id,
     submittedOn: Date.now
@@ -246,7 +250,7 @@ const PostDealPage = () => {
                                     name="category" 
                                     placeholder="Best Buy"
                                     type="text"  
-                                    value={formState.category}
+                                    value={cat._id}
                                     onChange={handleChange}>{cat.name}</option>
                                     )}
                                 </select>

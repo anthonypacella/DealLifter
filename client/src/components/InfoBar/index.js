@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './categories';
 import categories from './categories';
@@ -7,17 +7,20 @@ import deals from './deals';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_DEALS_BY_KEYWORD } from '../../utils/queries';
+import { CREATE_SEARCH, ADD_TO_SEARCH_HISTORY } from '../../utils/mutations';
 
 
 const InfoBar = () => {
   const [formState, setFormState] = useState({
     keyword: '',
   });
+  
 
-  // function DealsByKeyword (keyword) {
-  //   const {getDealsByKeyword, data} = useQuery(GET_DEALS_BY_KEYWORD);
-  //   return getDealsByKeyword(keyword);
-  // }
+
+  // const [createSearch, {error:searchError, data: searchData}] = useMutation(CREATE_SEARCH);
+  const [addToSearchHistory, {error: historyError, data: historyData}] = useMutation(ADD_TO_SEARCH_HISTORY);
+
+ 
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,24 +33,26 @@ const InfoBar = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+    try {
+
+     
+      const { history } = await addToSearchHistory({
+        variables: { ...formState },
+      })
+      
+    } catch (error) {
+
+    }
+
     window.location.assign(`/results?keyword=${formState.keyword}`)
 
-
-    // try {
-    //   return DealsByKeyword({
-    //     variables: { ...formState },
-    //   });
-
-    // } catch (e) {
-    //   console.error(e);
-    // }
   };
 
 
   return (
     <nav className='navbar'>
       <div className='navbar-menu'>
-        
+
         <div className='navbar-item has-dropdown is-hoverable'>
           <a className="navbar-link">
             Categories
@@ -62,7 +67,7 @@ const InfoBar = () => {
             ))}
           </div>
         </div>
-        
+
         <div className='navbar-item has-dropdown is-hoverable'>
           <a className="navbar-link">
             Deals of the Day
@@ -71,7 +76,7 @@ const InfoBar = () => {
             {deals.map((deal) => (
               <div className='navbar-item'>
                 <Link to={deal.link}>
-                    <span>{deal.name}</span>
+                  <span>{deal.name}</span>
                 </Link>
               </div>
             ))}
@@ -82,22 +87,22 @@ const InfoBar = () => {
           <div className="field has-addons">
             <p className="control">
               <form onSubmit={handleFormSubmit}>
-                <input 
-                  className="input is-rounded" 
-                  type="text" 
-                  placeholder="Search the deals" 
+                <input
+                  className="input is-rounded"
+                  type="text"
+                  placeholder="Search the deals"
                   autoComplete="off"
-                  name="keyword" 
+                  name="keyword"
                   value={formState.keyword}
                   onChange={handleChange}
                 />
                 <div className="field">
                   <div className="buttons my-2">
                     <button className="button is-warning">
-                        <span className="icon is-small">
-                            <i className="fas fa-check"></i>
-                        </span>
-                        <span>Submit</span>
+                      <span className="icon is-small">
+                        <i className="fas fa-check"></i>
+                      </span>
+                      <span>Submit</span>
                     </button>
                   </div>
                 </div>

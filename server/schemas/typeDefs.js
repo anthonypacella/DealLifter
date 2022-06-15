@@ -51,7 +51,7 @@ const typeDefs = gql`
     following: [User]
     followers: [User]
     avatar: String
-    searchHistory: [Search]
+    searchHistory: [String]
     totalFollowers: Int
     totalFollowing: Int
   }
@@ -180,7 +180,7 @@ const typeDefs = gql`
     addToFollowers(userId: ID!): User
 
     createSearch(keyword: String!, merchantFilter: [ID], categoryFilter: [ID], tagFilter: [ID]): Search
-    addToSearchHistory(searchId: ID!): User
+    addToSearchHistory(keyword: String!): User
   }
 `;
 
