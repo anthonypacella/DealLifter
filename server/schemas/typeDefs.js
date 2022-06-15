@@ -174,6 +174,8 @@ const typeDefs = gql`
 
     saveDealById(dealId: ID!): User
     favoriteTagById(tagId: ID!): User
+    unfavoriteTagById(tagId: ID!): User
+
     addToFollowing(userId: ID!): User
     addToFollowers(userId: ID!): User
 

@@ -297,7 +297,8 @@ const resolvers = {
     },
     // not going to use this //
     removeTagFromDeal: async (parent, { tagId, dealId } ) => {
-      return await Deal.findOneAndUpdate({ "_id": dealId }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
+      const deal = await Deal.findOne({_id: dealId});
+      return await Deal.findOneAndUpdate({ _id: deal._id }, { $pull: { "tags": { _id: tagId } } }, { new: true } );
     },
 
     saveDealById: async (parent, { dealId }, context) => {
@@ -316,6 +317,14 @@ const resolvers = {
       return await User.findOneAndUpdate(
         { _id: context.user._id },
         { $addToSet: { favoriteTags: tag._id } }
+      );
+    },
+
+    unfavoriteTagById: async (parent, { tagId }, context) => {
+      const tag = await Tag.findOne({_id: tagId});
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { favoriteTags: tag._id } }
       );
     },
 
