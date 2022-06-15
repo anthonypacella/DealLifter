@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { SchemaLink } from 'apollo-link-schema';
+// import { SchemaLink } from 'apollo-link-schema';
 
 import Logo from './components/Logo';
 import Nav from './components/Nav';
