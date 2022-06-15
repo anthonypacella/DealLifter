@@ -17,7 +17,6 @@ const merchantSchema = new Schema({
   },
   homepage: {
     type: String,
-    required: true,
   },  
   categories: 
     [
