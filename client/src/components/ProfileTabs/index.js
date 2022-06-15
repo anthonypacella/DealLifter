@@ -12,6 +12,7 @@ import SavedDeals from '../SavedDeals/index'
 import FavoriteTags from '../FavoriteTags/index'
 import Following from '../Following/index'
 import Followers from '../Followers/index'
+import SearchHistory from '../SearchHistory/index'
 
 import { GET_USER_BY_USERNAME } from '../../utils/queries';
 
@@ -85,7 +86,7 @@ const ProfileTabs = () => {
     const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: userParam }});
     const userObj = data?.getUserByUserName || [];
     console.log(`userObj: `, userObj);
-    console.log(userObj.favoriteTags);
+    console.log(userObj);
     // const {loading, data} = useQuery(GET_USER_BY_ID, { variables: { userId: userId }});
     // const user = data?.getUserById || [];
     // console.log('user', user);
@@ -97,7 +98,6 @@ const ProfileTabs = () => {
   //   console.log('userobj', userObj);
   
   const handleClick = (id) => {
-    console.log(id);
     setIsShown(current => !current);
     setButtonState(id);
   };
@@ -117,10 +117,6 @@ const ProfileTabs = () => {
         </nav>
       </div>
 
-      {/* <div>
-        {GetUserName()}
-      </div> */}
-
       <div className="column is-four-fifths" >
         {buttonState===1 ? (
           <SavedDeals savedDeals = {userObj.savedDeals} />
@@ -130,6 +126,10 @@ const ProfileTabs = () => {
           <Following following = {followingExample} />
         ) : buttonState === 4 ? (
           <Followers followers = {followersExample} />
+        ) : buttonState === 5 ? (
+          <PostedDeals userId = {userObj._id} />
+        ) : buttonState === 6 ? (
+          <SearchHistory searches = {userObj.searchHistory} />
         ) : 
           <p className="title is-align-self-stretch">
             Welcome!

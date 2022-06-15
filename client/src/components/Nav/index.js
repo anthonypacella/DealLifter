@@ -18,7 +18,7 @@ const Nav = () => {
         <div className='navbar-start'>
             <div className='navbar-item'>
             <Link to="/">
-                <img src={logo} alt="logo" style={{'max-height': `300px`}}></img>
+                <img src={logo} alt="logo" style={{'maxHeight': `300px`}}></img>
             </Link>
             </div>
         </div>
@@ -33,7 +33,7 @@ const Nav = () => {
                                 <span><Link to={`/profile/${Auth.getProfile().data.userName}`}><button className="button is-warning">Account</button></Link></span>
                             </li>
                             <li>
-                                <span><button onClick={logout} className="button is-warning">Log Out</button></span>
+                                <span><Link to="/"><button onClick={logout} className="button is-warning">Log Out</button></Link></span>
                             </li>
                         </ul>
                     ) : (

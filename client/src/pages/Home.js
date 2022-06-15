@@ -55,6 +55,7 @@ export default function Home() {
         console.log(tagId);
         const { data } = await favoriteTag({ variables: { tagId: tagId }});
         console.log('saved tag!')
+        window.alert("This tag has been saved!");
     } catch (err) {
         console.error(err);
     }
@@ -65,7 +66,7 @@ export default function Home() {
       <div className = 'm-5'>
         <section className = 'section is-flex is-justify-content-right'>
           <Link to = '/post'>
-            <button className = 'button is-large is-pulled-right has-background-danger-light is-white'>POST A DEAL +</button>
+            <button className = 'box button is-large is-pulled-right has-background-danger-light is-white'>POST A DEAL +</button>
           </Link>
         </section>
   

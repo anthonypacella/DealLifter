@@ -127,7 +127,7 @@ const DealSmall = ({ deal }) => {
             
 
             <div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-right">
-                <button className = {liked === true ? 'button is-large box has-background-danger-dark is-fullwidth' : 'button is-large box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
+                <button className = {liked === true ? 'button is-large box has-background-danger-light is-fullwidth' : 'button is-large box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
                     <div className = 'saveButon'>
                         <i className={liked === true ? 'fas fa-solid fa-heart' : 'fas fa-light fa-heart'}></i>
                         <span>  {deal.likes}</span>            

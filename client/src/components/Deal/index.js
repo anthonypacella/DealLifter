@@ -139,17 +139,17 @@ const Deal = ({ deal }) => {
                     
                 </div>
                 
-                <div className='column is-2 is-flex is-vcentered'>
-                    <div className = "deal_UserInteractionContainter columns is-flex is-vcentered">
-                        <div className = 'column is-full'>
+                <div className='column is-2 is-flex is-vcentered is-pulled-right'>
+                    <div className = "deal_UserInteractionContainter columns">
+                        <div className = 'column'>
                             {Auth.loggedIn() ? 
-                                (<div className = "dealSmall_UserInteractionContainter has-text-centered is-pulled-left">
-                                    <button className = {saved === true ? 'button is-large box has-background-warning is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => SaveDeal(deal._id)}>
+                                (<div className = "dealSmall_UserInteractionContainter is-pulled-right">
+                                    <button className = {saved === true ? 'button is-large is-pulled-right box has-background-warning is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => SaveDeal(deal._id)}>
                                         <div className = 'saveButon'>
                                             <i className={saved === true ? 'fas fa-solid fa-star' : 'fas fa-light fa-star'}></i>            
                                         </div>
                                     </button>
-                                    <button className = {liked === true ? 'button is-large box has-background-danger-dark is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
+                                    <button className = {liked === true ? 'button is-large is-pulled-rightbox has-background-danger-light is-fullwidth' : 'button is-large is-pulled-right is-pulled-right box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
                                         <div className = 'likeButton'>
                                             <i className={liked === true ? 'fas fa-solid fa-heart icon' : 'fas fa-light fa-heart icon'}></i>  
                                         </div>
@@ -158,7 +158,7 @@ const Deal = ({ deal }) => {
                                 </div> )
                                 : (
                                 <div>
-                                    <button className = {liked === true ? 'button is-large box has-background-danger-dark is-fullwidth' : 'button is-large box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
+                                    <button className = {liked === true ? 'button is-large is-pulled-right box has-background-danger-light is-fullwidth' : 'button is-large is-pulled-right box has-background-white is-fullwidth'} onClick= {() => LikeDeal(deal._id)}>
                                         <div className = 'likeButton'>
                                             <i className={liked === true ? 'fas fa-solid fa-heart icon' : 'fas fa-light fa-heart icon'}></i>  
                                         </div>
