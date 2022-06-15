@@ -185,10 +185,11 @@ export const CREATE_SEARCH = gql`
 `
 
 export const ADD_TO_SEARCH_HISTORY = gql`
-  mutation addToSearchHistory($searchId: ID!) {
-    addToSearchHistory(searchId: $searchId) {
+  mutation addToSearchHistory($keyword: String!) {
+    addToSearchHistory(keyword: $keyword) {
       _id
       userName
+      searchHistory
     }
   }
 `
