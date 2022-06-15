@@ -76,8 +76,8 @@ const typeDefs = gql`
     description: String
     photoLink: String!
     productLink: String!
-    startingPrice: Float
-    dealPrice: Float
+    startingPrice: String
+    dealPrice: String
     merchant: Merchant
     category: Category
     tags: [Tag]
@@ -145,8 +145,8 @@ const typeDefs = gql`
       description: String,
       photoLink: String!,
       productLink: String!,
-      startingPrice: Float,
-      dealPrice: Float,
+      startingPrice: String,
+      dealPrice: String,
       merchant: ID!,
       category: ID!,
       tags: [ID],
@@ -160,8 +160,8 @@ const typeDefs = gql`
       link: String,
       photoLink: String,
       productLink: String,
-      startingPrice: Float,
-      dealPrice: Float,
+      startingPrice: String,
+      dealPrice: String,
       merchant: ID,
       category: ID,
       tags: [ID],

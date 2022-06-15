@@ -52,12 +52,7 @@ const PostDealPage = () => {
     submittedOn: Date.now
   });
 
-  const [formNumberState, setFormNumberState] = useState({
-    
-    startingPrice: 0,
-    dealPrice: 0,
-    
-  });
+  
 
 
   const handleChange = (event) => {
@@ -67,13 +62,7 @@ const PostDealPage = () => {
       [name]: value,
     });
 
-    const priceValue = Number(event.target.value); 
-
-    setFormNumberState({
-        ...formNumberState,
-        [name]: priceValue,
-    
-    });
+   
   };
 
   const handleFormSubmit = async (event) => {
@@ -82,6 +71,7 @@ const PostDealPage = () => {
 
     try {
         const { data } = await postDeal({
+            // variables: { startingPrice: parseFloat(formState.startingPrice,2), dealPrice: parseFloat(formState.dealPrice,2),...formState },
             variables: { ...formState },
         });
     }
@@ -193,7 +183,7 @@ const PostDealPage = () => {
                                     className="input is-warning"
                                     name="startingPrice" 
                                     placeholder="$19.99"
-                                    type="number"  
+                                    type="text"  
                                     value={formState.startingPrice}
                                     onChange={handleChange}
                                     />
@@ -212,7 +202,7 @@ const PostDealPage = () => {
                                     className="input is-warning"
                                     name="dealPrice" 
                                     placeholder="$14.99"
-                                    type="number"  
+                                    type="text"  
                                     value={formState.dealPrice}
                                     onChange={handleChange}
                                     />
