@@ -18,7 +18,7 @@ const InfoBar = () => {
 
 
   // const [createSearch, {error:searchError, data: searchData}] = useMutation(CREATE_SEARCH);
-  const [addToSearchHistory, {error: historyError, data: historyData}] = useMutation(ADD_TO_SEARCH_HISTORY);
+  const [addToSearchHistory, {error, data}] = useMutation(ADD_TO_SEARCH_HISTORY);
 
  
 
@@ -35,10 +35,10 @@ const InfoBar = () => {
     console.log(formState);
     try {
 
-      const { history } = await addToSearchHistory({
+      const { data } = await addToSearchHistory({
         variables: { ...formState },
       })
-      
+      console.log('dataaaaaaaaaaaaaaaaaaaaaaa', data);
     } catch (error) {
 
     }

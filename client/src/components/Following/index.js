@@ -34,15 +34,15 @@ const Following = ({
                     </div>
                     <div className="card-content">
                         <div className="content">
-                            <span class="icon-text px-2">
-                                <span class="icon">
-                                    <i class="fas fa-users"></i>
+                            <span className="icon-text px-2">
+                                <span className="icon">
+                                    <i className="fas fa-users"></i>
                                 </span>
                                 <span>{user.totalFollowers}</span>
                             </span>
-                            <span class="icon-text px-2">
-                                <span class="icon">
-                                    <i class="fas fa-lightbulb"></i>
+                            <span className="icon-text px-2">
+                                <span className="icon">
+                                    <i className="fas fa-lightbulb"></i>
                                 </span>
                                 <span>{user.PostedDealsByUser}</span>
                             </span>

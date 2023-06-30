@@ -21,6 +21,8 @@ const Deal = ({ deal }) => {
     const [saveDeal, { data, loading, error }] = useMutation(SAVE_DEAL_BY_ID);
     const [likeDeal, {data:dealData, loading:dealLoading, error:dealError}] = useMutation(LIKE_DEAL);
 
+    console.log(deal);
+
     function GetUserName (name) {
         const {loading, data} = useQuery(GET_USER_BY_USERNAME, { variables: { userName: name }});
         const userId = data?.getUserByUserName._id || {};
@@ -50,24 +52,6 @@ const Deal = ({ deal }) => {
             console.error(err);
         }
     }
-    // const likeDeal = ({deal}) => {
-    //     setLiked(!liked)
-
-    //     if (liked) {
-    //         setLikes(deal.likes + 1);
-    //     }
-
-    //     else {
-    //         setLikes(deal.likes - 1);
-    //     }
-    // }
-
-    const saveDealToUserProfile = async (userId, {deal}) => {
-        //talk to backend to save the deal to the user profile with matching userID
-        
-        //call Mutation from back end
-        
-    }
 
     return (
         <div className = "box has-background-white-bis px-6 py-3">
@@ -93,8 +77,7 @@ const Deal = ({ deal }) => {
                         {deal.title}
                     </a>
                     <br></br>
-                    <a className = "deal_Merchant is-size-5" href = {deal.merchant.homepage} target = '_blank'>
-                        {deal.merchant.name}
+                    <a className = "deal_Merchant is-size-5" href = {deal.productLink} target = '_blank'>
                     </a>
                     <div className = "deal_Description">{deal.description}</div>
                     <br></br>
